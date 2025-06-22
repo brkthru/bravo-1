@@ -281,6 +281,21 @@ npx playwright test --ui
 4. Store important decisions in memory
 5. Use Serena for code navigation in active project
 
+## Git Commit Guidelines
+**IMPORTANT**: Commit frequently with meaningful messages!
+- Use conventional commit format:
+  - `feat:` for new features
+  - `fix:` for bug fixes
+  - `docs:` for documentation changes
+  - `style:` for formatting changes
+  - `refactor:` for code refactoring
+  - `test:` for adding/updating tests
+  - `chore:` for maintenance tasks
+- Keep commits atomic and focused on a single change
+- Write clear commit messages that explain the "why" not just the "what"
+- Commit after completing each logical unit of work
+- Never batch multiple unrelated changes in one commit
+
 ## Serena MCP Integration
 - Currently active at parent directory level
 - Use `mcp__serena__` tools for code navigation
