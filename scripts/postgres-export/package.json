@@ -1,0 +1,19 @@
+{
+  "name": "postgres-raw-export",
+  "version": "1.0.0",
+  "description": "Export raw PostgreSQL data from media-tool database",
+  "main": "export-postgres-raw.ts",
+  "scripts": {
+    "export": "bun run export-postgres-raw.ts",
+    "export:node": "ts-node export-postgres-raw.ts"
+  },
+  "dependencies": {
+    "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/pg": "^8.10.9",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.3.2"
+  }
+}

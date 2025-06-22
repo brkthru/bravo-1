@@ -1,0 +1,75 @@
+# Node modules
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build output
+dist/
+build/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data files - DO NOT COMMIT
+# MongoDB backups
+data/mongodb-backups/
+scripts/data-export/
+
+# PostgreSQL exports
+exports/raw/
+exports/transformed/
+exports/temp/
+exports/logs/
+exports/*.tar.gz
+exports/mongodb-versions.json
+
+# ETL working directories
+scripts/etl/data-export/
+scripts/etl/data-transformed/
+scripts/etl/data-export-backup-*/
+scripts/etl/data-transformed-backup-*/
+
+# PostgreSQL export directories
+scripts/postgres-export/postgres-raw-export/
+scripts/postgres-export/postgres-raw-export-backup-*/
+
+# Production pipeline config (may contain credentials)
+scripts/production-pipeline/config/pipeline.env
+
+# Archive directory (old scripts)
+scripts/archive/
+
+# Test data
+*.sql
+*.dump
+*.bak
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Bun
+bun.lockb
+
+# Temporary files
+tmp/
+temp/
+*.tmp

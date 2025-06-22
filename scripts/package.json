@@ -1,0 +1,26 @@
+{
+  "name": "media-tool-migration-scripts",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "migrate": "tsx migrate-postgres-to-mongo.ts",
+    "etl": "bun etl/run-etl.ts",
+    "etl:extract": "bun etl/run-etl.ts extract",
+    "etl:transform": "bun etl/run-etl.ts transform",
+    "etl:load": "bun etl/run-etl.ts load",
+    "etl:extract-only": "bun etl/extract-data.ts",
+    "etl:transform-only": "bun etl/transform-data.ts",
+    "etl:load-only": "bun etl/load-data.ts"
+  },
+  "dependencies": {
+    "@types/node": "^20.10.0",
+    "@types/pg": "^8.10.9",
+    "mongodb": "^6.3.0",
+    "pg": "^8.11.3",
+    "tsx": "^4.6.2",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/uuid": "^9.0.7"
+  }
+}
