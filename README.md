@@ -1,88 +1,83 @@
-# Bravo - Modern Campaign Management Platform
+# Bravo-1 - Modern Campaign Management Platform
 
-A powerful advertising campaign management platform built with React, MongoDB, and modern Tailwind UI components.
+A MongoDB-based media planning system for managing advertising campaigns, built with React, TypeScript, and Express.
 
-## Overview
+## 🚀 Quick Start
 
-Bravo is a modern campaign management platform featuring:
-- **MongoDB** instead of PostgreSQL for simpler data modeling
-- **Tailwind UI** components for consistent, accessible design
-- **Simplified AG-Grid** implementation with standard cell renderers
-- **React Query** for efficient server state management
-- **Express.js** REST API instead of tRPC for broader compatibility
+### Prerequisites
+- Node.js 18+ and npm
+- Docker Desktop (for MongoDB)
+- Git
 
-## Architecture
+### Setup in 5 Minutes
+
+1. **Clone and install dependencies**
+   ```bash
+   git clone <repository-url>
+   cd bravo-1
+   npm install
+   ```
+
+2. **Set up environment variables**
+   ```bash
+   cp .env.example .env
+   ```
+   No changes needed for local development!
+
+3. **Start MongoDB with Docker**
+   ```bash
+   docker-compose up -d mongodb
+   ```
+
+4. **Load sample data (choose one)**
+   ```bash
+   # Option A: Quick start with 5 test campaigns
+   cd backend && npm run seed
+   
+   # Option B: Full production data (13,417 campaigns)
+   cd bravo-1
+   bun run scripts/etl/run-etl.ts transform
+   bun run scripts/etl/run-etl.ts load
+   ```
+
+5. **Start the application**
+   ```bash
+   # From project root, in separate terminals:
+   npm run dev:backend   # Backend on http://localhost:3001
+   npm run dev:frontend  # Frontend on http://localhost:5174
+   ```
+
+6. **Verify it's working**
+   - Open http://localhost:5174/campaigns
+   - You should see the campaigns list with data
+
+## 📋 Project Overview
+
+Bravo-1 is a complete rewrite of the PostgreSQL-based media-tool, featuring:
+- **MongoDB** for flexible document storage
+- **React 18** with TypeScript
+- **Tailwind CSS** for styling
+- **AG-Grid** for powerful data tables
+- **Express.js** REST API
+- **Zod** for type-safe validation
+
+## 🏗 Architecture
 
 ```
 bravo-1/
-├── backend/          # Express.js + MongoDB API
-├── frontend/         # React + Tailwind UI
-├── shared/           # Shared types and utilities
-└── README.md
-```
-
-## Key Features
-
-### ✅ Implemented
-- Campaign list view with AG-Grid
-- MongoDB integration with sample data
-- Tailwind UI component library
-- Express REST API
-- TypeScript throughout
-- Basic search and filtering
-
-### 🚧 In Progress
-- Campaign detail pages
-- Line item management
-- Media plan functionality
-
-### 📋 Planned
-- Platform integrations
-- Real-time metrics
-- User authentication
-- Performance dashboards
-
-## Quick Start
-
-### Prerequisites
-- Node.js 18+
-- MongoDB running locally
-- Git
-
-### Installation
-
-1. **Clone and setup**
-   ```bash
-   cd bravo-1
-   cp .env.example .env
-   npm run install:all
-   ```
-
-2. **Start MongoDB**
-   ```bash
-   # Using Docker
-   docker run -d -p 27017:27017 --name mongodb mongo:latest
-   
-   # Or using local MongoDB
-   mongod
-   ```
-
-3. **Seed the database**
-   ```bash
-   npm run dev:backend
-   # In another terminal:
-   cd backend && npm run seed
-   ```
-
-4. **Start development servers**
-   ```bash
-   npm run dev
-   ```
-
-5. **Open the application**
-   - Frontend: http://localhost:5173
-   - Backend API: http://localhost:3001
-   - Health check: http://localhost:3001/health
+├── backend/          # Express API server
+│   ├── src/
+│   │   ├── models/   # MongoDB models
+│   │   ├── routes/   # API endpoints
+│   │   └── config/   # Database config
+├── frontend/         # React application
+│   ├── src/
+│   │   ├── pages/    # Route components
+│   │   ├── components/
+│   │   └── services/ # API client
+├── shared/           # Shared types (Zod schemas)
+├── scripts/          # ETL and utilities
+└── tests/            # E2E tests (Playwright)
 
 ## Development
 
@@ -108,25 +103,41 @@ npm run build      # Build shared package
 npm run dev        # Watch mode
 ```
 
-## Data Model
+## 📊 Data Model
 
-### MongoDB Collections
+### MongoDB Collections (Separate, not embedded)
 
-**campaigns** - Main collection with denormalized data:
 ```javascript
+// campaigns collection
 {
-  _id: ObjectId,
-  campaignNumber: "CN-7021",
-  name: "Virginia Spine Care",
-  status: "L1", // L1, L2, L3
-  team: {
-    leadAccountManager: { id, name, email, avatar },
-    mediaTrader: { ... }
-  },
-  dates: { start, end, daysElapsed, totalDuration },
-  budget: { total, allocated, spent, remaining },
-  metrics: { deliveryPacing, spendPacing, margin, ... },
-  lineItems: [{ ... }], // Embedded line items
+  _id: ObjectId("..."),
+  campaignNumber: "CN-13999",
+  name: "Campaign Name",
+  accountId: "account-123",
+  status: "active",
+  budget: 100000,
+  createdAt: Date,
+  updatedAt: Date
+}
+
+// strategies collection  
+{
+  _id: ObjectId("..."),
+  campaignId: ObjectId("..."),  // Foreign key to campaigns
+  name: "Strategy Name",
+  objectives: "...",
+  createdAt: Date,
+  updatedAt: Date
+}
+
+// lineItems collection
+{
+  _id: ObjectId("..."),
+  strategyId: ObjectId("..."),  // Foreign key to strategies
+  campaignId: ObjectId("..."),  // Foreign key to campaigns
+  name: "Line Item Name",
+  budget: 50000,
+  platform: "Google Ads",
   createdAt: Date,
   updatedAt: Date
 }
