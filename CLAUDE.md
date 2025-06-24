@@ -327,3 +327,39 @@ When using Serena tools:
 - If path contains `media-tool/`, use only read tools:
   - `read_file`, `find_symbol`, `search_for_pattern`, etc.
 - For `bravo-1/` paths, all tools are available
+
+## Zod 4 Schema Implementation (Completed 2025-06-24)
+
+### Overview
+- Upgraded to zod@3.25.0 (includes Zod 4 via `import * as z from 'zod/v4'`)
+- Created 23 schema files in `shared/src/schemas/`
+- Git tag: `v1.0.0-zod4`
+
+### Key Features
+- MongoDB Decimal128 support for financial fields
+- Discriminated unions for 4 line item types
+- Native JSON Schema conversion (no external libs)
+- Git-like versioning system for audit trails
+- File validation with new z.file() API
+
+### Breaking Changes
+- `Campaign` → `CampaignEntity`
+- `LineItem` → `LineItemEntity`
+- `UnitType` → `UnitTypeEnum`
+
+## Test Data Management
+
+### CRITICAL: Never Use Seed Script
+**DO NOT RUN `npm run seed`** - It deletes ALL data and replaces with only 5 campaigns!
+
+### Correct E2E Test Data
+- **Dataset**: 20250622-072326 export
+- **Total**: 13,417 campaigns
+- **Key campaigns**: "Aces Automotive Repair - Phoenix location 1" (CN-13999)
+
+### Loading Test Data
+```bash
+cd scripts/etl
+bun transform-postgres-data.ts  # PG → MongoDB format
+bun load-data.ts               # Load into MongoDB
+```

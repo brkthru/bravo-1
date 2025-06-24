@@ -39,8 +39,8 @@ test.describe('Campaign List', () => {
     await searchInput.fill('Virginia');
     await page.waitForTimeout(1000); // Wait for search results
     
-    // Should show Virginia-related campaigns
-    await expect(page.getByText('Foodbank of Southeastern Virginia')).toBeVisible();
+    // Should show Virginia-related campaigns - use first() to avoid duplicates
+    await expect(page.getByText('Foodbank of Southeastern Virginia').first()).toBeVisible();
   });
 
   test('should display New Campaign button', async ({ page }) => {
@@ -72,8 +72,8 @@ test.describe('Campaign List', () => {
     await expect(page.getByText('CN-13999')).toBeVisible();
     
     // Should also show other campaigns from the first page
-    await expect(page.getByText('Good Things Store')).toBeVisible();
-    await expect(page.getByText('CN-13959')).toBeVisible();
+    await expect(page.getByText('2025 CLT GO Store 1824 Charlotte, NC')).toBeVisible();
+    await expect(page.getByText('CN-13998')).toBeVisible();
   });
 
   test('should display summary statistics', async ({ page }) => {

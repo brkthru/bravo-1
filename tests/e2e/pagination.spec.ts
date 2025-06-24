@@ -19,28 +19,33 @@ test.describe('Campaign Pagination', () => {
   });
 
   test('should navigate between pages', async ({ page }) => {
-    // Get first campaign name on page 1
-    const firstPageFirstCampaign = await page.locator('.ag-row').first().textContent();
+    // Wait for real data to load
+    await page.waitForSelector('.ag-row', { timeout: 10000 });
+    await page.waitForTimeout(2000); // Extra wait for AG-Grid to fully render
+    
+    // Check we're on page 1 and see specific campaigns
+    await expect(page.getByText(/Page 1 of \d+/)).toBeVisible();
+    await expect(page.getByText('Aces Automotive Repair - Phoenix location 1')).toBeVisible();
+    await expect(page.getByText('CN-13999')).toBeVisible();
     
     // Navigate to page 2
     await page.getByRole('button', { name: 'Next' }).click();
-    await page.waitForTimeout(1000); // Wait for data to load
+    await page.waitForTimeout(2000); // Wait for data to load
     
     // Verify we're on page 2
     await expect(page.getByText(/Page 2 of \d+/)).toBeVisible();
     
-    // Get first campaign name on page 2
-    const secondPageFirstCampaign = await page.locator('.ag-row').first().textContent();
-    
-    // They should be different
-    expect(firstPageFirstCampaign).not.toBe(secondPageFirstCampaign);
+    // Page 1 campaigns should not be visible
+    await expect(page.getByText('Aces Automotive Repair - Phoenix location 1')).not.toBeVisible();
+    // Different campaigns should be visible on page 2
     
     // Navigate back to page 1
     await page.getByRole('button', { name: 'Previous' }).click();
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(2000);
     
     // Verify we're back on page 1
     await expect(page.getByText(/Page 1 of \d+/)).toBeVisible();
+    await expect(page.getByText('Aces Automotive Repair - Phoenix location 1')).toBeVisible();
   });
 
   test('should allow changing page size', async ({ page }) => {
