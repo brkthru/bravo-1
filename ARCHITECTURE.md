@@ -58,7 +58,7 @@ Bravo-1 is a modern media planning and campaign management system built as a ful
   - HeadlessUI 1.7.17 (installed, ready for use)
   - Heroicons 2.0.18
   - Custom components with Tailwind
-- **Data Grid**: AG-Grid 31.0.3 (Community + Enterprise)
+- **Data Grid**: AG-Grid 33.3.2 (Community + Enterprise)
 - **Charts**: Recharts 2.8.0
 - **State Management**: React Context + TanStack Query 5.15.0
 - **Routing**: React Router DOM 6.20.1
@@ -258,8 +258,21 @@ shared/src/
 ### Current State
 - **Custom Components**: Built with Tailwind CSS utilities
 - **HeadlessUI**: Installed but underutilized
-- **AG-Grid**: Enterprise data grid for complex tables
+- **AG-Grid**: Enterprise data grid for complex tables (v33.3.2 with legacy theme mode)
 - **Recharts**: For data visualization
+
+### AG-Grid v33 Configuration
+AG-Grid v33 introduced a new Theming API that changes how themes are applied. To maintain compatibility with existing CSS imports, we use legacy mode:
+
+```typescript
+// main.tsx
+import { provideGlobalGridOptions } from 'ag-grid-community';
+
+// Configure AG-Grid v33 to use legacy theme mode
+provideGlobalGridOptions({ theme: "legacy" });
+```
+
+This allows us to continue using CSS imports (`ag-theme-alpine`) rather than migrating to the new JavaScript-based theming system.
 
 ### HeadlessUI Integration Opportunity
 

@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { AgGridReact } from 'ag-grid-react';
-import { ColDef, GridReadyEvent, SelectionChangedEvent } from 'ag-grid-community';
+import { ColDef, GridReadyEvent, SelectionChangedEvent, ColumnMenuTab } from 'ag-grid-community';
 import 'ag-grid-enterprise';
 import { 
   MagnifyingGlassIcon, 
@@ -376,7 +376,7 @@ export default function CampaignList() {
     filter: true,
     resizable: true,
     floatingFilter: true,
-    menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+    menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'] as ColumnMenuTab[],
   }), []);
 
   const onGridReady = useCallback((params: GridReadyEvent) => {
