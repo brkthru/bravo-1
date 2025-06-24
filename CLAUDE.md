@@ -363,3 +363,23 @@ cd scripts/etl
 bun transform-postgres-data.ts  # PG → MongoDB format
 bun load-data.ts               # Load into MongoDB
 ```
+
+## AG-Grid v33 Migration (In Progress)
+
+### Current Status
+- All packages upgraded to v33.3.2 (from mixed v31/v33)
+- Legacy theme mode attempted but grid not rendering
+- User preference: Full v33 migration with new Theming API
+
+### Known Issues
+- AG-Grid not rendering in E2E tests
+- 4/20 tests failing (all AG-Grid related)
+- Need to implement new JavaScript-based theming
+
+### Next Steps
+1. Remove CSS imports for AG-Grid themes
+2. Implement new Theming API with createTheme()
+3. Update components to use theme objects
+4. Migrate custom CSS variables to theme parameters
+
+See memory: `ag-grid-v33-migration-plan` for full details
