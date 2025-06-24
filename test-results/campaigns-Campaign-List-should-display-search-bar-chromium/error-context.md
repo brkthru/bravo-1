@@ -56,22 +56,22 @@
   - term:
     - paragraph: Total Campaigns
   - definition:
-    - paragraph: "6"
+    - paragraph: "89"
     - paragraph: Increased by 12%
   - term:
     - paragraph: Total Budget
   - definition:
-    - paragraph: $111,049
+    - paragraph: $1,467,361
     - paragraph: Increased by 4.75%
   - term:
     - paragraph: Active Campaigns
   - definition:
-    - paragraph: "6"
+    - paragraph: "89"
     - paragraph: Increased by 2
   - term:
     - paragraph: Average Margin
   - definition:
-    - paragraph: 66.5%
+    - paragraph: 70.0%
     - paragraph: Decreased by 3.2%
   - heading "Campaign Details" [level=3]
   - treegrid:
@@ -136,73 +136,278 @@
         - gridcell "Press Space to toggle row selection (unchecked) ":
           - checkbox "Press Space to toggle row selection (unchecked)"
           - text: 
+      - row "Press Space to toggle row selection (unchecked) ":
+        - gridcell "Press Space to toggle row selection (unchecked) ":
+          - checkbox "Press Space to toggle row selection (unchecked)"
+          - text: 
+      - row "Press Space to toggle row selection (unchecked) ":
+        - gridcell "Press Space to toggle row selection (unchecked) ":
+          - checkbox "Press Space to toggle row selection (unchecked)"
+          - text: 
+      - row "Press Space to toggle row selection (unchecked) ":
+        - gridcell "Press Space to toggle row selection (unchecked) ":
+          - checkbox "Press Space to toggle row selection (unchecked)"
+          - text: 
+      - row "Press Space to toggle row selection (unchecked) ":
+        - gridcell "Press Space to toggle row selection (unchecked) ":
+          - checkbox "Press Space to toggle row selection (unchecked)"
+          - text: 
+      - row "Press Space to toggle row selection (unchecked) ":
+        - gridcell "Press Space to toggle row selection (unchecked) ":
+          - checkbox "Press Space to toggle row selection (unchecked)"
+          - text: 
+      - row "Press Space to toggle row selection (unchecked) ":
+        - gridcell "Press Space to toggle row selection (unchecked) ":
+          - checkbox "Press Space to toggle row selection (unchecked)"
+          - text: 
+      - row "Press Space to toggle row selection (unchecked) ":
+        - gridcell "Press Space to toggle row selection (unchecked) ":
+          - checkbox "Press Space to toggle row selection (unchecked)"
+          - text: 
+      - row "Press Space to toggle row selection (unchecked) ":
+        - gridcell "Press Space to toggle row selection (unchecked) ":
+          - checkbox "Press Space to toggle row selection (unchecked)"
+          - text: 
+      - row "Press Space to toggle row selection (unchecked) ":
+        - gridcell "Press Space to toggle row selection (unchecked) ":
+          - checkbox "Press Space to toggle row selection (unchecked)"
+          - text: 
+      - row "Press Space to toggle row selection (unchecked) ":
+        - gridcell "Press Space to toggle row selection (unchecked) ":
+          - checkbox "Press Space to toggle row selection (unchecked)"
+          - text: 
+      - row "Press Space to toggle row selection (unchecked) ":
+        - gridcell "Press Space to toggle row selection (unchecked) ":
+          - checkbox "Press Space to toggle row selection (unchecked)"
+          - text: 
+      - row "Press Space to toggle row selection (unchecked) ":
+        - gridcell "Press Space to toggle row selection (unchecked) ":
+          - checkbox "Press Space to toggle row selection (unchecked)"
+          - text: 
+      - row "Press Space to toggle row selection (unchecked) ":
+        - gridcell "Press Space to toggle row selection (unchecked) ":
+          - checkbox "Press Space to toggle row selection (unchecked)"
+          - text: 
+      - row "Press Space to toggle row selection (unchecked) ":
+        - gridcell "Press Space to toggle row selection (unchecked) ":
+          - checkbox "Press Space to toggle row selection (unchecked)"
+          - text: 
+      - row "Press Space to toggle row selection (unchecked) ":
+        - gridcell "Press Space to toggle row selection (unchecked) ":
+          - checkbox "Press Space to toggle row selection (unchecked)"
+          - text: 
     - rowgroup:
-      - row "Pet Stop of Central Virginia-02-0000884 - Native STR-B6B44DBC • Unknown Account • $791 budget • Apr 1 - Jun 30, 2025 L1 Account Manager undefined undefined Account Manager +undefined ◐ Some active 50.0% 47.5% $791":
-        - gridcell "Pet Stop of Central Virginia-02-0000884 - Native STR-B6B44DBC • Unknown Account • $791 budget • Apr 1 - Jun 30, 2025"
-        - gridcell "L1"
-        - gridcell "Account Manager undefined undefined Account Manager +undefined":
-          - img "Account Manager"
-          - img "undefined undefined"
-          - text: Account Manager +undefined
-        - gridcell "◐ Some active"
-        - gridcell "50.0%"
-        - gridcell "47.5%"
-        - gridcell "$791"
-      - row "Pet Stop of Virginia Beach-02-0000906-Display STR-BB8677D6 • Unknown Account • $231 budget • Apr 1 - Jun 30, 2025 L1 Account Manager undefined undefined Account Manager +undefined ◐ Some active 81.0% 77.0% $231":
-        - gridcell "Pet Stop of Virginia Beach-02-0000906-Display STR-BB8677D6 • Unknown Account • $231 budget • Apr 1 - Jun 30, 2025"
-        - gridcell "L1"
-        - gridcell "Account Manager undefined undefined Account Manager +undefined":
-          - img "Account Manager"
-          - img "undefined undefined"
-          - text: Account Manager +undefined
-        - gridcell "◐ Some active"
+      - row "Foodbank of Southeastern Virginia CN-13874 • $4,760 budget • Feb 1 - May 31, 2025 Campaign Complete Bailey Blair Bailey Blair ○ None active 81.0% 47.0% $4,760":
+        - gridcell "Foodbank of Southeastern Virginia CN-13874 • $4,760 budget • Feb 1 - May 31, 2025"
+        - gridcell "Campaign Complete"
+        - gridcell "Bailey Blair Bailey Blair":
+          - img "Bailey Blair"
+          - text: Bailey Blair
+        - gridcell "○ None active"
         - gridcell "81.0%"
-        - gridcell "77.0%"
+        - gridcell "47.0%"
+        - gridcell "$4,760"
+      - row "Donate Life Virginia 2025 - 2026 CN-13534 • $0 budget • May 1 - Jun 30, 2025 Closed (Lost) Bailey Blair Bailey Blair ○ None active 81.0% 47.0% $0":
+        - gridcell "Donate Life Virginia 2025 - 2026 CN-13534 • $0 budget • May 1 - Jun 30, 2025"
+        - gridcell "Closed (Lost)"
+        - gridcell "Bailey Blair Bailey Blair":
+          - img "Bailey Blair"
+          - text: Bailey Blair
+        - gridcell "○ None active"
+        - gridcell "81.0%"
+        - gridcell "47.0%"
+        - gridcell "$0"
+      - row "VPM_Northern Virginia Community College (NOVA)_Recent Grads_X_BrkThru_Geofencing_No_Awareness_Ad Impressions_TOF_High Sc CN-13530 • $5,000 budget • May 27 - Jun 30, 2025 Campaign is Live Emily Campbell Emily Campbell ○ None active 81.0% 47.0% $5,000":
+        - gridcell "VPM_Northern Virginia Community College (NOVA)_Recent Grads_X_BrkThru_Geofencing_No_Awareness_Ad Impressions_TOF_High Sc CN-13530 • $5,000 budget • May 27 - Jun 30, 2025"
+        - gridcell "Campaign is Live"
+        - gridcell "Emily Campbell Emily Campbell":
+          - img "Emily Campbell"
+          - text: Emily Campbell
+        - gridcell "○ None active"
+        - gridcell "81.0%"
+        - gridcell "47.0%"
+        - gridcell "$5,000"
+      - row "Virginia Aquarium - TEST Campaign CN-13525 • $12,800 budget • May 1 - Jun 30, 2025 Exit - Dev Only Victoria Navarro Ugarte Victoria Navarro Ugarte ○ None active 81.0% 47.0% $12,800":
+        - gridcell "Virginia Aquarium - TEST Campaign CN-13525 • $12,800 budget • May 1 - Jun 30, 2025"
+        - gridcell "Exit - Dev Only"
+        - gridcell "Victoria Navarro Ugarte Victoria Navarro Ugarte":
+          - img "Victoria Navarro Ugarte"
+          - text: Victoria Navarro Ugarte
+        - gridcell "○ None active"
+        - gridcell "81.0%"
+        - gridcell "47.0%"
+        - gridcell "$12,800"
+      - row "Sail 250 Virginia - Traditional Media CN-13420 • $3,244 budget • Jun 1 - Jun 30, 2026 Campaign is Live Grace Porter Grace Porter ○ None active 81.0% 47.0% $3,244":
+        - gridcell "Sail 250 Virginia - Traditional Media CN-13420 • $3,244 budget • Jun 1 - Jun 30, 2026"
+        - gridcell "Campaign is Live"
+        - gridcell "Grace Porter Grace Porter":
+          - img "Grace Porter"
+          - text: Grace Porter
+        - gridcell "○ None active"
+        - gridcell "81.0%"
+        - gridcell "47.0%"
+        - gridcell "$3,244"
+      - row "Pet Stop of Northern Virginia-02-0000864 CN-13227 • $1,650 budget • Apr 1 - Jun 30, 2025 Campaign is Live Matthew McCague Matthew McCague ○ None active 81.0% 47.0% $1,650":
+        - gridcell "Pet Stop of Northern Virginia-02-0000864 CN-13227 • $1,650 budget • Apr 1 - Jun 30, 2025"
+        - gridcell "Campaign is Live"
+        - gridcell "Matthew McCague Matthew McCague":
+          - img "Matthew McCague"
+          - text: Matthew McCague
+        - gridcell "○ None active"
+        - gridcell "81.0%"
+        - gridcell "47.0%"
+        - gridcell "$1,650"
+      - row "Pet Stop of Virginia Beach-02-0000906 CN-13215 • $231 budget • Apr 1 - Jun 30, 2025 Campaign is Live Matthew McCague Matthew McCague ○ None active 81.0% 47.0% $231":
+        - gridcell "Pet Stop of Virginia Beach-02-0000906 CN-13215 • $231 budget • Apr 1 - Jun 30, 2025"
+        - gridcell "Campaign is Live"
+        - gridcell "Matthew McCague Matthew McCague":
+          - img "Matthew McCague"
+          - text: Matthew McCague
+        - gridcell "○ None active"
+        - gridcell "81.0%"
+        - gridcell "47.0%"
         - gridcell "$231"
-      - row "Pet Stop of Northern Virginia-02-0000864 - Display STR-7119BC07 • Unknown Account • $1,403 budget • Apr 1 - Jun 30, 2025 L1 Account Manager undefined undefined Account Manager +undefined ◐ Some active 52.0% 49.4% $1,403":
-        - gridcell "Pet Stop of Northern Virginia-02-0000864 - Display STR-7119BC07 • Unknown Account • $1,403 budget • Apr 1 - Jun 30, 2025"
-        - gridcell "L1"
-        - gridcell "Account Manager undefined undefined Account Manager +undefined":
-          - img "Account Manager"
-          - img "undefined undefined"
-          - text: Account Manager +undefined
-        - gridcell "◐ Some active"
-        - gridcell "52.0%"
-        - gridcell "49.4%"
-        - gridcell "$1,403"
-      - row "Virginia Beach-Norfolk-Permanent-PMAX STR-053B9920 • Unknown Account • $25,875 budget • Apr 1 - Dec 31, 2025 L1 Account Manager undefined undefined Account Manager +undefined ◐ Some active 66.0% 45.0% $25,875":
-        - gridcell "Virginia Beach-Norfolk-Permanent-PMAX STR-053B9920 • Unknown Account • $25,875 budget • Apr 1 - Dec 31, 2025"
-        - gridcell "L1"
-        - gridcell "Account Manager undefined undefined Account Manager +undefined":
-          - img "Account Manager"
-          - img "undefined undefined"
-          - text: Account Manager +undefined
-        - gridcell "◐ Some active"
-        - gridcell "66.0%"
-        - gridcell "45.0%"
-        - gridcell "$25,875"
-      - row "Greater Virginia Beach-PMAX STR-8CAB4978 • Unknown Account • $45,900 budget • Mar 1 - Dec 31, 2025 L1 Account Manager undefined undefined Account Manager +undefined ◐ Some active 48.0% 45.0% $45,900":
-        - gridcell "Greater Virginia Beach-PMAX STR-8CAB4978 • Unknown Account • $45,900 budget • Mar 1 - Dec 31, 2025"
-        - gridcell "L1"
-        - gridcell "Account Manager undefined undefined Account Manager +undefined":
-          - img "Account Manager"
-          - img "undefined undefined"
-          - text: Account Manager +undefined
-        - gridcell "◐ Some active"
-        - gridcell "48.0%"
-        - gridcell "45.0%"
-        - gridcell "$45,900"
-      - row "Virginia Spine Care - SEM STR-D4CE162A • Unknown Account • $36,850 budget • Jan 1 - Dec 31, 2025 L1 Account Manager undefined undefined Account Manager +undefined ◐ Some active 95.0% 67.0% $36,850":
-        - gridcell "Virginia Spine Care - SEM STR-D4CE162A • Unknown Account • $36,850 budget • Jan 1 - Dec 31, 2025"
-        - gridcell "L1"
-        - gridcell "Account Manager undefined undefined Account Manager +undefined":
-          - img "Account Manager"
-          - img "undefined undefined"
-          - text: Account Manager +undefined
-        - gridcell "◐ Some active"
-        - gridcell "95.0%"
-        - gridcell "67.0%"
-        - gridcell "$36,850"
+      - row "Pet Stop of Central Virginia-02-0000884 CN-13187 • $930 budget • Apr 1 - Jun 30, 2025 Campaign is Live Matthew McCague Matthew McCague ○ None active 81.0% 47.0% $930":
+        - gridcell "Pet Stop of Central Virginia-02-0000884 CN-13187 • $930 budget • Apr 1 - Jun 30, 2025"
+        - gridcell "Campaign is Live"
+        - gridcell "Matthew McCague Matthew McCague":
+          - img "Matthew McCague"
+          - text: Matthew McCague
+        - gridcell "○ None active"
+        - gridcell "81.0%"
+        - gridcell "47.0%"
+        - gridcell "$930"
+      - row "Wonderly Lights - Virginia Beach-Norfolk 2025 - Permanent & Landscape CN-13027 • $6,831 budget • Feb 25 - May 18, 2025 Campaign Cancelled Yineth Bolanos Yineth Bolanos ○ None active 81.0% 47.0% $6,831":
+        - gridcell "Wonderly Lights - Virginia Beach-Norfolk 2025 - Permanent & Landscape CN-13027 • $6,831 budget • Feb 25 - May 18, 2025"
+        - gridcell "Campaign Cancelled"
+        - gridcell "Yineth Bolanos Yineth Bolanos":
+          - img "Yineth Bolanos"
+          - text: Yineth Bolanos
+        - gridcell "○ None active"
+        - gridcell "81.0%"
+        - gridcell "47.0%"
+        - gridcell "$6,831"
+      - row "Sail 250 Virginia - Digital Media CN-13023 • $300,000 budget • Jul 1 - Jun 30, 2026 Traffic & Onboard Grace Porter Grace Porter ○ None active 81.0% 47.0% $300,000":
+        - gridcell "Sail 250 Virginia - Digital Media CN-13023 • $300,000 budget • Jul 1 - Jun 30, 2026"
+        - gridcell "Traffic & Onboard"
+        - gridcell "Grace Porter Grace Porter":
+          - img "Grace Porter"
+          - text: Grace Porter
+        - gridcell "○ None active"
+        - gridcell "81.0%"
+        - gridcell "47.0%"
+        - gridcell "$300,000"
+      - row "Virginia Aquarium TEST CN-12920 • $0 budget • Mar 1 - Apr 30, 2025 Exit - Dev Only Emily Rodriguez Alex Martinez Emily Rodriguez +Alex ○ None active 81.0% 47.0% $0":
+        - gridcell "Virginia Aquarium TEST CN-12920 • $0 budget • Mar 1 - Apr 30, 2025"
+        - gridcell "Exit - Dev Only"
+        - gridcell "Emily Rodriguez Alex Martinez Emily Rodriguez +Alex":
+          - img "Emily Rodriguez"
+          - img "Alex Martinez"
+          - text: Emily Rodriguez +Alex
+        - gridcell "○ None active"
+        - gridcell "81.0%"
+        - gridcell "47.0%"
+        - gridcell "$0"
+      - row "Foodbank of Southeastern Virginia CN-12824 • $8,330 budget • Jul 1 - Jan 31, 2025 Campaign Complete Katherine O'Brien Katherine O'Brien ○ None active 81.0% 47.0% $8,330":
+        - gridcell "Foodbank of Southeastern Virginia CN-12824 • $8,330 budget • Jul 1 - Jan 31, 2025"
+        - gridcell "Campaign Complete"
+        - gridcell "Katherine O'Brien Katherine O'Brien":
+          - img "Katherine O'Brien"
+          - text: Katherine O'Brien
+        - gridcell "○ None active"
+        - gridcell "81.0%"
+        - gridcell "47.0%"
+        - gridcell "$8,330"
+      - row "Chartway Virginia Beach Grand Opening CN-12748 • $2,890 budget • Feb 26 - Jun 29, 2025 Campaign is Live Bailey Blair Bailey Blair ○ None active 81.0% 47.0% $2,890":
+        - gridcell "Chartway Virginia Beach Grand Opening CN-12748 • $2,890 budget • Feb 26 - Jun 29, 2025"
+        - gridcell "Campaign is Live"
+        - gridcell "Bailey Blair Bailey Blair":
+          - img "Bailey Blair"
+          - text: Bailey Blair
+        - gridcell "○ None active"
+        - gridcell "81.0%"
+        - gridcell "47.0%"
+        - gridcell "$2,890"
+      - row "British Swim School of Greater Virginia Beach 2025 CN-12279 • $15,872 budget • Jan 1 - May 7, 2025 Campaign Complete Yineth Bolanos Yineth Bolanos ○ None active 81.0% 47.0% $15,872":
+        - gridcell "British Swim School of Greater Virginia Beach 2025 CN-12279 • $15,872 budget • Jan 1 - May 7, 2025"
+        - gridcell "Campaign Complete"
+        - gridcell "Yineth Bolanos Yineth Bolanos":
+          - img "Yineth Bolanos"
+          - text: Yineth Bolanos
+        - gridcell "○ None active"
+        - gridcell "81.0%"
+        - gridcell "47.0%"
+        - gridcell "$15,872"
+      - row "Foodbank of Southeastern Virginia - ODS 2025 CN-11524 • $21,420 budget • Jul 1 - Dec 31, 2024 Closed (Lost) Ryann Johnson Ryann Johnson ○ None active 81.0% 47.0% $21,420":
+        - gridcell "Foodbank of Southeastern Virginia - ODS 2025 CN-11524 • $21,420 budget • Jul 1 - Dec 31, 2024"
+        - gridcell "Closed (Lost)"
+        - gridcell "Ryann Johnson Ryann Johnson":
+          - img "Ryann Johnson"
+          - text: Ryann Johnson
+        - gridcell "○ None active"
+        - gridcell "81.0%"
+        - gridcell "47.0%"
+        - gridcell "$21,420"
+      - row "Wonderly Lights - Virginia Beach-Norfolk 2024 CN-11159 • $6,750 budget • Sep 3 - Nov 30, 2024 Campaign Complete Yineth Bolanos Yineth Bolanos ○ None active 81.0% 47.0% $6,750":
+        - gridcell "Wonderly Lights - Virginia Beach-Norfolk 2024 CN-11159 • $6,750 budget • Sep 3 - Nov 30, 2024"
+        - gridcell "Campaign Complete"
+        - gridcell "Yineth Bolanos Yineth Bolanos":
+          - img "Yineth Bolanos"
+          - text: Yineth Bolanos
+        - gridcell "○ None active"
+        - gridcell "81.0%"
+        - gridcell "47.0%"
+        - gridcell "$6,750"
+      - row "CLT Store 2030 Virginia Beach, VA GO CN-11014 • $7,000 budget • Dec 5 - Dec 18, 2024 Campaign Complete Ryann Johnson Ryann Johnson ○ None active 81.0% 47.0% $7,000":
+        - gridcell "CLT Store 2030 Virginia Beach, VA GO CN-11014 • $7,000 budget • Dec 5 - Dec 18, 2024"
+        - gridcell "Campaign Complete"
+        - gridcell "Ryann Johnson Ryann Johnson":
+          - img "Ryann Johnson"
+          - text: Ryann Johnson
+        - gridcell "○ None active"
+        - gridcell "81.0%"
+        - gridcell "47.0%"
+        - gridcell "$7,000"
+      - row "Foodbank of Southeastern Virginia CN-10719 • $8,330 budget • Jun 1 - Dec 31, 2025 Campaign is Live Yineth Bolanos Yineth Bolanos ○ None active 81.0% 47.0% $8,330":
+        - gridcell "Foodbank of Southeastern Virginia CN-10719 • $8,330 budget • Jun 1 - Dec 31, 2025"
+        - gridcell "Campaign is Live"
+        - gridcell "Yineth Bolanos Yineth Bolanos":
+          - img "Yineth Bolanos"
+          - text: Yineth Bolanos
+        - gridcell "○ None active"
+        - gridcell "81.0%"
+        - gridcell "47.0%"
+        - gridcell "$8,330"
+      - row "British Swim School of Greater Virginia Beach 2024 CN-10382 • $9,356 budget • Jan 1 - Apr 30, 2024 Campaign Complete Katherine O'Brien Katherine O'Brien ○ None active 81.0% 47.0% $9,356":
+        - gridcell "British Swim School of Greater Virginia Beach 2024 CN-10382 • $9,356 budget • Jan 1 - Apr 30, 2024"
+        - gridcell "Campaign Complete"
+        - gridcell "Katherine O'Brien Katherine O'Brien":
+          - img "Katherine O'Brien"
+          - text: Katherine O'Brien
+        - gridcell "○ None active"
+        - gridcell "81.0%"
+        - gridcell "47.0%"
+        - gridcell "$9,356"
+      - row "British Swim School of Northern Virginia 2024 CN-10346 • $3,402 budget • Jan 1 - Apr 30, 2024 Campaign Complete Katherine O'Brien Katherine O'Brien ○ None active 81.0% 47.0% $3,402":
+        - gridcell "British Swim School of Northern Virginia 2024 CN-10346 • $3,402 budget • Jan 1 - Apr 30, 2024"
+        - gridcell "Campaign Complete"
+        - gridcell "Katherine O'Brien Katherine O'Brien":
+          - img "Katherine O'Brien"
+          - text: Katherine O'Brien
+        - gridcell "○ None active"
+        - gridcell "81.0%"
+        - gridcell "47.0%"
+        - gridcell "$3,402"
+      - row "Western Virginia Water Authority 2024 CN-9955 • $3,671 budget • Apr 1 - Apr 27, 2024 Campaign Complete Keira Walion Keira Walion ○ None active 81.0% 47.0% $3,671":
+        - gridcell "Western Virginia Water Authority 2024 CN-9955 • $3,671 budget • Apr 1 - Apr 27, 2024"
+        - gridcell "Campaign Complete"
+        - gridcell "Keira Walion Keira Walion":
+          - img "Keira Walion"
+          - text: Keira Walion
+        - gridcell "○ None active"
+        - gridcell "81.0%"
+        - gridcell "47.0%"
+        - gridcell "$3,671"
     - rowgroup
     - rowgroup
     - rowgroup
@@ -210,7 +415,7 @@
     - rowgroup
     - rowgroup
     - rowgroup
-  - paragraph: Showing 1 to 6 of 6 results
+  - paragraph: Showing 1 to 50 of 89 results
   - combobox:
     - option "10 per page"
     - option "25 per page"
@@ -223,11 +428,11 @@
     - button "Previous" [disabled]:
       - text: Previous
       - img
-    - text: Page 1 of 1
-    - button "Next" [disabled]:
+    - text: Page 1 of 2
+    - button "Next":
       - text: Next
       - img
-    - button "Last" [disabled]:
+    - button "Last":
       - text: Last
       - img
 ```
