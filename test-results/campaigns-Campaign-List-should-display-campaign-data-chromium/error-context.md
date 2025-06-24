@@ -61,7 +61,7 @@
   - term:
     - paragraph: Total Budget
   - definition:
-    - paragraph: $717,299
+    - paragraph: $2,199,513
     - paragraph: Increased by 4.75%
   - term:
     - paragraph: Active Campaigns
@@ -71,7 +71,7 @@
   - term:
     - paragraph: Average Margin
   - definition:
-    - paragraph: 70.0%
+    - paragraph: 36.1%
     - paragraph: Decreased by 3.2%
   - heading "Campaign Details" [level=3]
   - treegrid:
@@ -197,221 +197,216 @@
           - checkbox "Press Space to toggle row selection (unchecked)"
           - text: 
     - rowgroup:
-      - row "Aces Automotive Repair - Phoenix location 1 CN-13999 • $0 budget • Jun 25 - May 15, 2026 Media Campaign Details Shannon Finn Shannon Finn ○ None active 81.0% 47.0% $0":
-        - gridcell "Aces Automotive Repair - Phoenix location 1 CN-13999 • $0 budget • Jun 25 - May 15, 2026"
-        - gridcell "Media Campaign Details"
-        - gridcell "Shannon Finn Shannon Finn":
-          - img "Shannon Finn"
-          - text: Shannon Finn
+      - row "Unknown Account Campaign STR-DC2D1300 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025 L1 Account Manager Account Manager ○ None active 80.0% 45.0% $50,000":
+        - gridcell "Unknown Account Campaign STR-DC2D1300 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager Account Manager":
+          - img "Account Manager"
+          - text: Account Manager
         - gridcell "○ None active"
-        - gridcell "81.0%"
-        - gridcell "47.0%"
-        - gridcell "$0"
-      - row "2025 CLT GO Store 1824 Charlotte, NC CN-13998 • $5,000 budget • Aug 13 - Sep 2, 2025 Media Campaign Details Ryann Johnson Ryann Johnson ○ None active 81.0% 47.0% $5,000":
-        - gridcell "2025 CLT GO Store 1824 Charlotte, NC CN-13998 • $5,000 budget • Aug 13 - Sep 2, 2025"
-        - gridcell "Media Campaign Details"
-        - gridcell "Ryann Johnson Ryann Johnson":
-          - img "Ryann Johnson"
-          - text: Ryann Johnson
-        - gridcell "○ None active"
-        - gridcell "81.0%"
-        - gridcell "47.0%"
-        - gridcell "$5,000"
-      - row "2025 Pharmacy Market Extension CN-13997 • $52,000 budget • Jul 7 - Aug 4, 2025 Media Campaign Details Ryann Johnson Ryann Johnson ○ None active 81.0% 47.0% $52,000":
-        - gridcell "2025 Pharmacy Market Extension CN-13997 • $52,000 budget • Jul 7 - Aug 4, 2025"
-        - gridcell "Media Campaign Details"
-        - gridcell "Ryann Johnson Ryann Johnson":
-          - img "Ryann Johnson"
-          - text: Ryann Johnson
-        - gridcell "○ None active"
-        - gridcell "81.0%"
-        - gridcell "47.0%"
-        - gridcell "$52,000"
-      - 'row "KCM: Humana (Charlotte, NC) CN-13996 • $0 budget • Jun 19 - Jul 19, 2025 Media Campaign Details Matthew McCague Matthew McCague ○ None active 81.0% 47.0% $0"':
-        - 'gridcell "KCM: Humana (Charlotte, NC) CN-13996 • $0 budget • Jun 19 - Jul 19, 2025"'
-        - gridcell "Media Campaign Details"
-        - gridcell "Matthew McCague Matthew McCague":
-          - img "Matthew McCague"
-          - text: Matthew McCague
-        - gridcell "○ None active"
-        - gridcell "81.0%"
-        - gridcell "47.0%"
-        - gridcell "$0"
-      - row "Tennessee Hospital Association - Summer Brand Campaign CN-13995 • $0 budget • Jul 14 - Nov 9, 2025 New Joseph Pugh Joseph Pugh ○ None active 81.0% 47.0% $0":
-        - gridcell "Tennessee Hospital Association - Summer Brand Campaign CN-13995 • $0 budget • Jul 14 - Nov 9, 2025"
-        - gridcell "New"
-        - gridcell "Joseph Pugh Joseph Pugh":
-          - img "Joseph Pugh"
-          - text: Joseph Pugh
-        - gridcell "○ None active"
-        - gridcell "81.0%"
-        - gridcell "47.0%"
-        - gridcell "$0"
-      - row "Tigers/Renovations Now CN-13994 • $0 budget • Jul 1 - Sep 30, 2025 Avails/Plan Development Chris Conway Chris Conway ○ None active 81.0% 47.0% $0":
-        - gridcell "Tigers/Renovations Now CN-13994 • $0 budget • Jul 1 - Sep 30, 2025"
-        - gridcell "Avails/Plan Development"
-        - gridcell "Chris Conway Chris Conway":
-          - img "Chris Conway"
-          - text: Chris Conway
-        - gridcell "○ None active"
-        - gridcell "81.0%"
-        - gridcell "47.0%"
-        - gridcell "$0"
-      - row "Step One Subaru - Fort Walton Beach CN-13993 • $1,000 budget • Jun 17 - Jun 30, 2025 Traffic & Onboard Christopher Harang Christopher Harang ○ None active 81.0% 47.0% $1,000":
-        - gridcell "Step One Subaru - Fort Walton Beach CN-13993 • $1,000 budget • Jun 17 - Jun 30, 2025"
-        - gridcell "Traffic & Onboard"
-        - gridcell "Christopher Harang Christopher Harang":
-          - img "Christopher Harang"
-          - text: Christopher Harang
-        - gridcell "○ None active"
-        - gridcell "81.0%"
-        - gridcell "47.0%"
-        - gridcell "$1,000"
-      - row "Weaver Outdoors CN-13992 • $0 budget • Jul 1 - Oct 31, 2025 Proposal Sent Chris Conway Chris Conway ○ None active 81.0% 47.0% $0":
-        - gridcell "Weaver Outdoors CN-13992 • $0 budget • Jul 1 - Oct 31, 2025"
-        - gridcell "Proposal Sent"
-        - gridcell "Chris Conway Chris Conway":
-          - img "Chris Conway"
-          - text: Chris Conway
-        - gridcell "○ None active"
-        - gridcell "81.0%"
-        - gridcell "47.0%"
-        - gridcell "$0"
-      - row "Lazarus Enterprise Group CN-13991 • $0 budget • Jul 7 - Jun 27, 2025 Proposal Sent Emily Rodriguez Alex Martinez Emily Rodriguez +Alex ○ None active 81.0% 47.0% $0":
-        - gridcell "Lazarus Enterprise Group CN-13991 • $0 budget • Jul 7 - Jun 27, 2025"
-        - gridcell "Proposal Sent"
-        - gridcell "Emily Rodriguez Alex Martinez Emily Rodriguez +Alex":
-          - img "Emily Rodriguez"
-          - img "Alex Martinez"
-          - text: Emily Rodriguez +Alex
-        - gridcell "○ None active"
-        - gridcell "81.0%"
-        - gridcell "47.0%"
-        - gridcell "$0"
-      - row "Serrabuyscars.com CN-13990 • $0 budget • Jun 30 - Jul 31, 2025 Media Campaign Details Ashley Perl Ashley Perl ○ None active 81.0% 47.0% $0":
-        - gridcell "Serrabuyscars.com CN-13990 • $0 budget • Jun 30 - Jul 31, 2025"
-        - gridcell "Media Campaign Details"
-        - gridcell "Ashley Perl Ashley Perl":
-          - img "Ashley Perl"
-          - text: Ashley Perl
-        - gridcell "○ None active"
-        - gridcell "81.0%"
-        - gridcell "47.0%"
-        - gridcell "$0"
-      - row "Brazos Tractor-Rural Campaign CN-13989 • $0 budget • Jul 1 - Dec 31, 2025 Avails/Plan Development Emily Rodriguez Alex Martinez Emily Rodriguez +Alex ○ None active 81.0% 47.0% $0":
-        - gridcell "Brazos Tractor-Rural Campaign CN-13989 • $0 budget • Jul 1 - Dec 31, 2025"
-        - gridcell "Avails/Plan Development"
-        - gridcell "Emily Rodriguez Alex Martinez Emily Rodriguez +Alex":
-          - img "Emily Rodriguez"
-          - img "Alex Martinez"
-          - text: Emily Rodriguez +Alex
-        - gridcell "○ None active"
-        - gridcell "81.0%"
-        - gridcell "47.0%"
-        - gridcell "$0"
-      - row "Donlin Gold CN-13988 • $2,490 budget • Feb 6 - May 31, 2025 Campaign Complete Ashley Perl Ashley Perl ○ None active 81.0% 47.0% $2,490":
-        - gridcell "Donlin Gold CN-13988 • $2,490 budget • Feb 6 - May 31, 2025"
-        - gridcell "Campaign Complete"
-        - gridcell "Ashley Perl Ashley Perl":
-          - img "Ashley Perl"
-          - text: Ashley Perl
-        - gridcell "○ None active"
-        - gridcell "81.0%"
-        - gridcell "47.0%"
-        - gridcell "$2,490"
-      - row "Great White Pressure Washing - 2025 CN-13987 • $3,000 budget • Jul 1 - Dec 31, 2025 New Ryann Johnson Ryann Johnson ○ None active 81.0% 47.0% $3,000":
-        - gridcell "Great White Pressure Washing - 2025 CN-13987 • $3,000 budget • Jul 1 - Dec 31, 2025"
-        - gridcell "New"
-        - gridcell "Ryann Johnson Ryann Johnson":
-          - img "Ryann Johnson"
-          - text: Ryann Johnson
-        - gridcell "○ None active"
-        - gridcell "81.0%"
-        - gridcell "47.0%"
-        - gridcell "$3,000"
-      - row "New Mexico Chile 2025 - Addition CN-13986 • $0 budget • Jun 13 - Jun 30, 2025 Book the Campaign Shannon Finn Shannon Finn ○ None active 81.0% 47.0% $0":
-        - gridcell "New Mexico Chile 2025 - Addition CN-13986 • $0 budget • Jun 13 - Jun 30, 2025"
-        - gridcell "Book the Campaign"
-        - gridcell "Shannon Finn Shannon Finn":
-          - img "Shannon Finn"
-          - text: Shannon Finn
-        - gridcell "○ None active"
-        - gridcell "81.0%"
-        - gridcell "47.0%"
-        - gridcell "$0"
-      - row "A & A Tire Services - Rubber Tracks CN-13985 • $0 budget • Aug 1 - Dec 31, 2025 New Shannon Finn Shannon Finn ○ None active 81.0% 47.0% $0":
-        - gridcell "A & A Tire Services - Rubber Tracks CN-13985 • $0 budget • Aug 1 - Dec 31, 2025"
-        - gridcell "New"
-        - gridcell "Shannon Finn Shannon Finn":
-          - img "Shannon Finn"
-          - text: Shannon Finn
-        - gridcell "○ None active"
-        - gridcell "81.0%"
-        - gridcell "47.0%"
-        - gridcell "$0"
-      - row "Eat! Food and Drink CN-13984 • $0 budget • Jul 1 - Sep 30, 2025 Avails/Plan Development Emily Rodriguez Alex Martinez Emily Rodriguez +Alex ○ None active 81.0% 47.0% $0":
-        - gridcell "Eat! Food and Drink CN-13984 • $0 budget • Jul 1 - Sep 30, 2025"
-        - gridcell "Avails/Plan Development"
-        - gridcell "Emily Rodriguez Alex Martinez Emily Rodriguez +Alex":
-          - img "Emily Rodriguez"
-          - img "Alex Martinez"
-          - text: Emily Rodriguez +Alex
-        - gridcell "○ None active"
-        - gridcell "81.0%"
-        - gridcell "47.0%"
-        - gridcell "$0"
-      - row "Snow College CN-13983 • $0 budget • Oct 1 - May 31, 2026 Avails/Plan Development Emily Rodriguez Alex Martinez Emily Rodriguez +Alex ○ None active 81.0% 47.0% $0":
-        - gridcell "Snow College CN-13983 • $0 budget • Oct 1 - May 31, 2026"
-        - gridcell "Avails/Plan Development"
-        - gridcell "Emily Rodriguez Alex Martinez Emily Rodriguez +Alex":
-          - img "Emily Rodriguez"
-          - img "Alex Martinez"
-          - text: Emily Rodriguez +Alex
-        - gridcell "○ None active"
-        - gridcell "81.0%"
-        - gridcell "47.0%"
-        - gridcell "$0"
-      - row "Beauty and the Beast CN-13982 • $50,000 budget • Jul 8 - Sep 20, 2025 Proposal Sent Christopher Harang Christopher Harang ○ None active 81.0% 47.0% $50,000":
-        - gridcell "Beauty and the Beast CN-13982 • $50,000 budget • Jul 8 - Sep 20, 2025"
-        - gridcell "Proposal Sent"
-        - gridcell "Christopher Harang Christopher Harang":
-          - img "Christopher Harang"
-          - text: Christopher Harang
-        - gridcell "○ None active"
-        - gridcell "81.0%"
-        - gridcell "47.0%"
+        - gridcell "80.0%"
+        - gridcell "45.0%"
         - gridcell "$50,000"
-      - row "IOT IL DuQuoin State Fair 25 CN-13981 • $25,000 budget • Jul 7 - Aug 17, 2025 Book the Campaign Victoria Navarro Ugarte Victoria Navarro Ugarte ○ None active 81.0% 47.0% $25,000":
-        - gridcell "IOT IL DuQuoin State Fair 25 CN-13981 • $25,000 budget • Jul 7 - Aug 17, 2025"
-        - gridcell "Book the Campaign"
-        - gridcell "Victoria Navarro Ugarte Victoria Navarro Ugarte":
-          - img "Victoria Navarro Ugarte"
-          - text: Victoria Navarro Ugarte
+      - row "Unknown Account Campaign STR-E877BB75 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025 L1 Account Manager Account Manager ○ None active 135.0% 128.3% $50,000":
+        - gridcell "Unknown Account Campaign STR-E877BB75 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager Account Manager":
+          - img "Account Manager"
+          - text: Account Manager
+        - gridcell "○ None active"
+        - gridcell "135.0%"
+        - gridcell "128.3%"
+        - gridcell "$50,000"
+      - row "Unknown Account Campaign STR-280EE58B • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025 L1 Account Manager Account Manager ○ None active 92.0% 42.0% $50,000":
+        - gridcell "Unknown Account Campaign STR-280EE58B • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager Account Manager":
+          - img "Account Manager"
+          - text: Account Manager
+        - gridcell "○ None active"
+        - gridcell "92.0%"
+        - gridcell "42.0%"
+        - gridcell "$50,000"
+      - row "Unknown Account Campaign STR-B692E428 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025 L1 Account Manager Account Manager ○ None active 55.0% 52.3% $50,000":
+        - gridcell "Unknown Account Campaign STR-B692E428 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager Account Manager":
+          - img "Account Manager"
+          - text: Account Manager
+        - gridcell "○ None active"
+        - gridcell "55.0%"
+        - gridcell "52.3%"
+        - gridcell "$50,000"
+      - row "Unknown Account Campaign STR-FBFF1BA3 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025 L1 Account Manager Account Manager ○ None active 61.0% 53.0% $50,000":
+        - gridcell "Unknown Account Campaign STR-FBFF1BA3 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager Account Manager":
+          - img "Account Manager"
+          - text: Account Manager
+        - gridcell "○ None active"
+        - gridcell "61.0%"
+        - gridcell "53.0%"
+        - gridcell "$50,000"
+      - row "Unknown Account Campaign STR-9A1DCE7B • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025 L1 Account Manager Account Manager ○ None active 54.0% 51.3% $50,000":
+        - gridcell "Unknown Account Campaign STR-9A1DCE7B • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager Account Manager":
+          - img "Account Manager"
+          - text: Account Manager
+        - gridcell "○ None active"
+        - gridcell "54.0%"
+        - gridcell "51.3%"
+        - gridcell "$50,000"
+      - row "Unknown Account Campaign STR-C170BE70 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025 L1 Account Manager Account Manager ○ None active 73.0% 57.0% $50,000":
+        - gridcell "Unknown Account Campaign STR-C170BE70 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager Account Manager":
+          - img "Account Manager"
+          - text: Account Manager
+        - gridcell "○ None active"
+        - gridcell "73.0%"
+        - gridcell "57.0%"
+        - gridcell "$50,000"
+      - row "Unknown Account Campaign STR-54EDC372 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025 L1 Account Manager Account Manager ○ None active 110.0% 95.0% $50,000":
+        - gridcell "Unknown Account Campaign STR-54EDC372 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager Account Manager":
+          - img "Account Manager"
+          - text: Account Manager
+        - gridcell "○ None active"
+        - gridcell "110.0%"
+        - gridcell "95.0%"
+        - gridcell "$50,000"
+      - row "Unknown Account Campaign STR-F98B1DCB • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025 L1 Account Manager Account Manager ○ None active 115.0% 109.2% $50,000":
+        - gridcell "Unknown Account Campaign STR-F98B1DCB • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager Account Manager":
+          - img "Account Manager"
+          - text: Account Manager
+        - gridcell "○ None active"
+        - gridcell "115.0%"
+        - gridcell "109.2%"
+        - gridcell "$50,000"
+      - row "Unknown Account Campaign STR-61B7A136 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025 L1 Account Manager Account Manager ○ None active 110.0% 104.5% $50,000":
+        - gridcell "Unknown Account Campaign STR-61B7A136 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager Account Manager":
+          - img "Account Manager"
+          - text: Account Manager
+        - gridcell "○ None active"
+        - gridcell "110.0%"
+        - gridcell "104.5%"
+        - gridcell "$50,000"
+      - row "Unknown Account Campaign STR-8C76064F • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025 L1 Account Manager Account Manager ○ None active 73.0% 41.0% $50,000":
+        - gridcell "Unknown Account Campaign STR-8C76064F • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager Account Manager":
+          - img "Account Manager"
+          - text: Account Manager
+        - gridcell "○ None active"
+        - gridcell "73.0%"
+        - gridcell "41.0%"
+        - gridcell "$50,000"
+      - row "Unknown Account Campaign STR-B9A9CB5F • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025 L1 Account Manager Account Manager ○ None active 75.0% 42.0% $50,000":
+        - gridcell "Unknown Account Campaign STR-B9A9CB5F • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager Account Manager":
+          - img "Account Manager"
+          - text: Account Manager
+        - gridcell "○ None active"
+        - gridcell "75.0%"
+        - gridcell "42.0%"
+        - gridcell "$50,000"
+      - row "Unknown Account Campaign STR-6A6B11F1 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025 L1 Account Manager Account Manager ○ None active 82.0% 73.0% $50,000":
+        - gridcell "Unknown Account Campaign STR-6A6B11F1 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager Account Manager":
+          - img "Account Manager"
+          - text: Account Manager
+        - gridcell "○ None active"
+        - gridcell "82.0%"
+        - gridcell "73.0%"
+        - gridcell "$50,000"
+      - row "Unknown Account Campaign STR-5C997DF9 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025 L1 Account Manager Account Manager ○ None active 65.0% 61.7% $50,000":
+        - gridcell "Unknown Account Campaign STR-5C997DF9 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager Account Manager":
+          - img "Account Manager"
+          - text: Account Manager
+        - gridcell "○ None active"
+        - gridcell "65.0%"
+        - gridcell "61.7%"
+        - gridcell "$50,000"
+      - row "Unknown Account Campaign STR-D586C826 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025 L1 Account Manager Account Manager ○ None active 120.0% 95.0% $50,000":
+        - gridcell "Unknown Account Campaign STR-D586C826 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager Account Manager":
+          - img "Account Manager"
+          - text: Account Manager
+        - gridcell "○ None active"
+        - gridcell "120.0%"
+        - gridcell "95.0%"
+        - gridcell "$50,000"
+      - row "Unknown Account Campaign STR-2F654844 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025 L1 Account Manager Account Manager ○ None active 93.0% 76.0% $50,000":
+        - gridcell "Unknown Account Campaign STR-2F654844 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager Account Manager":
+          - img "Account Manager"
+          - text: Account Manager
+        - gridcell "○ None active"
+        - gridcell "93.0%"
+        - gridcell "76.0%"
+        - gridcell "$50,000"
+      - row "Unknown Account Campaign STR-54A1FD3B • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025 L1 Account Manager Account Manager ○ None active 81.0% 52.0% $50,000":
+        - gridcell "Unknown Account Campaign STR-54A1FD3B • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager Account Manager":
+          - img "Account Manager"
+          - text: Account Manager
         - gridcell "○ None active"
         - gridcell "81.0%"
-        - gridcell "47.0%"
-        - gridcell "$25,000"
-      - row "Choose Chicago 2025 DCASE CN-13980 • $150,000 budget • Sep 9 - Nov 30, 2025 New Victoria Navarro Ugarte Victoria Navarro Ugarte ○ None active 81.0% 47.0% $150,000":
-        - gridcell "Choose Chicago 2025 DCASE CN-13980 • $150,000 budget • Sep 9 - Nov 30, 2025"
-        - gridcell "New"
-        - gridcell "Victoria Navarro Ugarte Victoria Navarro Ugarte":
-          - img "Victoria Navarro Ugarte"
-          - text: Victoria Navarro Ugarte
+        - gridcell "52.0%"
+        - gridcell "$50,000"
+      - row "Unknown Account Campaign STR-D0C2174F • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025 L1 Account Manager Account Manager ○ None active 61.0% 58.0% $50,000":
+        - gridcell "Unknown Account Campaign STR-D0C2174F • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager Account Manager":
+          - img "Account Manager"
+          - text: Account Manager
         - gridcell "○ None active"
-        - gridcell "81.0%"
-        - gridcell "47.0%"
-        - gridcell "$150,000"
-      - row "American Glass-Windows CN-13979 • $2,625 budget • Jun 16 - Sep 30, 2025 Book the Campaign Emily Rodriguez Alex Martinez Emily Rodriguez +Alex ○ None active 81.0% 47.0% $2,625":
-        - gridcell "American Glass-Windows CN-13979 • $2,625 budget • Jun 16 - Sep 30, 2025"
-        - gridcell "Book the Campaign"
-        - gridcell "Emily Rodriguez Alex Martinez Emily Rodriguez +Alex":
-          - img "Emily Rodriguez"
-          - img "Alex Martinez"
-          - text: Emily Rodriguez +Alex
+        - gridcell "61.0%"
+        - gridcell "58.0%"
+        - gridcell "$50,000"
+      - row "Unknown Account Campaign STR-16C64C56 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025 L1 Account Manager Account Manager ○ None active 57.0% 54.1% $50,000":
+        - gridcell "Unknown Account Campaign STR-16C64C56 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager Account Manager":
+          - img "Account Manager"
+          - text: Account Manager
         - gridcell "○ None active"
-        - gridcell "81.0%"
-        - gridcell "47.0%"
-        - gridcell "$2,625"
+        - gridcell "57.0%"
+        - gridcell "54.1%"
+        - gridcell "$50,000"
+      - row "Unknown Account Campaign STR-C3648461 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025 L1 Account Manager Account Manager ○ None active 58.0% 50.0% $50,000":
+        - gridcell "Unknown Account Campaign STR-C3648461 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager Account Manager":
+          - img "Account Manager"
+          - text: Account Manager
+        - gridcell "○ None active"
+        - gridcell "58.0%"
+        - gridcell "50.0%"
+        - gridcell "$50,000"
+      - row "Unknown Account Campaign STR-B87C9270 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025 L1 Account Manager Account Manager ○ None active 37.0% 35.1% $50,000":
+        - gridcell "Unknown Account Campaign STR-B87C9270 • Unknown Account • $50,000 budget • Jan 1 - Dec 31, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager Account Manager":
+          - img "Account Manager"
+          - text: Account Manager
+        - gridcell "○ None active"
+        - gridcell "37.0%"
+        - gridcell "35.1%"
+        - gridcell "$50,000"
     - rowgroup
     - rowgroup
     - rowgroup

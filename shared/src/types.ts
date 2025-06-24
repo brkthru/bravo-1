@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import * as z from 'zod/v4';
 
 // Campaign Status Schema
 export const CampaignStatusSchema = z.enum(['L1', 'L2', 'L3']);

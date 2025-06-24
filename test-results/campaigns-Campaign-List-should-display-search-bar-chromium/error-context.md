@@ -1,0 +1,233 @@
+# Page snapshot
+
+```yaml
+- text: Bravo
+- navigation:
+  - heading "Main" [level=3]
+  - link "Home":
+    - /url: /
+  - link "My Schedule":
+    - /url: /my-schedule
+  - heading "Planning" [level=3]
+  - link "Accounts":
+    - /url: /accounts
+  - link "Campaigns":
+    - /url: /campaigns
+  - link "Line Items":
+    - /url: /line-items
+  - heading "Execution" [level=3]
+  - link "Media Plans":
+    - /url: /media-plans
+  - link "Platform Buys":
+    - /url: /platform-buys
+  - heading "Analytics" [level=3]
+  - link "Dashboard":
+    - /url: /analytics
+  - link "Reports":
+    - /url: /reports
+  - heading "Billing" [level=3]
+  - link "Invoices":
+    - /url: /invoices
+  - heading "System" [level=3]
+  - link "Settings":
+    - /url: /settings
+  - link "Users":
+    - /url: /users
+- link "Account Manager Account Manager View profile":
+  - /url: /settings
+  - img "Account Manager"
+  - paragraph: Account Manager
+  - paragraph: View profile
+- heading "Campaigns" [level=2]
+- button "Light"
+- button "Dark"
+- button "System"
+- text: v1.0
+- link "Account Manager":
+  - /url: /settings
+  - img "Account Manager"
+- main:
+  - heading "Campaigns" [level=1]
+  - paragraph: Manage your advertising campaigns and track performance
+  - textbox "Search...": Virginia
+  - button "Refresh"
+  - button "New Campaign"
+  - heading "Overview" [level=3]
+  - term:
+    - paragraph: Total Campaigns
+  - definition:
+    - paragraph: "6"
+    - paragraph: Increased by 12%
+  - term:
+    - paragraph: Total Budget
+  - definition:
+    - paragraph: $111,049
+    - paragraph: Increased by 4.75%
+  - term:
+    - paragraph: Active Campaigns
+  - definition:
+    - paragraph: "6"
+    - paragraph: Increased by 2
+  - term:
+    - paragraph: Average Margin
+  - definition:
+    - paragraph: 66.5%
+    - paragraph: Decreased by 3.2%
+  - heading "Campaign Details" [level=3]
+  - treegrid:
+    - rowgroup:
+      - row:
+        - columnheader
+      - row:
+        - gridcell
+    - rowgroup:
+      - row "Campaign Details Status Team Media Activity Delivery Pacing Spend Pacing Budget":
+        - columnheader "Campaign Details"
+        - columnheader "Status"
+        - columnheader "Team"
+        - columnheader "Media Activity"
+        - columnheader "Delivery Pacing"
+        - columnheader "Spend Pacing"
+        - columnheader "Budget"
+      - row "Open Filter Menu Open Filter Menu Open Filter Menu Open Filter Menu Open Filter Menu Open Filter Menu Open Filter Menu":
+        - gridcell "Open Filter Menu":
+          - textbox "Campaign Details Filter Input"
+          - button "Open Filter Menu": 
+        - gridcell "Open Filter Menu":
+          - textbox "Status Filter Input"
+          - button "Open Filter Menu": 
+        - gridcell "Open Filter Menu":
+          - textbox "Team Filter Input"
+          - button "Open Filter Menu": 
+        - gridcell "Open Filter Menu":
+          - textbox "Media Activity Filter Input"
+          - button "Open Filter Menu": 
+        - gridcell "Open Filter Menu":
+          - spinbutton "Delivery Pacing Filter Input"
+          - button "Open Filter Menu": 
+        - gridcell "Open Filter Menu":
+          - spinbutton "Spend Pacing Filter Input"
+          - button "Open Filter Menu": 
+        - gridcell "Open Filter Menu":
+          - spinbutton "Budget Filter Input"
+          - button "Open Filter Menu": 
+    - rowgroup:
+      - row "Press Space to toggle row selection (unchecked) ":
+        - gridcell "Press Space to toggle row selection (unchecked) ":
+          - checkbox "Press Space to toggle row selection (unchecked)"
+          - text: 
+      - row "Press Space to toggle row selection (unchecked) ":
+        - gridcell "Press Space to toggle row selection (unchecked) ":
+          - checkbox "Press Space to toggle row selection (unchecked)"
+          - text: 
+      - row "Press Space to toggle row selection (unchecked) ":
+        - gridcell "Press Space to toggle row selection (unchecked) ":
+          - checkbox "Press Space to toggle row selection (unchecked)"
+          - text: 
+      - row "Press Space to toggle row selection (unchecked) ":
+        - gridcell "Press Space to toggle row selection (unchecked) ":
+          - checkbox "Press Space to toggle row selection (unchecked)"
+          - text: 
+      - row "Press Space to toggle row selection (unchecked) ":
+        - gridcell "Press Space to toggle row selection (unchecked) ":
+          - checkbox "Press Space to toggle row selection (unchecked)"
+          - text: 
+      - row "Press Space to toggle row selection (unchecked) ":
+        - gridcell "Press Space to toggle row selection (unchecked) ":
+          - checkbox "Press Space to toggle row selection (unchecked)"
+          - text: 
+    - rowgroup:
+      - row "Pet Stop of Central Virginia-02-0000884 - Native STR-B6B44DBC • Unknown Account • $791 budget • Apr 1 - Jun 30, 2025 L1 Account Manager undefined undefined Account Manager +undefined ◐ Some active 50.0% 47.5% $791":
+        - gridcell "Pet Stop of Central Virginia-02-0000884 - Native STR-B6B44DBC • Unknown Account • $791 budget • Apr 1 - Jun 30, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager undefined undefined Account Manager +undefined":
+          - img "Account Manager"
+          - img "undefined undefined"
+          - text: Account Manager +undefined
+        - gridcell "◐ Some active"
+        - gridcell "50.0%"
+        - gridcell "47.5%"
+        - gridcell "$791"
+      - row "Pet Stop of Virginia Beach-02-0000906-Display STR-BB8677D6 • Unknown Account • $231 budget • Apr 1 - Jun 30, 2025 L1 Account Manager undefined undefined Account Manager +undefined ◐ Some active 81.0% 77.0% $231":
+        - gridcell "Pet Stop of Virginia Beach-02-0000906-Display STR-BB8677D6 • Unknown Account • $231 budget • Apr 1 - Jun 30, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager undefined undefined Account Manager +undefined":
+          - img "Account Manager"
+          - img "undefined undefined"
+          - text: Account Manager +undefined
+        - gridcell "◐ Some active"
+        - gridcell "81.0%"
+        - gridcell "77.0%"
+        - gridcell "$231"
+      - row "Pet Stop of Northern Virginia-02-0000864 - Display STR-7119BC07 • Unknown Account • $1,403 budget • Apr 1 - Jun 30, 2025 L1 Account Manager undefined undefined Account Manager +undefined ◐ Some active 52.0% 49.4% $1,403":
+        - gridcell "Pet Stop of Northern Virginia-02-0000864 - Display STR-7119BC07 • Unknown Account • $1,403 budget • Apr 1 - Jun 30, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager undefined undefined Account Manager +undefined":
+          - img "Account Manager"
+          - img "undefined undefined"
+          - text: Account Manager +undefined
+        - gridcell "◐ Some active"
+        - gridcell "52.0%"
+        - gridcell "49.4%"
+        - gridcell "$1,403"
+      - row "Virginia Beach-Norfolk-Permanent-PMAX STR-053B9920 • Unknown Account • $25,875 budget • Apr 1 - Dec 31, 2025 L1 Account Manager undefined undefined Account Manager +undefined ◐ Some active 66.0% 45.0% $25,875":
+        - gridcell "Virginia Beach-Norfolk-Permanent-PMAX STR-053B9920 • Unknown Account • $25,875 budget • Apr 1 - Dec 31, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager undefined undefined Account Manager +undefined":
+          - img "Account Manager"
+          - img "undefined undefined"
+          - text: Account Manager +undefined
+        - gridcell "◐ Some active"
+        - gridcell "66.0%"
+        - gridcell "45.0%"
+        - gridcell "$25,875"
+      - row "Greater Virginia Beach-PMAX STR-8CAB4978 • Unknown Account • $45,900 budget • Mar 1 - Dec 31, 2025 L1 Account Manager undefined undefined Account Manager +undefined ◐ Some active 48.0% 45.0% $45,900":
+        - gridcell "Greater Virginia Beach-PMAX STR-8CAB4978 • Unknown Account • $45,900 budget • Mar 1 - Dec 31, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager undefined undefined Account Manager +undefined":
+          - img "Account Manager"
+          - img "undefined undefined"
+          - text: Account Manager +undefined
+        - gridcell "◐ Some active"
+        - gridcell "48.0%"
+        - gridcell "45.0%"
+        - gridcell "$45,900"
+      - row "Virginia Spine Care - SEM STR-D4CE162A • Unknown Account • $36,850 budget • Jan 1 - Dec 31, 2025 L1 Account Manager undefined undefined Account Manager +undefined ◐ Some active 95.0% 67.0% $36,850":
+        - gridcell "Virginia Spine Care - SEM STR-D4CE162A • Unknown Account • $36,850 budget • Jan 1 - Dec 31, 2025"
+        - gridcell "L1"
+        - gridcell "Account Manager undefined undefined Account Manager +undefined":
+          - img "Account Manager"
+          - img "undefined undefined"
+          - text: Account Manager +undefined
+        - gridcell "◐ Some active"
+        - gridcell "95.0%"
+        - gridcell "67.0%"
+        - gridcell "$36,850"
+    - rowgroup
+    - rowgroup
+    - rowgroup
+    - rowgroup
+    - rowgroup
+    - rowgroup
+    - rowgroup
+  - paragraph: Showing 1 to 6 of 6 results
+  - combobox:
+    - option "10 per page"
+    - option "25 per page"
+    - option "50 per page" [selected]
+    - option "100 per page"
+  - navigation "Pagination":
+    - button "First" [disabled]:
+      - text: First
+      - img
+    - button "Previous" [disabled]:
+      - text: Previous
+      - img
+    - text: Page 1 of 1
+    - button "Next" [disabled]:
+      - text: Next
+      - img
+    - button "Last" [disabled]:
+      - text: Last
+      - img
+```
