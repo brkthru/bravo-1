@@ -12,6 +12,8 @@ import userRoutes from './routes/users';
 import proposalsRoutes from './routes/proposals';
 import executionPlansRoutes from './routes/execution-plans';
 import insertionOrdersRoutes from './routes/insertion-orders';
+import etlRoutes from './routes/etl';
+import { setupApiDocs } from './routes/api-docs';
 
 // Load environment variables
 dotenv.config();
@@ -21,26 +23,32 @@ const PORT = process.env.PORT || 3001;
 
 // Middleware
 app.use(helmet());
-app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+    credentials: true,
+  })
+);
 app.use(morgan('combined'));
-app.use(express.json({ limit: '10mb' }));
+app.use(express.json({ limit: '100mb' }));
 app.use(express.urlencoded({ extended: true }));
+
+// Setup API documentation (before routes for proper middleware order)
+setupApiDocs(app);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'ok', 
+  res.json({
+    status: 'ok',
     timestamp: new Date().toISOString(),
-    database: database.isConnected() ? 'connected' : 'disconnected'
+    database: database.isConnected() ? 'connected' : 'disconnected',
   });
 });
 
 // API routes
 app.use('/api/campaigns', campaignRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/etl', etlRoutes);
 
 // OpenAPI compatible routes
 app.use('/api/proposals', proposalsRoutes);
@@ -53,7 +61,7 @@ app.use((error: Error, req: express.Request, res: express.Response, next: expres
   res.status(500).json({
     success: false,
     error: 'Internal server error',
-    details: process.env.NODE_ENV === 'development' ? error.message : undefined
+    details: process.env.NODE_ENV === 'development' ? error.message : undefined,
   });
 });
 
@@ -61,7 +69,7 @@ app.use((error: Error, req: express.Request, res: express.Response, next: expres
 app.use('*', (req, res) => {
   res.status(404).json({
     success: false,
-    error: 'Route not found'
+    error: 'Route not found',
   });
 });
 
@@ -70,37 +78,40 @@ async function startServer() {
   try {
     // Connect to database
     await database.connect();
-    
+
     // Create database indexes
     const campaignModel = new CampaignModel();
     const userModel = new UserModel();
     const mediaPlanModel = new MediaPlanModel();
-    
+
     try {
       await campaignModel.createIndexes();
       console.log('Campaign indexes created');
     } catch (error: any) {
-      if (error.code !== 86) { // Ignore IndexKeySpecsConflict
+      if (error.code !== 86) {
+        // Ignore IndexKeySpecsConflict
         throw error;
       }
       console.log('Campaign indexes already exist');
     }
-    
+
     try {
       await userModel.createIndexes();
       console.log('User indexes created');
     } catch (error: any) {
-      if (error.code !== 86) { // Ignore IndexKeySpecsConflict
+      if (error.code !== 86) {
+        // Ignore IndexKeySpecsConflict
         throw error;
       }
       console.log('User indexes already exist');
     }
-    
+
     try {
       await mediaPlanModel.createIndexes();
       console.log('Media plan indexes created');
     } catch (error: any) {
-      if (error.code !== 86) { // Ignore IndexKeySpecsConflict
+      if (error.code !== 86) {
+        // Ignore IndexKeySpecsConflict
         throw error;
       }
       console.log('Media plan indexes already exist');
