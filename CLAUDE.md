@@ -1,385 +1,132 @@
-# CLAUDE.md - Bravo-1 Project Guide
+# CLAUDE.md - Bravo-1 Development Guide
 
-This file provides guidance to Claude Code when working with the Bravo-1 MongoDB migration project.
+## 🎯 Core Mission
 
-## 🚨 TESTING REQUIREMENTS
-**ALWAYS run tests after making changes:**
-1. **Unit Tests**: `npm test` - Run after model/service changes
-2. **E2E Tests**: `npx playwright test` - Run after UI/API changes
-3. **Full Test Suite**: `npm run test:all` - Run before committing
+Media planning system: PostgreSQL → MongoDB migration with versioned business logic and financial precision.
 
-**When adding features:**
-- Write unit tests for new functions/models
-- Write E2E tests for new UI features
-- Update existing tests if behavior changes
-- Run `npm run test:coverage` to ensure coverage doesn't drop
+## 🧪 TEST-DRIVEN DEVELOPMENT MANDATORY
 
-## 🚀 Session Start Checklist
-1. **Read Serena Initial Instructions**: Run `mcp__serena__initial_instructions` 
-2. **Query Project Memories**: Search for "bravo-1", "MongoDB structure", "read-only"
-3. **Check Current Config**: Run `mcp__serena__get_current_config`
-4. **Verify Read-Only Rules**: Ensure media-tool editing is disabled
+### Before ANY code changes:
 
-## Project Overview
-Bravo-1 is a MongoDB-based media planning system migrated from the PostgreSQL-based media-tool. It uses:
-- **Frontend**: React 18, TypeScript, Vite, Tailwind CSS
-- **Backend**: Node.js, Express 4, TypeScript, MongoDB native driver
-- **Database**: MongoDB (in Docker container)
-- **Testing**: Jest for unit tests, Playwright for E2E
+1. Write failing test first
+2. Make test pass with minimal code
+3. Refactor with confidence
 
-## Important Memory Management
+### Testing Requirements:
 
-### When to Store Memories
-ALWAYS use `mcp__openmemory__add_memories` to store:
-1. **Project Structure Changes**: Directory reorganizations, new file locations
-2. **Configuration Details**: Port numbers, connection strings, environment variables
-3. **Key Decisions**: Why certain approaches were chosen (e.g., separate collections vs embedded)
-4. **Migration Progress**: What has been migrated, what remains
-5. **Common Issues & Solutions**: Debugging notes, workarounds
-6. **User Preferences**: Coding style, testing approaches, deployment preferences
-
-### When to Query Memories
-ALWAYS use `mcp__openmemory__search_memory` when:
-1. **Starting a new session**: Query for project context
-   - Search: "bravo-1" or "media-tool" 
-   - Search: "MongoDB structure" or "ports"
-   - Search: "read-only" to get access rules
-2. **Before making architectural decisions**: Check past decisions and rationale
-3. **When encountering familiar errors**: Search for previous solutions
-4. **Before suggesting approaches**: Ensure consistency with past work
-5. **Before any file edits**: Search "read-only" to ensure compliance
-
-### Memory Format Guidelines
-- Keep memories concise but complete
-- Include specific paths, ports, and configuration values
-- Tag with project name (bravo-1 or media-tool)
-- Include dates for time-sensitive information
-
-## Current Project State
-
-### Database Structure
-- **MongoDB**: Runs on `mongodb://localhost:27017/mediatool_v2`
-- **Collections**: campaigns, strategies, lineItems (SEPARATE, not embedded)
-- **Docker**: Container name `bravo1_mongodb`
-
-### Server Configuration
-- **Backend**: `http://localhost:3001` (Express server)
-- **Frontend**: `http://localhost:5174` (Vite dev server)
-- **API**: RESTful endpoints at `/api/*`
-
-### Key Differences from media-tool
-1. **Database**: MongoDB instead of PostgreSQL
-2. **ORM**: Native MongoDB driver instead of pg-promise
-3. **UI**: Tailwind CSS instead of mixed styling
-4. **Structure**: Simplified, fewer dependencies
-
-## Commands
 ```bash
-# Install dependencies
-npm install
+# ALWAYS run before committing:
+trunk check                    # Linting (auto-runs pre-commit)
+npm test                      # Unit tests (60% coverage minimum)
+npx playwright test          # E2E tests with FULL dataset
 
-# Start MongoDB (Docker)
-docker-compose up -d mongodb
-
-# Run servers
-npm run dev:backend  # Backend on :3001
-npm run dev:frontend # Frontend on :5174
-
-# Run tests
-npm test            # Unit tests
-npx playwright test # E2E tests
-
-# Seed database (5 test campaigns only)
-cd backend && npm run seed
-
-# Load full production data (13,417 campaigns)
-# From bravo-1 directory:
-bun run scripts/etl/run-etl.ts transform
-bun run scripts/etl/run-etl.ts load
+# Coverage check:
+npm run test:coverage        # Must maintain/increase coverage
 ```
 
-## MongoDB Data Management
+### Test Data Rules:
 
-### Production Data Backup
-- **Location**: `bravo-1/scripts/data-export/`
-- **Extracted**: 2025-06-18 from PostgreSQL media-tool
-- **Total Records**: 238,463 documents
-- **Main Collections**:
-  - `campaigns_backup.json` - 13,417 campaigns
-  - `lineItems.json` - 3,343 line items
-  - `strategies.json` - 13,417 strategies
-  - `mediaBuys.json` - 56,020 media buys
-  - `platformEntities.json` - 142,333 platform entities (695MB)
+- **NEVER** use seed data (5 campaigns)
+- **ALWAYS** use production backup: `bun scripts/etl/run-etl.ts`
+- Dataset: 13,417 campaigns from 20250622-072326 export
 
-### Restore Full Production Data
-```bash
-# Ensure MongoDB is running
-docker-compose up -d mongodb
+## 🏗️ Architecture: Layered Business Logic
 
-# Transform and load the full dataset
-cd bravo-1
-bun run scripts/etl/run-etl.ts transform  # Creates denormalized structure
-bun run scripts/etl/run-etl.ts load       # Loads into MongoDB
+### Data Flow:
 
-# Or run complete ETL process
-bun run scripts/etl/run-etl.ts           # Runs extract, transform, load
+```
+User Input → Validation → Storage → Calculations → Response
+    ↓           ↓            ↓           ↓             ↓
+   Zod     Multi-level   MongoDB    Versioned    Formatted
+ Schemas   Validation   Decimal128   Engine      Output
 ```
 
-### Testing Considerations
-- **Seed data** (5 campaigns): Quick tests, development
-- **Full data** (13,417 campaigns): E2E tests, performance testing, production simulation
-- ETL process automatically backs up current data before loading
-- Use `mongodump` for traditional BSON backups if needed
+### Key Components:
 
-## Automated Testing with Full Data
+#### 1. Calculation Engine (v1.0.0)
 
-### Benefits of Full Dataset Testing
-1. **Realistic Performance Testing**: Test with 13,417 campaigns vs 5
-2. **Pagination Testing**: Verify pagination with real data volumes
-3. **Search/Filter Testing**: Test search performance at scale
-4. **Edge Cases**: Discover issues only visible with production data
-5. **Memory/Load Testing**: Ensure app handles large datasets
+- **Location**: `backend/src/calculations/calculation-engine.ts`
+- **Pattern**: Pure calculations → Context-aware rounding
+- **Versioning**: Business rules tracked with version/timestamp
+- **See**: `docs/FIELD-CALCULATIONS-COMPREHENSIVE.md`
 
-### Setup for E2E Tests with Full Data
-```bash
-# One-time setup: Load full dataset
-cd bravo-1
-docker-compose up -d mongodb
-bun run scripts/etl/run-etl.ts transform
-bun run scripts/etl/run-etl.ts load
+#### 2. Multi-Level Validation
 
-# Run E2E tests
-npm run dev:backend  # Start backend
-npm run dev:frontend # Start frontend  
-npx playwright test  # Run tests against full data
-```
+- **Schema**: Zod v4 schemas in `shared/src/schemas/`
+- **API**: Request validation (implement middleware)
+- **Service**: Business rules validation
+- **Database**: MongoDB JSON Schema validators
+- **Pattern**: Errors (blocking) vs Warnings (non-blocking)
+- **See**: `docs/SCHEMA-REFERENCE.md`
 
-### CI/CD Considerations
-```bash
-# In CI pipeline, restore from backup before tests
-- name: Restore MongoDB Data
-  run: |
-    cd bravo-1
-    bun run scripts/etl/run-etl.ts transform
-    bun run scripts/etl/run-etl.ts load
-    
-- name: Run E2E Tests
-  run: npx playwright test
-```
+#### 3. Precision Rules
 
-### Test Data Strategies
-- **Development**: Use seed script (5 campaigns) for quick iteration
-- **E2E Testing**: Use full backup (13,417 campaigns) for comprehensive testing
-- **Unit Tests**: Use MongoDB Memory Server with minimal fixtures
+- **Storage**: 6 decimal places (MongoDB Decimal128)
+- **API/Display**: 2 decimal places
+- **Contextual**: YouTube CPV = 3 decimals
+- **See**: `docs/adr-0019-implementation.md`
 
-## File Structure
-```
-bravo-1/
-├── backend/          # Express API server
-│   ├── src/
-│   │   ├── config/   # Database config
-│   │   ├── models/   # MongoDB models
-│   │   ├── routes/   # API routes
-│   │   └── scripts/  # Migration & seed scripts
-├── frontend/         # React application
-│   ├── src/
-│   │   ├── components/
-│   │   ├── contexts/
-│   │   ├── pages/
-│   │   └── services/
-├── shared/          # Shared types
-├── tests/           # E2E tests
-└── docs/            # Organized documentation
-```
+## 📋 Development Checklist
 
-## Testing
-- **Unit Tests**: Jest with MongoDB memory server
-- **E2E Tests**: Playwright with real servers
-- **Coverage**: Run `npm run test:coverage`
+### Starting Work:
 
-## Migration Status
-✅ Completed:
-- User management with teams
-- Campaign CRUD operations
-- Basic authentication
-- MongoDB schema design
-- Tailwind UI components
-- E2E test setup
+1. Search memories: `mcp__openmemory__search_memory "bravo-1"`
+2. Check docs: `docs/INDEX.md` for documentation map
+3. Review architecture: `ARCHITECTURE.md`
 
-❌ Not Yet Migrated:
-- Media buy entities
-- Platform integrations
-- Advanced reporting
-- Full authentication (JWT)
-- Background jobs
+### While Coding:
 
-## Testing Strategy
+- Write test FIRST, then implementation
+- Run `trunk check` frequently
+- Commit atomically with conventional format:
+  - `feat:` new features
+  - `fix:` bug fixes
+  - `test:` test additions
+  - `refactor:` code improvements
+  - `docs:` documentation
 
-### Test Types
-1. **Unit Tests** (Jest)
-   - Location: `backend/src/**/*.test.ts`, `frontend/src/**/*.test.tsx`
-   - Run: `npm test` (in backend or frontend directory)
-   - Focus: Individual functions, models, components
+### Before Committing:
 
-2. **E2E Tests** (Playwright)
-   - Location: `tests/e2e/*.spec.ts`
-   - Run: `npx playwright test`
-   - Focus: User workflows, API integration, UI behavior
+1. `trunk check` - Must pass
+2. `npm test` - Must pass with coverage
+3. `npx playwright test` - Must pass
+4. Update relevant docs if needed
 
-3. **Integration Tests**
-   - Location: `backend/src/**/*.integration.test.ts`
-   - Run: `npm run test:integration`
-   - Focus: Database operations, API endpoints
+## 🔧 Quick Reference
 
-### Test Commands
-```bash
-# Run all tests
-npm run test:all
+### Servers:
 
-# Run with coverage
-npm run test:coverage
+- MongoDB: `localhost:27017/bravo-1`
+- Backend: `localhost:3001`
+- Frontend: `localhost:5174`
 
-# Run specific test file
-npx playwright test tests/e2e/campaigns.spec.ts
+### Key Collections:
 
-# Run tests in watch mode
-npm test -- --watch
+- campaigns, strategies, lineItems (SEPARATE, not embedded)
 
-# Run tests in UI mode (Playwright)
-npx playwright test --ui
-```
+### Documentation:
 
-### When to Run Tests
-- **Before committing**: Run full test suite
-- **After API changes**: Run integration + E2E tests
-- **After UI changes**: Run component tests + E2E tests
-- **After model changes**: Run unit + integration tests
+- Architecture decisions: `docs/MONGODB-SCHEMA-DESIGN.md`
+- ETL pipeline: `docs/ETL-SYSTEM-DESIGN.md`
+- Field calculations: `docs/FIELD-CALCULATIONS-COMPREHENSIVE.md`
+- Testing guide: `tests/README.md`
 
-## Common Issues & Solutions
+## ⚠️ Critical Rules
 
-### MongoDB Connection Failed
-- Ensure Docker is running: `docker ps`
-- Check MongoDB container: `docker-compose up -d mongodb`
-- Verify port 27017 is free: `lsof -i :27017`
+1. **media-tool/** is READ-ONLY - never edit
+2. Store key decisions in memory: `mcp__openmemory__add_memories`
+3. Validate at multiple levels (schema → API → service → DB)
+4. Version all business logic changes
+5. Maintain calculation audit trail
 
-### Tests Failing
-- **E2E tests**: Check if using seed data vs production data
-  - Seed: `cd backend && npm run seed` (5 campaigns)
-  - Production: `bun run scripts/etl/run-etl.ts` (13,417 campaigns)
-- Ensure servers are running before E2E tests
-- Update test expectations if data changed
+## 🚀 Problem We're Solving
 
-### Frontend Not Loading
-- Verify backend is running on :3001
-- Check CORS settings in backend
-- Ensure .env file exists with correct values
+Migrating complex PostgreSQL views with calculated metrics to MongoDB while:
 
-## Development Workflow
-1. Always check memories at session start
-2. Run tests before committing
-3. Update documentation when structure changes
-4. Store important decisions in memory
-5. Use Serena for code navigation in active project
+- Preserving financial precision
+- Versioning business logic
+- Supporting bulk operations
+- Maintaining calculation history
+- Enabling multi-level validation
 
-## Git Commit Guidelines
-**IMPORTANT**: Commit frequently with meaningful messages!
-- Use conventional commit format:
-  - `feat:` for new features
-  - `fix:` for bug fixes
-  - `docs:` for documentation changes
-  - `style:` for formatting changes
-  - `refactor:` for code refactoring
-  - `test:` for adding/updating tests
-  - `chore:` for maintenance tasks
-- Keep commits atomic and focused on a single change
-- Write clear commit messages that explain the "why" not just the "what"
-- Commit after completing each logical unit of work
-- Never batch multiple unrelated changes in one commit
-
-## Serena MCP Integration
-- Currently active at parent directory level
-- Use `mcp__serena__` tools for code navigation
-- Particularly useful for finding symbols and references
-- Write memories for cross-project knowledge
-
-### Serena Setup (if needed)
-```bash
-# From bravo_code directory:
-claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena-mcp-server --context ide-assistant --project $(pwd)
-```
-
-### Key Serena Tools
-- `mcp__serena__initial_instructions` - Get project-specific guidance
-- `mcp__serena__find_symbol` - Find code symbols by name
-- `mcp__serena__search_for_pattern` - Search code patterns
-- `mcp__serena__read_memory` / `write_memory` - Project memories
-- `mcp__serena__get_current_config` - Check active configuration
-
-## CRITICAL: Read-Only Policy for media-tool
-**IMPORTANT**: The `media-tool/` directory is READ-ONLY. 
-- ✅ **ALLOWED**: Read, search, analyze media-tool files
-- ❌ **FORBIDDEN**: Edit, modify, or delete anything in media-tool
-- All edits must be made in `bravo-1/` only
-- Use media-tool as reference for migration only
-
-When using Serena tools:
-- Check file path before any edit operation
-- If path contains `media-tool/`, use only read tools:
-  - `read_file`, `find_symbol`, `search_for_pattern`, etc.
-- For `bravo-1/` paths, all tools are available
-
-## Zod 4 Schema Implementation (Completed 2025-06-24)
-
-### Overview
-- Upgraded to zod@3.25.0 (includes Zod 4 via `import * as z from 'zod/v4'`)
-- Created 23 schema files in `shared/src/schemas/`
-- Git tag: `v1.0.0-zod4`
-
-### Key Features
-- MongoDB Decimal128 support for financial fields
-- Discriminated unions for 4 line item types
-- Native JSON Schema conversion (no external libs)
-- Git-like versioning system for audit trails
-- File validation with new z.file() API
-
-### Breaking Changes
-- `Campaign` → `CampaignEntity`
-- `LineItem` → `LineItemEntity`
-- `UnitType` → `UnitTypeEnum`
-
-## Test Data Management
-
-### CRITICAL: Never Use Seed Script
-**DO NOT RUN `npm run seed`** - It deletes ALL data and replaces with only 5 campaigns!
-
-### Correct E2E Test Data
-- **Dataset**: 20250622-072326 export
-- **Total**: 13,417 campaigns
-- **Key campaigns**: "Aces Automotive Repair - Phoenix location 1" (CN-13999)
-
-### Loading Test Data
-```bash
-cd scripts/etl
-bun transform-postgres-data.ts  # PG → MongoDB format
-bun load-data.ts               # Load into MongoDB
-```
-
-## AG-Grid v33 Migration (In Progress)
-
-### Current Status
-- All packages upgraded to v33.3.2 (from mixed v31/v33)
-- Legacy theme mode attempted but grid not rendering
-- User preference: Full v33 migration with new Theming API
-
-### Known Issues
-- AG-Grid not rendering in E2E tests
-- 4/20 tests failing (all AG-Grid related)
-- Need to implement new JavaScript-based theming
-
-### Next Steps
-1. Remove CSS imports for AG-Grid themes
-2. Implement new Theming API with createTheme()
-3. Update components to use theme objects
-4. Migrate custom CSS variables to theme parameters
-
-See memory: `ag-grid-v33-migration-plan` for full details
+**Goal**: Clean, testable, versioned business logic layer separate from data storage.
