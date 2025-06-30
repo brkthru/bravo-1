@@ -1,0 +1,462 @@
+[
+  {
+    "id": "003cc587-980f-4165-94ac-f4a93c5fa471",
+    "text": "AWS Profile: brkthru-mediatool-dev (NOT prod)",
+    "timestamp": "2025-06-22T05:26:27.082388-07:00"
+  },
+  {
+    "id": "009ef2b7-2b3e-487b-848b-dd111084ea4c",
+    "text": "Commit after each logical unit of work",
+    "timestamp": "2025-06-24T00:29:39.884514-07:00"
+  },
+  {
+    "id": "01e2cb12-cbf8-42e7-93d0-0db981a15988",
+    "text": "Platform buys (56,020), media plans, and platform entities (142,333) not yet migrated",
+    "timestamp": "2025-06-28T09:33:12.985857-07:00"
+  },
+  {
+    "id": "01e9d19e-f75a-4ff8-95f8-0d1b880a6d87",
+    "text": "Benefits include no duplicate business logic, versioned calculations, consistent validation, complete audit trail, and bulk operations support up to 1000 records per request",
+    "timestamp": "2025-06-25T19:12:17.584540-07:00"
+  },
+  {
+    "id": "02dda584-ab73-4460-8bc9-4697330d0ab5",
+    "text": "All calculated fields include metadata: value, calculationVersion, calculatedAt, context, formula",
+    "timestamp": "2025-06-25T18:50:55.999127-07:00"
+  },
+  {
+    "id": "03369d7f-8d05-47e2-8ee8-21b1958be010",
+    "text": "Updated .gitignore to ignore entire data/ directory",
+    "timestamp": "2025-06-22T00:06:02.684001-07:00"
+  },
+  {
+    "id": "0360012b-970c-4ce9-9706-db79f667d388",
+    "text": "Master scripts created include run-production-etl.ts, quick-start-etl.sh, detect-schema-changes.ts, migrate-mongo-database.ts",
+    "timestamp": "2025-06-27T19:53:33.418798-07:00"
+  },
+  {
+    "id": "04882d46-1256-46fc-8ba8-de52ed5af52a",
+    "text": "Current improvements include adding ActiveFilters tab, fixing result count, redesigning toolbar layout, creating Priority pill renderer, fixing Status column total, adding Remaining column, adding stats UI blocks, and updating dev docs",
+    "timestamp": "2025-06-24T13:28:07.270430-07:00"
+  },
+  {
+    "id": "04a8e5f7-8723-4c97-8553-203a5ec35a8e",
+    "text": "This is the canonical PostgreSQL backup that should be used for transformations",
+    "timestamp": "2025-06-27T16:36:58.996065-07:00"
+  },
+  {
+    "id": "05163a4b-512a-48b1-86c2-810077bc13d3",
+    "text": "Field categories include Input, Calculated, Dynamic, and System",
+    "timestamp": "2025-06-25T19:13:13.676826-07:00"
+  },
+  {
+    "id": "07cd532d-df21-49de-9a8e-e48b457dc680",
+    "text": "Completed Bravo-1 Directory Structure Cleanup on 2025-06-27",
+    "timestamp": "2025-06-25T00:50:06.859378-07:00"
+  },
+  {
+    "id": "09724b95-863d-4192-912a-f3c69353c3d3",
+    "text": "New workflow stores only raw PostgreSQL exports in S3",
+    "timestamp": "2025-06-28T05:13:32.121534-07:00"
+  },
+  {
+    "id": "0a826896-3461-4f04-acf6-920fcb6da148",
+    "text": "Implemented Calculation Engine v1.0.0 with separated concerns",
+    "timestamp": "2025-06-25T15:00:11.839310-07:00"
+  },
+  {
+    "id": "0ad72f63-d248-4618-bfb7-f89358d94985",
+    "text": "Export types include CampaignEntity, CampaignInput, CampaignUpdate, CampaignListItem, CampaignMetricsType, CampaignStatusType",
+    "timestamp": "2025-06-26T13:37:28.207337-07:00"
+  },
+  {
+    "id": "0aedbd72-0cbd-43b0-a6ca-d6fc67a23b36",
+    "text": "Views use complex SQL with CTEs and window functions",
+    "timestamp": "2025-06-21T22:27:35.720586-07:00"
+  },
+  {
+    "id": "0c508b19-3e31-4a39-bbe4-a18fe4a26629",
+    "text": "Integrated toolbar combining search/filters/active filters in one component",
+    "timestamp": "2025-06-25T13:00:16.669599-07:00"
+  },
+  {
+    "id": "0ca7aa16-654a-4955-8a36-e9b5f15bcbfa",
+    "text": "Enhanced MongoDB Guide with SQL mindset comparison, advanced patterns, troubleshooting, tools list from archived guides",
+    "timestamp": "2025-06-25T00:50:06.900550-07:00"
+  },
+  {
+    "id": "0d661960-f058-448f-8e94-36817f91e357",
+    "text": "Contains 238,463 documents extracted from PostgreSQL on 2025-06-18",
+    "timestamp": "2025-06-21T15:33:44.092664-07:00"
+  },
+  {
+    "id": "0dcd5e07-c4ed-4d80-957d-b48e18e44b38",
+    "text": "Contains specific questions for clarification",
+    "timestamp": "2025-06-26T13:11:38.476196-07:00"
+  },
+  {
+    "id": "0e7c434a-9f8d-486b-9fd9-366a54279c44",
+    "text": "Remaining entities need migration: strategies (13,417), line items (4,118), platform buys (56,020), media plans, platform entities (142,333), accounts (9,796), users (326)",
+    "timestamp": "2025-06-28T09:42:11.001218-07:00"
+  },
+  {
+    "id": "0f0711f2-08f1-4da7-a11d-8db79b745470",
+    "text": "Runs in Docker on port 5432",
+    "timestamp": "2025-06-21T15:42:10.043302-07:00"
+  },
+  {
+    "id": "0f0d7006-4f9e-4689-9ef7-67077e5f249d",
+    "text": "Missing elements include: full media buy implementation, platform integrations, reporting dashboards, and mobile support",
+    "timestamp": "2025-06-26T13:11:38.490757-07:00"
+  },
+  {
+    "id": "0fa13d2b-020f-4b14-8165-457eadde524b",
+    "text": "Contextual rules defined in roundingRules: YouTube+views uses DISPLAY_SUBCENT (3 decimals), Facebook+video uses 4 decimals",
+    "timestamp": "2025-06-25T16:34:49.524168-07:00"
+  },
+  {
+    "id": "0fd7af6d-36fc-425d-a064-b4e2bab4444c",
+    "text": "Implemented BigNumber.js for calculations",
+    "timestamp": "2025-06-25T09:43:29.781120-07:00"
+  },
+  {
+    "id": "10580af5-fa13-4cf6-9c34-b403df960ee5",
+    "text": "User data is embedded in team object (owner, leadAccountManager, mediaTrader)",
+    "timestamp": "2025-06-22T14:44:56.849227-07:00"
+  },
+  {
+    "id": "10dff467-86c6-493d-b112-b27c08ca283c",
+    "text": "Includes non-functional requirements such as performance, scalability, and security",
+    "timestamp": "2025-06-26T13:11:38.451314-07:00"
+  },
+  {
+    "id": "11d2f7a5-e691-4eae-9cac-47c875d67f50",
+    "text": "Organized export structure: exports/raw/, exports/transformed/, exports/temp/, exports/logs/",
+    "timestamp": "2025-06-22T00:06:02.694038-07:00"
+  },
+  {
+    "id": "120ff33a-bb0b-4a33-94b9-3173ba777ea3",
+    "text": "TypeScript files already use toISOString() which is always UTC",
+    "timestamp": "2025-06-21T23:37:31.468499-07:00"
+  },
+  {
+    "id": "1276cbe1-15e6-4447-8a5c-38938fbe30d2",
+    "text": "PostgreSQL to MongoDB migration for bravo-1",
+    "timestamp": "2025-06-21T22:27:14.575531-07:00"
+  },
+  {
+    "id": "12cac190-2228-4ff9-96f0-45811f12e0b0",
+    "text": "Created comprehensive ETL system for production data synchronization",
+    "timestamp": "2025-06-27T19:53:33.412187-07:00"
+  },
+  {
+    "id": "147854cd-8da4-4dad-b30e-ceffd775ec82",
+    "text": "Never batch multiple unrelated changes",
+    "timestamp": "2025-06-24T00:29:39.892814-07:00"
+  },
+  {
+    "id": "15cb029e-3004-4115-aec9-91400f10ea02",
+    "text": "RESTRUCTURE-INSTRUCTIONS.md removed as complete",
+    "timestamp": "2025-06-21T05:38:39.029034-07:00"
+  },
+  {
+    "id": "164079bd-74fc-4995-9d8d-dc4a074fdcd7",
+    "text": "IMPORTANT Git Commit Guidelines for bravo-1 project: Commit frequently with meaningful messages using conventional format (feat:, fix:, docs:, style:, refactor:, test:, chore:)",
+    "timestamp": "2025-06-24T00:29:39.833817-07:00"
+  },
+  {
+    "id": "16743c4e-bb68-4691-b2c0-cb54ca9a8742",
+    "text": "Working on Bravo-1 Campaign UI Updates",
+    "timestamp": "2025-06-24T16:06:59.321626-07:00"
+  },
+  {
+    "id": "16a43cd3-a14d-4afc-b265-fbce31b77db5",
+    "text": "handleMediaStrategy function checks budget allocation to determine if strategy exists",
+    "timestamp": "2025-06-24T16:06:59.386717-07:00"
+  },
+  {
+    "id": "1720e956-6ada-4849-a0b3-4540667f4e21",
+    "text": "Workaround handles Promise-based instances and forces grid refresh",
+    "timestamp": "2025-06-24T09:16:10.250345-07:00"
+  },
+  {
+    "id": "17e44372-c86a-401d-8ca4-de0593e418d6",
+    "text": "ag-grid-enterprise: v33.3.2",
+    "timestamp": "2025-06-24T14:22:02.581072-07:00"
+  },
+  {
+    "id": "18618998-774d-45f9-bbf7-066ed583bfbd",
+    "text": "API is now the only way to load data via /api/etl/import and bulk endpoints",
+    "timestamp": "2025-06-25T18:47:45.222965-07:00"
+  },
+  {
+    "id": "188bc0ab-7692-41df-995c-feaaa9ae1d74",
+    "text": "Uses separate collections for campaigns, strategies, lineItems (NOT embedded)",
+    "timestamp": "2025-06-21T05:36:40.733983-07:00"
+  },
+  {
+    "id": "190c30f8-097d-471f-a179-a06b71980571",
+    "text": "Enabled pre-commit hooks via trunk git-hooks sync",
+    "timestamp": "2025-06-26T12:28:21.861412-07:00"
+  },
+  {
+    "id": "19a0fd12-a0e4-4c34-af43-32f9c14ba245",
+    "text": "135 campaigns failed due to validation issues",
+    "timestamp": "2025-06-28T20:21:34.991093-07:00"
+  },
+  {
+    "id": "1a54efde-1bc6-4d79-ba5c-c607363f44aa",
+    "text": "This loads all 13,417 campaigns vs the 5 test campaigns from seed script",
+    "timestamp": "2025-06-21T15:34:01.964333-07:00"
+  },
+  {
+    "id": "1ce5a1ff-9bd4-4f27-b8e4-7e10d299d670",
+    "text": "Completed comprehensive schema design session on 2025-06-23 with Ryan's feedback",
+    "timestamp": "2025-06-23T12:22:58.927696-07:00"
+  },
+  {
+    "id": "1d6fca85-c64b-4c27-abad-5e0ecfdb559b",
+    "text": "load-data.ts loads transformed data back to MongoDB with automatic backup",
+    "timestamp": "2025-06-21T15:34:17.805666-07:00"
+  },
+  {
+    "id": "1d8d97af-930e-4aa3-ac41-04a4fff483bc",
+    "text": "Default policies: storage=6 decimals, display/api=2 decimals",
+    "timestamp": "2025-06-25T16:34:49.533940-07:00"
+  },
+  {
+    "id": "1da0857e-e783-4698-99ac-c22da970f0a8",
+    "text": "Export preserves all relationships",
+    "timestamp": "2025-06-21T16:10:50.368716-07:00"
+  },
+  {
+    "id": "1e7e4c43-0b1f-4d08-be00-200f8abdf22d",
+    "text": "Original calculationEngine export now uses the adapter, ensuring existing code continues working while new code can use calculationEngineV2 directly",
+    "timestamp": "2025-06-25T14:36:14.673504-07:00"
+  },
+  {
+    "id": "1e828b65-cf7f-4fea-80b1-f24be2e21432",
+    "text": "Ensures consistent timestamps regardless of server timezone (previously was BST/UTC+1)",
+    "timestamp": "2025-06-21T23:37:31.480230-07:00"
+  },
+  {
+    "id": "1e9eb925-f6fe-4890-9c4f-8863dd0a2070",
+    "text": "Widened columns: Category from 150px to 160px, Priority from 130px to 140px, Progress from 140px to 170px",
+    "timestamp": "2025-06-25T07:40:26.761182-07:00"
+  },
+  {
+    "id": "1ec8e6fe-5336-4392-bae3-fb27c8b8a1a4",
+    "text": "Warning: Do not run pipeline multiple times in production until fixed",
+    "timestamp": "2025-06-29T04:57:55.635424-07:00"
+  },
+  {
+    "id": "1ed43de4-f75a-4197-a8eb-74e1cc1e3156",
+    "text": "Key files include CLAUDE.md (AI assistant guidance), .gitignore (excludes all data directories), and docker-compose.yml (MongoDB container setup).",
+    "timestamp": "2025-06-22T14:44:12.844582-07:00"
+  },
+  {
+    "id": "1fbd8a9f-050f-493a-95fb-90163c40cf7b",
+    "text": "Never edit files in /media-tool/",
+    "timestamp": "2025-06-21T05:48:42.145444-07:00"
+  },
+  {
+    "id": "20c045d4-a1a0-447e-8044-19883fe2efa5",
+    "text": "Use new field names directly",
+    "timestamp": "2025-06-27T15:32:45.371116-07:00"
+  },
+  {
+    "id": "220ac2c0-9b6b-4c0f-9657-f3cbd183ec51",
+    "text": "Component shows filter conditions like 'Today-7d to Today' for date ranges",
+    "timestamp": "2025-06-24T12:44:13.543420-07:00"
+  },
+  {
+    "id": "225dd146-e086-4774-b2b8-b4ccf9b94588",
+    "text": "Created .prettierrc.json with single quotes and 100 char width",
+    "timestamp": "2025-06-26T13:35:51.860898-07:00"
+  },
+  {
+    "id": "2335ed9b-a011-455d-909f-916fdaf3fe10",
+    "text": "Archived outdated docs: KEY-DIFFERENCES.md, POSTGRESQL-VIEW-REQUIREMENTS.md, POSTGRES-MONGODB-COMPARISON.md",
+    "timestamp": "2025-06-25T00:50:06.885238-07:00"
+  },
+  {
+    "id": "246a2439-5acf-4759-89aa-918088bd25c7",
+    "text": "Removed empty directories: data-export/, data-transformed/, exports/",
+    "timestamp": "2025-06-27T17:07:11.548479-07:00"
+  },
+  {
+    "id": "24719dc2-6b2b-4cbd-8c1b-39ed7678be91",
+    "text": "Each campaign row has 'Init Strategy' or 'Edit Strategy' button",
+    "timestamp": "2025-06-24T16:06:59.366425-07:00"
+  },
+  {
+    "id": "24d8375e-3c90-419c-9a94-294b21efaa10",
+    "text": "Bravo-1 lint status after trunk setup: Auto-formatted 57 files",
+    "timestamp": "2025-06-26T13:36:38.704459-07:00"
+  },
+  {
+    "id": "256f4345-a25f-4823-a093-fdec37e2e956",
+    "text": "Recommended implementation tasks include replacing custom modals with HeadlessUI Dialog component, replacing theme toggle with HeadlessUI RadioGroup or Switch, using Combobox for searchable dropdowns, implementing Menu for dropdown menus, adding Disclosure for collapsible sections, and using Transition for smooth animations",
+    "timestamp": "2025-06-24T14:10:36.100010-07:00"
+  },
+  {
+    "id": "25c3e2fd-d41c-4fc7-bc40-2d76185a1519",
+    "text": "Remaining issues: 24 low-priority markdown warnings (MD040 fenced code blocks, MD024 duplicate headings, MD034 bare URLs)",
+    "timestamp": "2025-06-26T13:36:38.731835-07:00"
+  },
+  {
+    "id": "272091bf-c3be-46ee-9080-1418f3b420a4",
+    "text": "Current state includes 13,417 campaigns with real user data, transformation working, S3 uploads working but transformed data was empty, application connects successfully to MongoDB",
+    "timestamp": "2025-06-22T14:43:32.021863-07:00"
+  },
+  {
+    "id": "27613f07-53d9-445e-a9ee-a8bb3abea596",
+    "text": "Upgraded from zod 3.22.4 to 3.25.0 (includes Zod 4 via import from 'zod/v4')",
+    "timestamp": "2025-06-24T09:17:53.057913-07:00"
+  },
+  {
+    "id": "27e55123-2cf7-45d0-91ac-b11a7c66fa05",
+    "text": "Created clean top-level structure: backend/, data/, docs/, frontend/, scripts/, shared/, tests/",
+    "timestamp": "2025-06-27T17:07:11.527709-07:00"
+  },
+  {
+    "id": "27fec8aa-2252-4323-8190-e526d4644b15",
+    "text": "No dual-field support needed",
+    "timestamp": "2025-06-27T15:32:45.376910-07:00"
+  },
+  {
+    "id": "28de4443-253a-4845-a3c6-b1baa1cad323",
+    "text": "Fixed all documentation to use correct profile and bucket name",
+    "timestamp": "2025-06-22T05:26:27.094244-07:00"
+  },
+  {
+    "id": "29233438-7dba-4778-886e-16ff0e5701fd",
+    "text": "Using PostgreSQL as source for local media_tool database",
+    "timestamp": "2025-06-22T14:43:31.966410-07:00"
+  },
+  {
+    "id": "2928dc84-f2b0-4564-80a3-1e3d489246bd",
+    "text": "Created new setupGridStatePersistence function that saves filters, columns, sorting, and grouping to URL",
+    "timestamp": "2025-06-25T14:26:10.757155-07:00"
+  },
+  {
+    "id": "295774a5-b165-463a-95d0-b2479c8f5e9f",
+    "text": "All data now uses clean schema with no backward compatibility fields",
+    "timestamp": "2025-06-27T16:16:34.878193-07:00"
+  },
+  {
+    "id": "2a8ffe22-a22f-4d38-b3f2-83382f4a9476",
+    "text": "Version history needs type-safe snapshots to preserve financial precision",
+    "timestamp": "2025-06-25T09:43:29.812519-07:00"
+  },
+  {
+    "id": "2a96b0ba-64db-4ee4-a4cc-c13086589358",
+    "text": "ESLint configs in backend/.eslintrc.json and frontend/.eslintrc.json with strict TypeScript rules",
+    "timestamp": "2025-06-26T12:28:21.903820-07:00"
+  },
+  {
+    "id": "2aaa6809-c97e-4f55-bce9-b98205ab96d8",
+    "text": "Next steps include implementing LineItemService with calculation engine, creating bulk endpoints for line items, extending ETL import to handle strategies and line items, adding comprehensive calculation tests, and implementing logging for calculation audit trail",
+    "timestamp": "2025-06-25T19:13:41.462065-07:00"
+  },
+  {
+    "id": "2b094148-102c-411c-9e37-a50f433e15af",
+    "text": "Container name is bravo1_mongodb",
+    "timestamp": "2025-06-21T15:11:33.540288-07:00"
+  },
+  {
+    "id": "2b1eac02-237d-4242-a303-81aadcca215e",
+    "text": "AG Grid React Components Demo - Major UI/UX Improvements (December 2024)",
+    "timestamp": "2025-06-24T15:35:59.073439-07:00"
+  },
+  {
+    "id": "2b672d65-c721-4daa-81f1-300955301460",
+    "text": "Created raw export script in bravo-1/scripts/postgres-export/",
+    "timestamp": "2025-06-21T22:27:14.582819-07:00"
+  },
+  {
+    "id": "2cb0a68f-5cc3-484d-b76c-5d9d48aebe8e",
+    "text": "Campaigns page tested with Playwright",
+    "timestamp": "2025-06-21T15:12:34.002989-07:00"
+  },
+  {
+    "id": "2cc4934a-f9f0-4ca4-94d0-d2a84f0702dd",
+    "text": "Documentation created includes ETL-PRODUCTION-WORKFLOW.md and ETL-SYSTEM-DESIGN.md",
+    "timestamp": "2025-06-27T19:53:33.424507-07:00"
+  },
+  {
+    "id": "2d511124-3513-40a0-8137-d174a2fd7d42",
+    "text": "Campaign calculated fields include: budget.remaining, allocationPercentage, spendPercentage, pacing metrics",
+    "timestamp": "2025-06-25T18:50:55.973388-07:00"
+  },
+  {
+    "id": "2dfb77f3-519e-431a-839d-00b5a3ed1f2b",
+    "text": "PostgreSQL views analysis includes detailed_campaigns for denormalized data with calculated metrics",
+    "timestamp": "2025-06-21T22:27:35.693464-07:00"
+  },
+  {
+    "id": "2e60ee50-f15c-4278-83e4-276269fc8323",
+    "text": "Working on Bravo-1 Schema Implementation",
+    "timestamp": "2025-06-27T15:32:45.314381-07:00"
+  },
+  {
+    "id": "2f2781d0-6b06-49ba-89a7-b16b477ae7dd",
+    "text": "Technical implementation details include: Created calculateStats() helper function, Stats update on filterChanged and modelUpdated events, Fixed ActiveFilters to show filter type for date filters, Used correct filter types, Removed displayedRowCount state variable",
+    "timestamp": "2025-06-24T15:00:12.238277-07:00"
+  },
+  {
+    "id": "2f3b435f-00e5-440c-b160-6af5ae90f231",
+    "text": "PostgreSQL has real users linked via zoho_user_id to campaigns.owner_user_id",
+    "timestamp": "2025-06-21T22:28:19.669412-07:00"
+  },
+  {
+    "id": "2f49b387-6353-421c-95cf-7bcd785146db",
+    "text": "GitHub Issues to create for Bravo-1 from RYANS_WISH_LIST.md",
+    "timestamp": "2025-06-25T00:41:28.171285-07:00"
+  },
+  {
+    "id": "2ffae709-b425-4cfb-998c-dfd0baebf6f1",
+    "text": "Updated PIPELINE-TIMESTAMPED-EXPORTS.md documentation to explain UTC usage",
+    "timestamp": "2025-06-21T23:37:31.474049-07:00"
+  },
+  {
+    "id": "30446f67-175a-46b0-a3ef-ad87f17b167c",
+    "text": "Documented entities include Campaigns, Media Strategies, Line Items, Platform Buys, Media Plans, Platform Buy Daily Impressions, and Platform Buy Daily Videos",
+    "timestamp": "2025-06-25T19:13:13.634670-07:00"
+  },
+  {
+    "id": "30e63f88-6d64-4693-9ca0-46da369d76dd",
+    "text": "Seed script has been removed",
+    "timestamp": "2025-06-25T16:23:49.622750-07:00"
+  },
+  {
+    "id": "317bca08-9816-4943-a3d1-080333e206dc",
+    "text": "Created raw PostgreSQL export with 848,937 records (924MB)",
+    "timestamp": "2025-06-21T16:10:50.355902-07:00"
+  },
+  {
+    "id": "3181b535-0004-4a58-b9a3-fbd27f623b13",
+    "text": "Data was already migrated",
+    "timestamp": "2025-06-21T15:42:10.050449-07:00"
+  },
+  {
+    "id": "31ff7d46-883c-4e2e-a8d4-8230af84422d",
+    "text": "Turborepo Evaluation: Evaluate Turborepo for better monorepo management",
+    "timestamp": "2025-06-25T00:41:28.209011-07:00"
+  },
+  {
+    "id": "32fdab5a-61ce-488a-ab60-fcf79959881b",
+    "text": "Changed impressions to units with unitType field",
+    "timestamp": "2025-06-27T16:16:34.847569-07:00"
+  },
+  {
+    "id": "33e3e6c3-3c6a-4e76-bd7d-cf399e103b56",
+    "text": "Dark mode toggle present",
+    "timestamp": "2025-06-21T15:12:34.017579-07:00"
+  },
+  {
+    "id": "342d18ce-845d-4be8-8ae1-278525403f5a",
+    "text": "Modified files include src/utils/gridStateUtils.ts (new), src/index.ts, README.md, and demo",
+    "timestamp": "2025-06-25T14:26:10.774780-07:00"
+  }
+]

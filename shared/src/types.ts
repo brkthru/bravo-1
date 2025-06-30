@@ -10,18 +10,22 @@ export const TeamMemberSchema = z.object({
   name: z.string(),
   email: z.string().email(),
   avatar: z.string().optional(),
+  role: z.enum(['csd', 'account_manager', 'senior_media_trader', 'media_trader']).optional(),
 });
 export type TeamMember = z.infer<typeof TeamMemberSchema>;
 
 // Media Activity Schema
-export const MediaActivitySchema = z.enum(['None active', 'Some active', 'Pending']);
+export const MediaActivitySchema = z.enum(['None active', 'Some active', 'All active', 'Pending']);
 export type MediaActivity = z.infer<typeof MediaActivitySchema>;
 
-// Campaign Metrics Schema
+// Campaign Metrics Schema (UPDATED with new field names)
 export const CampaignMetricsSchema = z.object({
   deliveryPacing: z.number(),
   spendPacing: z.number(),
-  margin: z.number(),
+  marginAmount: z.number(), // NEW: Split margin field
+  marginPercentage: z.number(), // NEW: Split margin field
+  units: z.number(), // NEW: Changed from impressions
+  unitType: z.enum(['impressions', 'clicks', 'views', 'conversions']).default('impressions'),
   revenueDelivered: z.number(),
   budgetSpent: z.number(),
   marginActual: z.number(),
@@ -29,7 +33,13 @@ export const CampaignMetricsSchema = z.object({
 export type CampaignMetrics = z.infer<typeof CampaignMetricsSchema>;
 
 // User Role Schema
-export const UserRoleSchema = z.enum(['admin', 'account_director', 'account_manager', 'media_trader', 'viewer']);
+export const UserRoleSchema = z.enum([
+  'admin',
+  'account_director',
+  'account_manager',
+  'media_trader',
+  'viewer',
+]);
 export type UserRole = z.infer<typeof UserRoleSchema>;
 
 // User Schema
@@ -53,7 +63,7 @@ export const MediaPlanSchema = z.object({
   _id: z.string(),
   name: z.string(),
   platform: z.string(),
-  budget: z.number(),
+  budget: z.number(), // This is media budget, not campaign price
   cpcCost: z.number(),
   margin: z.number(),
   clicks: z.number(),
@@ -64,17 +74,26 @@ export const MediaPlanSchema = z.object({
 export type MediaPlan = z.infer<typeof MediaPlanSchema>;
 
 // Unit Type Schema
-export const UnitTypeSchema = z.enum(['impressions', 'clicks', 'conversions', 'video_views', 'completed_video_views', 'engagements', 'leads']);
+export const UnitTypeSchema = z.enum([
+  'impressions',
+  'clicks',
+  'conversions',
+  'video_views',
+  'completed_video_views',
+  'engagements',
+  'leads',
+]);
 export type UnitType = z.infer<typeof UnitTypeSchema>;
 
-// Line Item Schema
+// Line Item Schema (UPDATED)
 export const LineItemSchema = z.object({
   _id: z.string(),
   name: z.string(),
   status: z.enum(['active', 'paused', 'ended']),
   deliveryPacing: z.number(),
   spendPacing: z.number(),
-  margin: z.number(),
+  marginAmount: z.number(), // NEW: Split margin
+  marginPercentage: z.number(), // NEW: Split margin
   price: z.number(),
   channel: z.string(),
   tactic: z.string(),
@@ -91,7 +110,23 @@ export const LineItemSchema = z.object({
 });
 export type LineItem = z.infer<typeof LineItemSchema>;
 
-// Campaign Schema
+// Price Schema (NEW - replacing budget)
+export const PriceSchema = z.object({
+  targetAmount: z.number(),
+  actualAmount: z.number(),
+  remainingAmount: z.number(),
+  currency: z.string().default('USD'),
+});
+
+// Team Schema (UPDATED)
+export const TeamSchema = z.object({
+  accountManager: TeamMemberSchema.nullable().optional(),
+  csd: TeamMemberSchema.nullable().optional(),
+  seniorMediaTraders: z.array(TeamMemberSchema).default([]),
+  mediaTraders: z.array(TeamMemberSchema).default([]),
+});
+
+// Campaign Schema (UPDATED with new field names)
 export const CampaignSchema = z.object({
   _id: z.string(),
   campaignNumber: z.string(),
@@ -99,22 +134,14 @@ export const CampaignSchema = z.object({
   status: CampaignStatusSchema,
   displayStatus: z.string().optional(),
   accountName: z.string().optional(),
-  team: z.object({
-    leadAccountManager: TeamMemberSchema,
-    mediaTrader: TeamMemberSchema.optional(),
-  }),
+  team: TeamSchema,
   dates: z.object({
     start: z.date(),
     end: z.date(),
     daysElapsed: z.number(),
     totalDuration: z.number(),
   }),
-  budget: z.object({
-    total: z.number(),
-    allocated: z.number(),
-    spent: z.number(),
-    remaining: z.number(),
-  }),
+  price: PriceSchema, // NEW: Changed from budget
   metrics: CampaignMetricsSchema,
   mediaActivity: MediaActivitySchema,
   lineItems: z.array(LineItemSchema),
@@ -124,7 +151,7 @@ export const CampaignSchema = z.object({
 });
 export type Campaign = z.infer<typeof CampaignSchema>;
 
-// Campaign List Row (for AG-Grid)
+// Campaign List Row (for AG-Grid) - UPDATED
 export const CampaignListRowSchema = z.object({
   campaign_id: z.string(),
   campaignDetails: z.string(),
@@ -138,7 +165,7 @@ export const CampaignListRowSchema = z.object({
   deliveryPacing: z.number(),
   spendPacing: z.number(),
   revenueDelivered: z.number(),
-  budgetSpent: z.number(),
+  priceSpent: z.number(), // NEW: Changed from budgetSpent
   marginActual: z.number(),
 });
 export type CampaignListRow = z.infer<typeof CampaignListRowSchema>;
@@ -156,14 +183,16 @@ export const ApiErrorSchema = z.object({
 });
 
 export const ApiResponseSchema = z.union([ApiSuccessSchema, ApiErrorSchema]);
-export type ApiResponse<T = unknown> = {
-  success: true;
-  data: T;
-} | {
-  success: false;
-  error: string;
-  details?: string;
-};
+export type ApiResponse<T = unknown> =
+  | {
+      success: true;
+      data: T;
+    }
+  | {
+      success: false;
+      error: string;
+      details?: string;
+    };
 
 // Utility types
 export type CreateCampaignRequest = Omit<Campaign, '_id' | 'createdAt' | 'updatedAt'>;

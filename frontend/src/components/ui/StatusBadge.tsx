@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { CampaignStatus } from '@mediatool/shared';
+import { CampaignStatus } from '@bravo-1/shared';
 
 interface StatusBadgeProps {
   status: CampaignStatus | string;
@@ -9,7 +9,7 @@ interface StatusBadgeProps {
 
 const getStatusStyles = (status: string): string => {
   const normalizedStatus = status.toLowerCase();
-  
+
   if (normalizedStatus.includes('live')) {
     return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400';
   } else if (normalizedStatus.includes('scheduled')) {
@@ -27,7 +27,7 @@ const getStatusStyles = (status: string): string => {
   } else if (normalizedStatus === 'l3') {
     return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400';
   }
-  
+
   return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400';
 };
 

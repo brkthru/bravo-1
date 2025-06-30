@@ -1,0 +1,32 @@
+[
+  {
+    "text": "The bravo-1 project is a MongoDB-based media planning system migrated from PostgreSQL. It uses MongoDB running on localhost port 27017 with database name bravo-1"
+  },
+  {
+    "text": "Backend server runs on port 3001 using Express"
+  },
+  {
+    "text": "Frontend uses Vite and runs on port 5174"
+  },
+  {
+    "text": "ETL pipeline located at scripts/etl/run-full-etl-pipeline.ts has idempotency issues - running it multiple times creates duplicate entries for strategies, lineItems, platformBuys, and mediaPlans"
+  },
+  {
+    "text": "To run the ETL pipeline: bun run scripts/etl/run-full-etl-pipeline.ts"
+  },
+  {
+    "text": "Test data example"
+  },
+  {
+    "text": "The media-tool project uses PostgreSQL on port 5432"
+  },
+  {
+    "text": "Campaign validation fails for 135 records during ETL import"
+  },
+  {
+    "text": "MongoDB connection string: mongodb://localhost:27017/bravo-1"
+  },
+  {
+    "text": "Run npm install to install dependencies"
+  }
+]

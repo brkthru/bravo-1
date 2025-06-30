@@ -1,34 +1,64 @@
 # Bravo-1 Documentation Index
 
-## 📚 Active Documentation
+## 📚 Documentation Structure
 
-### Getting Started
+### 🚀 Getting Started
+
 - **[Main README](../README.md)** - Quick start guide and project overview
+- **[ARCHITECTURE.md](../ARCHITECTURE.md)** - System architecture and design decisions
 - **[CLAUDE.md](../CLAUDE.md)** - AI assistant guidelines and conventions
 
-### Database & Data
-- **[MongoDB Guide](./MONGODB-GUIDE.md)** - Query patterns, best practices, and common operations
-- **[MongoDB Schema Design](./MONGODB-SCHEMA-DESIGN.md)** - Architecture decisions
+### 🏗️ Architecture & Design
+
+- **[ADR 0019 - Financial Precision](./architecture/adr-0019-implementation.md)** - BigNumber.js implementation
+- **[MongoDB Schema Design](./architecture/MONGODB-SCHEMA-DESIGN.md)** - Database architecture decisions
+- **[Cloud Deployment Setup](./architecture/CLOUD-DEPLOYMENT-SETUP.md)** - AWS deployment architecture
+
+### 📖 Developer Guides
+
+- **[MongoDB Guide](./guides/MONGODB-GUIDE.md)** - Query patterns, tools, and best practices
+- **[API Documentation Guide](./guides/API-DOCUMENTATION.md)** - OpenAPI/Swagger setup
+- **[UI Components Guide](./guides/TAILWIND-UI-COMPONENTS.md)** - HeadlessUI + Tailwind patterns
+- **[Memory Optimization Guide](./guides/MCP-MEMORY-OPTIMIZATION-GUIDE.md)** - MCP memory management
+
+### 📋 Reference Documentation
+
+- **[Schema Reference](./reference/SCHEMA-REFERENCE.md)** - Complete schema documentation
+- **[Field Calculations](./reference/FIELD-CALCULATIONS-COMPREHENSIVE.md)** - Business logic formulas
+- **[Field Calculations (Simple)](./reference/FIELD-CALCULATIONS.md)** - Quick calculation reference
+- **[Calculation Feedback](./reference/FIELD-CALCULATIONS-COMPREHENSIVE RR Feedback.md)** - Review notes
+
+### 🔄 ETL & Data Pipeline
+
+- **[ETL System Design](./etl/ETL-SYSTEM-DESIGN.md)** - Overall ETL architecture
+- **[ETL Workflow](./etl/ETL-WORKFLOW.md)** - Step-by-step process
+- **[ETL Diagram](./etl/ETL-DIAGRAM.md)** - Visual representation
+- **[ETL Production Workflow](./etl/ETL-PRODUCTION-WORKFLOW.md)** - Production pipeline
+- **[ETL Pipeline Detailed](./etl/ETL-PIPELINE-DETAILED.md)** - Technical implementation
+- **[Timestamped Exports](./etl/PIPELINE-TIMESTAMPED-EXPORTS.md)** - Backup/restore process
+
+### 📝 Planning & Status
+
+- **[Requirements](./planning/REQUIREMENTS.md)** - Project requirements
+- **[Migration Status](./planning/MIGRATION-STATUS.md)** - Current migration progress
+- **[Schema Testing Plan](./planning/SCHEMA-TESTING-PLAN.md)** - Testing strategy
+- **[Schema Changes Implementation](./planning/SCHEMA-CHANGES-IMPLEMENTATION.md)** - Implementation plan
+- **[Documentation Audit](./planning/DOCUMENTATION-AUDIT.md)** - Recent cleanup (2025-06-25)
+
+### 🔗 Additional Resources
+
 - **[Current MongoDB State](./migration/CURRENT-MONGODB-STATE.md)** - Actual database structure
-- **[ETL Pipeline](./ETL-PIPELINE-DETAILED.md)** - Data transformation process
-
-### Deployment & Operations
-- **[Cloud Deployment Setup](./CLOUD-DEPLOYMENT-SETUP.md)** - AWS deployment guide
-- **[Pipeline Timestamped Exports](./PIPELINE-TIMESTAMPED-EXPORTS.md)** - Backup/restore process
-- **Production Pipeline Scripts:**
-  - [AWS S3 Setup](../scripts/production-pipeline/AWS-S3-SETUP.md)
-  - [Pipeline README](../scripts/production-pipeline/README.md)
-  - [New User Setup](../scripts/production-pipeline/SETUP-NEW-USER.md)
-
-### Development Resources
-- **[Test README](../tests/README.md)** - E2E testing guide
+- **[Versioning Analysis](./migration/VERSIONING-ANALYSIS-REPORT.md)** - Version control analysis
 - **[Demo Data](./development/DEMO-DATA.md)** - Sample data structure
-- **[Tailwind UI Components](./ui/TAILWIND-UI-COMPONENTS.md)** - Component library
+- **[Test Coverage Report](./development/TEST-COVERAGE-REPORT.md)** - Testing metrics
+- **[Test README](../tests/README.md)** - E2E testing guide
 
-### Architecture Analysis
-- **[PostgreSQL vs MongoDB Comparison](./POSTGRES-MONGODB-COMPARISON.md)**
-- **[PostgreSQL View Requirements](./POSTGRESQL-VIEW-REQUIREMENTS.md)**
-- **[Versioning Analysis](./migration/VERSIONING-ANALYSIS-REPORT.md)**
+### 📂 Script Documentation
+
+- **[ETL Scripts](../scripts/etl/README.md)** - ETL script documentation
+- **[Production Pipeline](../scripts/production-pipeline/README.md)** - Production pipeline guide
+- **[AWS S3 Setup](../scripts/production-pipeline/AWS-S3-SETUP.md)** - S3 configuration
+- **[New User Setup](../scripts/production-pipeline/SETUP-NEW-USER.md)** - Onboarding guide
 
 ## 🗄 Archived Documentation
 

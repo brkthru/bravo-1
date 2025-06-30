@@ -1,17 +1,21 @@
 # E2E Testing Guide
 
 ## Overview
+
 E2E tests use Playwright to test the full application with real data from a timestamped export.
 
 ## Test Data Setup
 
 ### Using Timestamped Export
+
 Tests use a specific timestamped export (`20250622-072326`) to ensure consistent results:
+
 - **Total Campaigns**: 13,417
 - **First Campaign**: "Aces Automotive Repair - Phoenix location 1" (CN-13999)
 - **Search Results**: Known campaigns for predictable search tests
 
 ### Loading Test Data
+
 Before running E2E tests, ensure the test data is loaded:
 
 ```bash
@@ -28,11 +32,13 @@ Before running E2E tests, ensure the test data is loaded:
 ## Running Tests
 
 ### Run All E2E Tests
+
 ```bash
 npx playwright test
 ```
 
 ### Run Specific Test File
+
 ```bash
 # Campaign tests
 npx playwright test tests/e2e/campaigns.spec.ts
@@ -42,11 +48,13 @@ npx playwright test tests/e2e/pagination.spec.ts
 ```
 
 ### Run in UI Mode (Interactive)
+
 ```bash
 npx playwright test --ui
 ```
 
 ### Run with Debug Mode
+
 ```bash
 npx playwright test --debug
 ```
@@ -54,12 +62,14 @@ npx playwright test --debug
 ## Test Structure
 
 ### Campaign Tests (`campaigns.spec.ts`)
+
 - Navigation and page structure
 - Campaign list display
 - Search functionality
 - Uses production data (not seed data)
 
 ### Pagination Tests (`pagination.spec.ts`)
+
 - Pagination controls display
 - Page navigation
 - Page size changes
@@ -69,12 +79,16 @@ npx playwright test --debug
 ## Troubleshooting
 
 ### Tests Failing with Wrong Data
+
 If tests are looking for the wrong campaigns:
+
 1. Run `./tests/e2e/setup/load-test-data.sh` to load correct data
-2. Verify MongoDB has 13,417 campaigns: `docker exec bravo1_mongodb mongosh mediatool_v2 --eval "db.campaigns.countDocuments()"`
+2. Verify MongoDB has 13,417 campaigns: `docker exec bravo1_mongodb mongosh bravo-1 --eval "db.campaigns.countDocuments()"`
 
 ### Connection Issues
+
 Ensure services are running:
+
 ```bash
 # Start MongoDB
 docker-compose up -d mongodb
@@ -89,6 +103,7 @@ cd frontend && npm run dev
 ## Adding New Tests
 
 When adding new E2E tests:
+
 1. Use data from `tests/e2e/setup/test-data.ts` for consistent values
 2. Add page objects for complex interactions
 3. Use appropriate timeouts for data loading

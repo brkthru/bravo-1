@@ -1,13 +1,13 @@
 import React from 'react';
-import { Campaign, formatCurrency, formatPercentage, formatDate } from '@mediatool/shared';
-import { 
-  CalendarDaysIcon, 
-  UserGroupIcon, 
+import { Campaign, formatCurrency, formatPercentage, formatDate } from '@bravo-1/shared';
+import {
+  CalendarDaysIcon,
+  UserGroupIcon,
   ChartBarIcon,
   CurrencyDollarIcon,
   ArrowTrendingUpIcon,
   SparklesIcon,
-  XMarkIcon
+  XMarkIcon,
 } from '@heroicons/react/24/outline';
 import StatusBadge from './ui/StatusBadge';
 import ProgressBar from './ui/ProgressBar';
@@ -21,8 +21,11 @@ export default function CampaignDetail({ campaign, onClose }: CampaignDetailProp
   return (
     <div className="fixed inset-0 z-50 overflow-hidden">
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 bg-gray-500 dark:bg-gray-900 bg-opacity-75 dark:bg-opacity-75 transition-opacity" onClick={onClose} />
-        
+        <div
+          className="absolute inset-0 bg-gray-500 dark:bg-gray-900 bg-opacity-75 dark:bg-opacity-75 transition-opacity"
+          onClick={onClose}
+        />
+
         <div className="fixed inset-y-0 right-0 pl-10 max-w-full flex">
           <div className="relative w-screen max-w-3xl">
             <div className="h-full flex flex-col bg-white dark:bg-gray-800 shadow-xl">
@@ -61,8 +64,8 @@ export default function CampaignDetail({ campaign, onClose }: CampaignDetailProp
                     <MetricCard
                       icon={CurrencyDollarIcon}
                       label="Total Budget"
-                      value={formatCurrency(campaign.budget.total)}
-                      subValue={`${formatCurrency(campaign.budget.spent)} spent`}
+                      value={formatCurrency(campaign.price.targetAmount)}
+                      subValue={`${formatCurrency(campaign.price.actualAmount)} spent`}
                       color="blue"
                     />
                     <MetricCard
@@ -131,22 +134,33 @@ export default function CampaignDetail({ campaign, onClose }: CampaignDetailProp
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
                         <span className="text-gray-500 dark:text-gray-400">Start Date</span>
-                        <span className="text-gray-900 dark:text-gray-100">{formatDate(campaign.dates.start)}</span>
+                        <span className="text-gray-900 dark:text-gray-100">
+                          {formatDate(campaign.dates.start)}
+                        </span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-500 dark:text-gray-400">End Date</span>
-                        <span className="text-gray-900 dark:text-gray-100">{formatDate(campaign.dates.end)}</span>
+                        <span className="text-gray-900 dark:text-gray-100">
+                          {formatDate(campaign.dates.end)}
+                        </span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-500 dark:text-gray-400">Duration</span>
-                        <span className="text-gray-900 dark:text-gray-100">{campaign.dates.totalDuration} days</span>
+                        <span className="text-gray-900 dark:text-gray-100">
+                          {campaign.dates.totalDuration} days
+                        </span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-500 dark:text-gray-400">Days Elapsed</span>
-                        <span className="text-gray-900 dark:text-gray-100">{campaign.dates.daysElapsed} days</span>
+                        <span className="text-gray-900 dark:text-gray-100">
+                          {campaign.dates.daysElapsed} days
+                        </span>
                       </div>
                       <div className="mt-2">
-                        <ProgressBar value={campaign.dates.daysElapsed / campaign.dates.totalDuration} showPercentage />
+                        <ProgressBar
+                          value={campaign.dates.daysElapsed / campaign.dates.totalDuration}
+                          showPercentage
+                        />
                       </div>
                     </div>
                   </div>
@@ -159,10 +173,15 @@ export default function CampaignDetail({ campaign, onClose }: CampaignDetailProp
                       </h3>
                       <div className="space-y-2">
                         {campaign.lineItems.map((item) => (
-                          <div key={item._id} className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
+                          <div
+                            key={item._id}
+                            className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4"
+                          >
                             <div className="flex items-center justify-between">
                               <div>
-                                <p className="text-sm font-medium text-gray-900 dark:text-white">{item.name}</p>
+                                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                                  {item.name}
+                                </p>
                                 <p className="text-xs text-gray-500 dark:text-gray-400">
                                   {item.channel} • {formatCurrency(item.price)}
                                 </p>
@@ -234,17 +253,19 @@ function MetricCard({ icon: Icon, label, value, subValue, progress, color }: any
 function TeamMember({ role, name, email, avatar }: any) {
   // Generate DiceBear avatar if none provided
   const fallbackAvatar = `https://api.dicebear.com/9.x/avataaars/svg?seed=${encodeURIComponent(name || 'default')}`;
-  
+
   return (
     <div className="flex items-center space-x-3">
-      <img 
-        className="h-10 w-10 rounded-full bg-gray-100" 
-        src={avatar || fallbackAvatar} 
-        alt={name} 
+      <img
+        className="h-10 w-10 rounded-full bg-gray-100"
+        src={avatar || fallbackAvatar}
+        alt={name}
       />
       <div>
         <p className="text-sm font-medium text-gray-900 dark:text-white">{name}</p>
-        <p className="text-xs text-gray-500 dark:text-gray-400">{role} • {email}</p>
+        <p className="text-xs text-gray-500 dark:text-gray-400">
+          {role} • {email}
+        </p>
       </div>
     </div>
   );

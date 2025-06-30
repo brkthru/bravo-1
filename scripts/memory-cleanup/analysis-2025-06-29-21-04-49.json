@@ -1,0 +1,79 @@
+{
+  "stats": {
+    "total": 10,
+    "byProject": {
+      "bravo-1": 6,
+      "unknown": 3,
+      "media-tool": 1
+    },
+    "byAction": {
+      "compact": 7,
+      "delete": 1,
+      "keep": 2
+    },
+    "charactersSaved": 370
+  },
+  "memories": [
+    {
+      "original": "The bravo-1 project is a MongoDB-based media planning system migrated from PostgreSQL. It uses MongoDB running on localhost port 27017 with database name bravo-1",
+      "processed": "[bravo-1] MongoDB localhost:27017 db:name",
+      "project": "bravo-1",
+      "action": "compact"
+    },
+    {
+      "original": "Backend server runs on port 3001 using Express",
+      "processed": "[bravo-1] 3001 Express",
+      "project": "bravo-1",
+      "action": "compact"
+    },
+    {
+      "original": "Frontend uses Vite and runs on port 5174",
+      "processed": "[bravo-1] Frontend Vite:5174",
+      "project": "bravo-1",
+      "action": "compact"
+    },
+    {
+      "original": "ETL pipeline located at scripts/etl/run-full-etl-pipeline.ts has idempotency issues - running it multiple times creates duplicate entries for strategies, lineItems, platformBuys, and mediaPlans",
+      "processed": "[bravo-1] ETL scripts/etl/run-full-etl-pipeline.ts",
+      "project": "bravo-1",
+      "action": "compact"
+    },
+    {
+      "original": "To run the ETL pipeline: bun run scripts/etl/run-full-etl-pipeline.ts",
+      "processed": "[bravo-1] ETL scripts/etl/run-full-etl-pipeline.ts",
+      "project": "bravo-1",
+      "action": "compact"
+    },
+    {
+      "original": "Test data example",
+      "processed": "",
+      "project": "unknown",
+      "action": "delete",
+      "reason": "Test data"
+    },
+    {
+      "original": "The media-tool project uses PostgreSQL on port 5432",
+      "processed": "[media-tool] 5432 PostgreSQL",
+      "project": "media-tool",
+      "action": "compact"
+    },
+    {
+      "original": "Campaign validation fails for 135 records during ETL import",
+      "processed": "Campaign validation fails for 135 records during ETL import",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "MongoDB connection string: mongodb://localhost:27017/bravo-1",
+      "processed": "[bravo-1] 27017 MongoDB mongodb",
+      "project": "bravo-1",
+      "action": "compact"
+    },
+    {
+      "original": "Run npm install to install dependencies",
+      "processed": "Run npm install to install dependencies",
+      "project": "unknown",
+      "action": "keep"
+    }
+  ]
+}

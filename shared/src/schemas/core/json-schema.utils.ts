@@ -13,7 +13,7 @@ export function toMongoDBJsonSchema(schema: z.ZodType<any, any>) {
 export function toOpenAPIJsonSchema(schema: z.ZodType<any, any>) {
   return z.toJSONSchema(schema, {
     target: 'draft-2020-12', // OpenAPI 3.1 uses draft 2020-12
-    unrepresentable: 'throw', // Strict for API documentation
+    unrepresentable: 'any', // Allow dates to be represented as strings
     cycles: 'ref',
   });
 }
@@ -21,7 +21,7 @@ export function toOpenAPIJsonSchema(schema: z.ZodType<any, any>) {
 // Example: Create MongoDB collection validator from Zod schema
 export function createMongoDBValidator(schema: z.ZodType<any, any>) {
   const jsonSchema = toMongoDBJsonSchema(schema);
-  
+
   return {
     $jsonSchema: {
       ...jsonSchema,
@@ -38,7 +38,7 @@ export function createOpenAPIComponent(
   description?: string
 ) {
   const jsonSchema = toOpenAPIJsonSchema(schema);
-  
+
   return {
     [name]: {
       ...jsonSchema,
@@ -49,14 +49,11 @@ export function createOpenAPIComponent(
 }
 
 // Helper to handle Decimal128 fields for MongoDB
-export function enhanceMongoDBSchemaWithDecimal128(
-  jsonSchema: any,
-  decimalFields: string[]
-): any {
+export function enhanceMongoDBSchemaWithDecimal128(jsonSchema: any, decimalFields: string[]): any {
   const enhanced = { ...jsonSchema };
-  
+
   if (enhanced.properties) {
-    decimalFields.forEach(field => {
+    decimalFields.forEach((field) => {
       if (enhanced.properties[field]) {
         enhanced.properties[field] = {
           ...enhanced.properties[field],
@@ -65,14 +62,14 @@ export function enhanceMongoDBSchemaWithDecimal128(
       }
     });
   }
-  
+
   return enhanced;
 }
 
 // Example usage for Campaign schema with Decimal128 fields
 export function createCampaignMongoDBValidator(campaignSchema: z.ZodType<any, any>) {
   const baseValidator = createMongoDBValidator(campaignSchema);
-  
+
   // Enhance with MongoDB Decimal128 types for financial fields
   const decimalFields = [
     'price',
@@ -84,11 +81,8 @@ export function createCampaignMongoDBValidator(campaignSchema: z.ZodType<any, an
     'agencyMarkupRateZoho',
     'priceZoho',
   ];
-  
+
   return {
-    $jsonSchema: enhanceMongoDBSchemaWithDecimal128(
-      baseValidator.$jsonSchema,
-      decimalFields
-    ),
+    $jsonSchema: enhanceMongoDBSchemaWithDecimal128(baseValidator.$jsonSchema, decimalFields),
   };
 }

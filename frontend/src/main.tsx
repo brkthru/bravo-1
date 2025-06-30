@@ -1,15 +1,15 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { provideGlobalGridOptions } from 'ag-grid-community'
-import App from './App.tsx'
-import './index.css'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
+import { AllEnterpriseModule } from 'ag-grid-enterprise';
+import App from './App.tsx';
+import './index.css';
 
-// Configure AG-Grid v33 to use legacy theme mode
-// This maintains compatibility with v32 CSS imports
-provideGlobalGridOptions({ theme: "legacy" });
+// Register AG-Grid modules
+ModuleRegistry.registerModules([AllCommunityModule, AllEnterpriseModule]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);

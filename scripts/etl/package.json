@@ -1,0 +1,20 @@
+{
+  "name": "bravo-1-etl",
+  "version": "1.0.0",
+  "description": "ETL scripts for Bravo-1 data pipeline",
+  "type": "module",
+  "scripts": {
+    "install": "bun install"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "inquirer": "^9.2.12",
+    "mongodb": "^6.3.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.0"
+  }
+}

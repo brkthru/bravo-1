@@ -1,0 +1,38 @@
+[
+  {
+    "text": "[bravo-1] MongoDB localhost:27017 db:name",
+    "project": "bravo-1"
+  },
+  {
+    "text": "[bravo-1] 3001 Express",
+    "project": "bravo-1"
+  },
+  {
+    "text": "[bravo-1] Frontend Vite:5174",
+    "project": "bravo-1"
+  },
+  {
+    "text": "[bravo-1] ETL scripts/etl/run-full-etl-pipeline.ts",
+    "project": "bravo-1"
+  },
+  {
+    "text": "[bravo-1] ETL scripts/etl/run-full-etl-pipeline.ts",
+    "project": "bravo-1"
+  },
+  {
+    "text": "[media-tool] 5432 PostgreSQL",
+    "project": "media-tool"
+  },
+  {
+    "text": "Campaign validation fails for 135 records during ETL import",
+    "project": "unknown"
+  },
+  {
+    "text": "[bravo-1] 27017 MongoDB mongodb",
+    "project": "bravo-1"
+  },
+  {
+    "text": "Run npm install to install dependencies",
+    "project": "unknown"
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "name": "memory-cleanup",
+  "version": "1.0.0",
+  "description": "Clean up and compact OpenMemory memories using Claude Code SDK",
+  "main": "compact-memories.ts",
+  "scripts": {
+    "analyze": "bun run compact-memories.ts",
+    "apply": "bun run compact-memories.ts --apply",
+    "filter": "bun run filter-project-memories.ts"
+  },
+  "dependencies": {
+    "@anthropic/claude-code-sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0"
+  }
+}

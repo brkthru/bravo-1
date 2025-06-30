@@ -9,7 +9,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { useUser } from '../contexts/UserContext';
 import { useQuery } from '@tanstack/react-query';
-import { User } from '@mediatool/shared';
+import { User } from '@bravo-1/shared';
 
 const avatarStyles = [
   { id: 'adventurer', name: 'Adventurer' },
@@ -62,7 +62,9 @@ export default function Settings() {
   const [profile, setProfile] = useState({
     name: currentUser?.name || 'Account Manager',
     email: currentUser?.email || 'account.manager@company.com',
-    role: currentUser?.role?.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) || 'Account Manager',
+    role:
+      currentUser?.role?.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()) ||
+      'Account Manager',
     manager: '',
     avatarStyle: 'avataaars',
     outOfOffice: false,
@@ -70,7 +72,7 @@ export default function Settings() {
     outOfOfficeEnd: '',
     backupPerson: '',
   });
-  
+
   // Fetch all users for manager/backup dropdowns
   const { data: usersData } = useQuery({
     queryKey: ['users'],
@@ -80,21 +82,25 @@ export default function Settings() {
       return response.json();
     },
   });
-  
-  const managers = usersData?.data?.filter((u: User) => 
-    u.role?.includes('senior') || u.role?.includes('director') || u.role?.includes('vp')
-  ) || [];
-  
+
+  const managers =
+    usersData?.data?.filter(
+      (u: User) =>
+        u.role?.includes('senior') || u.role?.includes('director') || u.role?.includes('vp')
+    ) || [];
+
   const allUsers = usersData?.data || [];
-  
+
   // Update profile when currentUser changes
   useEffect(() => {
     if (currentUser) {
-      setProfile(prev => ({
+      setProfile((prev) => ({
         ...prev,
         name: currentUser.name || prev.name,
         email: currentUser.email || prev.email,
-        role: currentUser.role?.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) || prev.role,
+        role:
+          currentUser.role?.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()) ||
+          prev.role,
       }));
     }
   }, [currentUser]);
@@ -113,7 +119,9 @@ export default function Settings() {
       <div className="md:grid md:grid-cols-3 md:gap-6">
         <div className="md:col-span-1">
           <div className="px-4 sm:px-0">
-            <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-white">Profile Settings</h3>
+            <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-white">
+              Profile Settings
+            </h3>
             <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
               Manage your personal information and preferences.
             </p>
@@ -135,7 +143,10 @@ export default function Settings() {
                     alt={profile.name}
                   />
                   <div className="flex-1">
-                    <label htmlFor="avatar-style" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <label
+                      htmlFor="avatar-style"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                    >
                       Avatar Style
                     </label>
                     <select
@@ -156,7 +167,10 @@ export default function Settings() {
 
               {/* Name */}
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
                   <UserCircleIcon className="inline h-5 w-5 mr-1" />
                   Full Name
                 </label>
@@ -171,7 +185,10 @@ export default function Settings() {
 
               {/* Email */}
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
                   Email Address
                 </label>
                 <input
@@ -185,7 +202,10 @@ export default function Settings() {
 
               {/* Role */}
               <div>
-                <label htmlFor="role" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label
+                  htmlFor="role"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
                   <BriefcaseIcon className="inline h-5 w-5 mr-1" />
                   Role
                 </label>
@@ -205,7 +225,10 @@ export default function Settings() {
 
               {/* Manager */}
               <div>
-                <label htmlFor="manager" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label
+                  htmlFor="manager"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
                   <UserGroupIcon className="inline h-5 w-5 mr-1" />
                   Manager
                 </label>
@@ -232,7 +255,9 @@ export default function Settings() {
       <div className="mt-10 md:grid md:grid-cols-3 md:gap-6">
         <div className="md:col-span-1">
           <div className="px-4 sm:px-0">
-            <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-white">Out of Office</h3>
+            <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-white">
+              Out of Office
+            </h3>
             <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
               Set your availability and assign a backup person.
             </p>
@@ -254,7 +279,10 @@ export default function Settings() {
                   />
                 </div>
                 <div className="ml-3 text-sm">
-                  <label htmlFor="out-of-office" className="font-medium text-gray-700 dark:text-gray-300">
+                  <label
+                    htmlFor="out-of-office"
+                    className="font-medium text-gray-700 dark:text-gray-300"
+                  >
                     Enable Out of Office
                   </label>
                   <p className="text-gray-500 dark:text-gray-400">
@@ -268,7 +296,10 @@ export default function Settings() {
                   {/* Date Range */}
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="start-date" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                      <label
+                        htmlFor="start-date"
+                        className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                      >
                         <CalendarDaysIcon className="inline h-5 w-5 mr-1" />
                         Start Date
                       </label>
@@ -276,12 +307,17 @@ export default function Settings() {
                         type="date"
                         id="start-date"
                         value={profile.outOfOfficeStart}
-                        onChange={(e) => setProfile({ ...profile, outOfOfficeStart: e.target.value })}
+                        onChange={(e) =>
+                          setProfile({ ...profile, outOfOfficeStart: e.target.value })
+                        }
                         className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm dark:bg-gray-700 dark:text-white"
                       />
                     </div>
                     <div>
-                      <label htmlFor="end-date" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                      <label
+                        htmlFor="end-date"
+                        className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                      >
                         <CalendarDaysIcon className="inline h-5 w-5 mr-1" />
                         End Date
                       </label>
@@ -297,7 +333,10 @@ export default function Settings() {
 
                   {/* Backup Person */}
                   <div>
-                    <label htmlFor="backup" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <label
+                      htmlFor="backup"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                    >
                       <UserGroupIcon className="inline h-5 w-5 mr-1" />
                       Backup Person
                     </label>

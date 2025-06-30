@@ -1,53 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-@import 'ag-grid-community/styles/ag-grid.css';
-@import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.ag-theme-alpine {
-  --ag-font-family: 'Inter', sans-serif;
-  --ag-font-size: 14px;
-  --ag-header-height: 48px;
-  --ag-row-height: 48px;
-  --ag-border-color: #e5e7eb;
-  --ag-header-background-color: #f9fafb;
-  --ag-odd-row-background-color: #ffffff;
-  --ag-even-row-background-color: #f9fafb;
-}
-
-.ag-theme-alpine-dark {
-  --ag-font-family: 'Inter', sans-serif;
-  --ag-font-size: 14px;
-  --ag-header-height: 48px;
-  --ag-row-height: 48px;
-  --ag-background-color: #1f2937;
-  --ag-foreground-color: #f3f4f6;
-  --ag-border-color: #374151;
-  --ag-header-background-color: #111827;
-  --ag-odd-row-background-color: #1f2937;
-  --ag-even-row-background-color: #111827;
-  --ag-header-foreground-color: #f3f4f6;
-  --ag-secondary-foreground-color: #9ca3af;
-  --ag-row-hover-color: #374151;
-  --ag-selected-row-background-color: #374151;
-}
 
 /* Custom utility classes */
 @layer components {
   .btn {
     @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2;
   }
-  
+
   .btn-primary {
     @apply btn text-white bg-primary-600 hover:bg-primary-700 focus:ring-primary-500;
   }
-  
+
   .btn-secondary {
     @apply btn text-gray-700 bg-white border-gray-300 hover:bg-gray-50 focus:ring-primary-500;
   }
-  
+
   .btn-danger {
     @apply btn text-white bg-danger-600 hover:bg-danger-700 focus:ring-danger-500;
   }
@@ -55,11 +25,11 @@
   .card {
     @apply bg-white overflow-hidden shadow rounded-lg;
   }
-  
+
   .card-header {
     @apply px-4 py-5 sm:px-6;
   }
-  
+
   .card-body {
     @apply px-4 py-5 sm:p-6;
   }

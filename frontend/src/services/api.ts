@@ -1,8 +1,13 @@
 import axios from 'axios';
-import { Campaign, ApiResponse, CreateCampaignRequest, UpdateCampaignRequest } from '@mediatool/shared';
+import {
+  Campaign,
+  ApiResponse,
+  CreateCampaignRequest,
+  UpdateCampaignRequest,
+} from '@bravo-1/shared';
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: '/api/v0',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
@@ -35,7 +40,11 @@ api.interceptors.response.use(
 
 export const campaignApi = {
   // Get all campaigns with pagination
-  getAll: async (search?: string, page: number = 1, limit: number = 50): Promise<{
+  getAll: async (
+    search?: string,
+    page: number = 1,
+    limit: number = 50
+  ): Promise<{
     campaigns: Campaign[];
     pagination: {
       page: number;
@@ -44,73 +53,75 @@ export const campaignApi = {
       limit: number;
     };
   }> => {
-    const response = await api.get<ApiResponse<Campaign[]> & {
-      pagination?: {
-        page: number;
-        totalPages: number;
-        total: number;
-        limit: number;
-      };
-    }>('/campaigns', {
+    const response = await api.get<
+      ApiResponse<Campaign[]> & {
+        pagination?: {
+          page: number;
+          totalPages: number;
+          total: number;
+          limit: number;
+        };
+      }
+    >('/campaigns', {
       params: {
         ...(search ? { search } : {}),
         page,
-        limit
-      }
+        limit,
+      },
     });
-    
+
     if (!response.data.success) {
       throw new Error(response.data.error);
     }
-    
+
     return {
       campaigns: response.data.data,
       pagination: response.data.pagination || {
         page: 1,
         totalPages: 1,
         total: response.data.data.length,
-        limit: limit
-      }
+        limit: limit,
+      },
     };
   },
 
   // Get campaign by ID
   getById: async (id: string): Promise<Campaign> => {
     const response = await api.get<ApiResponse<Campaign>>(`/campaigns/${id}`);
-    
+
     if (!response.data.success) {
       throw new Error(response.data.error);
     }
-    
+
     return response.data.data;
   },
 
   // Create new campaign
   create: async (campaign: CreateCampaignRequest): Promise<Campaign> => {
     const response = await api.post<ApiResponse<Campaign>>('/campaigns', campaign);
-    
+
     if (!response.data.success) {
       throw new Error(response.data.error);
     }
-    
+
     return response.data.data;
   },
 
   // Update campaign
   update: async (id: string, updates: UpdateCampaignRequest): Promise<Campaign> => {
     const response = await api.put<ApiResponse<Campaign>>(`/campaigns/${id}`, updates);
-    
+
     if (!response.data.success) {
       throw new Error(response.data.error);
     }
-    
+
     return response.data.data;
   },
 
   // Delete campaign
   delete: async (id: string): Promise<void> => {
     const response = await api.delete<ApiResponse<{ deleted: boolean }>>(`/campaigns/${id}`);
-    
+
     if (!response.data.success) {
       throw new Error(response.data.error);
     }

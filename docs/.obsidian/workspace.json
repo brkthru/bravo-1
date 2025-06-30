@@ -1,0 +1,177 @@
+{
+  "main": {
+    "id": "7f369ea59e633705",
+    "type": "split",
+    "children": [
+      {
+        "id": "370888061e39e94a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f15ab7dd4c043c52",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "FIELD-CALCULATIONS-COMPREHENSIVE RR Feedback.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "FIELD-CALCULATIONS-COMPREHENSIVE RR Feedback"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "9cf97b9b7dab13d0",
+    "type": "split",
+    "children": [
+      {
+        "id": "af16671bc959bb53",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d45857bbf694b259",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "cc5036c8ccb89c34",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "675292060106381b",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "25a9a8bcb59b6bc1",
+    "type": "split",
+    "children": [
+      {
+        "id": "9170f0c9eda82d08",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3e1079092044a3f2",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "FIELD-CALCULATIONS-COMPREHENSIVE RR Feedback.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for FIELD-CALCULATIONS-COMPREHENSIVE RR Feedback"
+            }
+          },
+          {
+            "id": "a4fd3a65a6d40865",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "FIELD-CALCULATIONS-COMPREHENSIVE RR Feedback.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from FIELD-CALCULATIONS-COMPREHENSIVE RR Feedback"
+            }
+          },
+          {
+            "id": "e1c02f8a61389076",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "5416c8368ea25b7f",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "FIELD-CALCULATIONS-COMPREHENSIVE RR Feedback.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of FIELD-CALCULATIONS-COMPREHENSIVE RR Feedback"
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "f15ab7dd4c043c52",
+  "lastOpenFiles": [
+    "FIELD-CALCULATIONS-COMPREHENSIVE.md",
+    "FIELD-CALCULATIONS-COMPREHENSIVE RR Feedback.md",
+    "REQUIREMENTS.md"
+  ]
+}

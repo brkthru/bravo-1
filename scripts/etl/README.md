@@ -1,193 +1,181 @@
-# MongoDB ETL Process
+# Bravo-1 ETL Pipeline
 
-This directory contains scripts for extracting, transforming, and loading MongoDB data. 
+This directory contains the unified ETL (Extract, Transform, Load) pipeline for migrating data from PostgreSQL to MongoDB.
 
-**IMPORTANT**: These scripts work with data already in MongoDB (`mediatool_v2` database). They do NOT pull from PostgreSQL. For PostgreSQL exports, see `/scripts/postgres-export/`.
+## 🚀 Quick Start
 
-This process is useful for:
-- Transforming MongoDB data from normalized to denormalized structure
-- Creating embedded document structures for performance
-- Testing different MongoDB schema designs
-- Backing up and restoring MongoDB data
-
-## Prerequisites
-
-- MongoDB running locally on port 27017
-- Database name: `mediatool_v2`
-- Bun runtime installed
-
-## Data Flow
-
-```
-MongoDB (mediatool_v2) → Extract → ./data-export/ → Transform → ./data-transformed/ → Load → MongoDB (mediatool_v2)
-```
-
-## ETL Scripts
-
-### 1. Extract (`extract-data.ts`)
-**Source**: MongoDB database `mediatool_v2`  
-**Output**: JSON files in `./data-export/`
-
-Extracts data from MongoDB collections:
-- `campaigns_backup` - 13,417 campaigns (from previous migration)
-- `lineItems` - Line item data
-- `strategies` - Strategy data
-- `mediaBuys` - Media buy data
-- `platformEntities` - Platform entity data (largest: 695MB)
-- And more...
-
-### 2. Transform (`transform-data.ts`)
-**Source**: JSON files in `./data-export/`  
-**Output**: JSON files in `./data-transformed/`
-
-Transforms the extracted data to denormalized MongoDB structure:
-- Embeds strategies and line items within campaigns
-- Calculates budgets from line items
-- Enriches data with channel/tactic names
-- Creates the denormalized structure for performance
-
-Creates: `campaigns.json` with embedded documents
-
-### 3. Load (`load-data.ts`)
-**Source**: JSON files in `./data-transformed/`  
-**Target**: MongoDB `mediatool_v2` database, `campaigns` collection
-
-Loads the transformed data back into MongoDB:
-- Backs up current campaigns collection (timestamped)
-- Clears existing campaigns collection
-- Loads transformed denormalized data
-- Creates necessary indexes
-
-## Usage
-
-### Run Complete ETL Process
 ```bash
-bun run scripts/etl/run-etl.ts
+# Run complete ETL with latest export
+bun etl-pipeline.ts --clean --verify
+
+# Interactive mode (recommended for first-time users)
+./quick-start-etl.sh
 ```
 
-### Run Individual Steps
+## 📋 Main Scripts
+
+### `etl-pipeline.ts` - Unified ETL Pipeline
+
+The **SINGLE** source of truth for all ETL operations. Handles extract, transform, and load for all PostgreSQL → MongoDB migrations.
+
 ```bash
-# Extract only
-bun run scripts/etl/run-etl.ts extract
+# Full ETL with clean start
+bun etl-pipeline.ts --clean --verify
 
-# Transform only
-bun run scripts/etl/run-etl.ts transform
+# ETL without cleaning existing data
+bun etl-pipeline.ts --verify
 
-# Load only
-bun run scripts/etl/run-etl.ts load
+# Use specific export date
+bun etl-pipeline.ts --export=20250628 --verify
 ```
 
-### Direct Script Execution
+### `quick-start-etl.sh` - Interactive ETL Runner
+
+User-friendly interface for running ETL operations with prompts and validations.
+
+## 📊 Data Flow
+
+1. **Clean** (optional): Drop existing MongoDB databases
+2. **Extract**: Use PostgreSQL export from `exports/raw/YYYYMMDD-HHMMSS/`
+3. **Transform**: Convert to MongoDB schema with:
+   - ObjectId generation
+   - Media trader aggregation from line items
+   - Field name conversions (snake_case → camelCase)
+   - Status mappings and calculations
+4. **Load**: Batch insert into MongoDB collections
+5. **Verify** (optional): Validate data integrity
+
+## 🗄️ Collections Loaded
+
+### Core Collections
+
+- **accounts**: 9,861 documents - Customer accounts
+- **campaigns**: 13,498 documents - Media campaigns (with aggregated media traders)
+- **strategies**: 13,498 documents - Campaign strategies
+- **lineItems**: 4,251 documents - Line items with media trader assignments
+
+### Media Planning
+
+- **lineItemMediaBuys**: 5,802 documents - Planned media buys
+- **mediaBuys**: 56,339 documents - Actual media buy records
+- **mediaPlatformEntities**: 143,313 documents - Platform-specific entities
+
+### Reference Data
+
+- **zohoUsers**: 327 documents - User data from Zoho CRM
+- **mediaPlatforms**: 24 documents - Platform definitions (Facebook, Google DV360, etc.)
+- **channels**: 7 documents - Media channels
+- **tactics**: 36 documents - Media tactics
+- **teams**: 88 documents - Team structures
+
+**Total**: ~247,000 documents
+
+### Performance Metrics (when available in export)
+
+- **platformBuyDailyImpressions**: Daily impression metrics by platform
+- **platformBuyDailyVideos**: Daily video metrics by platform
+
+### Additional Collections (separate scripts)
+
+- **bravoUsers**: Application users with enhanced features (run `setup-bravo-users.ts`)
+
+## 🔧 Configuration
+
+The pipeline automatically:
+
+- Detects latest export or uses specified date
+- Connects to MongoDB at `mongodb://localhost:27017/bravo-1`
+- Handles media trader aggregation from line items to campaigns
+- Ensures consistent ObjectId formatting
+
+## 🏗️ Architecture Principles
+
+1. **Single Pipeline**: One script (`etl-pipeline.ts`) handles all ETL operations
+2. **Idempotent**: Can be run multiple times safely
+3. **Configurable**: Command-line options for different scenarios
+4. **Verifiable**: Built-in data verification
+5. **Fast**: Batch processing, completes in ~30 seconds
+
+## 📝 Common Tasks
+
+### Fresh Start (Development)
+
 ```bash
-# Extract data
-bun scripts/etl/extract-data.ts
-
-# Transform data
-bun scripts/etl/transform-data.ts
-
-# Load data
-bun scripts/etl/load-data.ts
+bun etl-pipeline.ts --clean --verify
 ```
 
-## Output Structure
+### Update Existing Data
 
-### After Extract
-```
-./data-export/
-├── campaigns_backup.json      # Main campaign data
-├── lineItems.json            # Line item data
-├── strategies.json           # Strategy data
-├── extraction-summary.json   # Summary of extraction
-└── ... (other collections)
-```
-
-### After Transform
-```
-./data-transformed/
-├── campaigns.json              # Transformed campaign data
-└── transformation-summary.json # Summary of transformation
-```
-
-## Data Storage Options
-
-### Option 1: Check into Git (for demo/test data)
-If the data is small and non-sensitive:
 ```bash
-# Add to git
-git add data-export/
-git add data-transformed/
-git commit -m "Add demo data export"
+bun etl-pipeline.ts --verify
 ```
 
-### Option 2: Secure External Storage
-For production data:
-1. Compress the data:
-   ```bash
-   tar -czf mongodb-backup-$(date +%Y%m%d).tar.gz data-export/
-   ```
+### Use Specific Export
 
-2. Store in secure location:
-   - AWS S3 with encryption
-   - Google Cloud Storage
-   - Secure file server
+```bash
+bun etl-pipeline.ts --export=20250628 --verify
+```
 
-3. Create import script:
-   ```bash
-   # Download and extract
-   curl -O https://secure-storage/mongodb-backup.tar.gz
-   tar -xzf mongodb-backup.tar.gz
-   
-   # Run transform and load
-   bun run scripts/etl/run-etl.ts transform
-   bun run scripts/etl/run-etl.ts load
-   ```
+### Interactive Mode
 
-## Important Distinction: MongoDB ETL vs PostgreSQL Export
+```bash
+./quick-start-etl.sh
+```
 
-### This ETL Pipeline:
-- Works with data ALREADY in MongoDB
-- Located in: `/scripts/etl/`
-- Source: MongoDB `mediatool_v2` database
-- Purpose: Transform MongoDB data structure (normalize → denormalize)
+## 🔄 Field Mappings
 
-### PostgreSQL Export:
-- Exports directly from PostgreSQL database
-- Located in: `/scripts/postgres-export/`
-- Source: PostgreSQL `media_tool` database
-- Purpose: Create fresh backup from original PostgreSQL data
+| PostgreSQL Field             | MongoDB Field         | Notes                      |
+| ---------------------------- | --------------------- | -------------------------- |
+| `id`                         | `campaignId`          | Original ID preserved      |
+| `_id`                        | ObjectId              | New MongoDB ObjectId       |
+| `campaign_number`            | `campaignNumber`      | e.g., "CN-20"              |
+| `campaign_name`              | `name`                |                            |
+| `budget`                     | `price.targetAmount`  | New structure              |
+| `stage`                      | `status`              | Mapped to L1/L2/L3         |
+| `lead_account_owner_user_id` | `team.accountManager` | User object                |
+| `media_trader_user_ids`      | `team.mediaTraders`   | Aggregated from line items |
 
-## Restoring from Backup
+## 🚨 Important Notes
 
-To restore data from a backup:
+1. **Media Traders**: Aggregated from line items, not stored at campaign level in PostgreSQL
+2. **ObjectIds**: All `_id` fields use proper MongoDB ObjectId format
+3. **Backups**: Previous data is backed up before loading new data
+4. **Idempotent**: Safe to run multiple times - clears collections before loading
 
-1. Place the backup files in `./data-export/`
-2. Run transform: `bun run scripts/etl/run-etl.ts transform`
-3. Run load: `bun run scripts/etl/run-etl.ts load`
+## 🗂️ Archived Scripts
 
-## Safety Features
+Older ETL scripts have been archived to `archive/` directory. The unified pipeline replaces:
 
-- Current campaigns are automatically backed up before loading new data
-- Backup collections are named with timestamps
-- All operations are logged with summaries
-- Indexes are automatically created after loading
+- Multiple transform scripts (`transform-postgres-data.ts`, `transform-postgres-with-traders.ts`, etc.)
+- Separate load scripts (`load-data.ts`, `load-campaigns-with-traders.ts`, etc.)
+- Various test and migration utilities
 
-## Troubleshooting
+Use `etl-pipeline.ts` for all ETL operations going forward.
 
-### MongoDB Connection Issues
-- Ensure MongoDB is running: `mongod`
-- Check connection string in scripts
-- Verify database name is `mediatool_v2`
+## 🔍 Troubleshooting
 
-### Missing Data Files
-- Run extract first: `bun run scripts/etl/run-etl.ts extract`
-- Check file paths in `data-export/` and `data-transformed/`
+### MongoDB Connection Failed
 
-### Memory Issues with Large Collections
-- The scripts handle large collections in batches
-- Adjust `batchSize` in scripts if needed
+```bash
+# Check MongoDB is running
+docker ps | grep mongo
+# or
+mongosh bravo-1 --eval "db.campaigns.countDocuments()"
+```
 
-## Notes
+### Export Not Found
 
-- The ETL process preserves all original data
-- Transformation is idempotent (can be run multiple times)
-- Always backup before loading new data
+```bash
+# List available exports
+ls -la ../../exports/raw/
+```
+
+### Out of Memory
+
+The pipeline processes large collections in batches (1000 documents). If you encounter memory issues, the batch size can be adjusted in `etl-pipeline.ts`.
+
+## 📚 Related Documentation
+
+- [`/docs/ETL-PRODUCTION-WORKFLOW.md`](../../docs/ETL-PRODUCTION-WORKFLOW.md) - Production ETL guide
+- [`/docs/ETL-DIAGRAM.md`](../../docs/ETL-DIAGRAM.md) - Visual ETL flow
+- [`ETL-SUMMARY.md`](./ETL-SUMMARY.md) - Latest ETL run summary

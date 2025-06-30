@@ -1,0 +1,573 @@
+{
+  "stats": {
+    "total": 92,
+    "byProject": {
+      "media-tool": 2,
+      "unknown": 81,
+      "bravo-1": 9
+    },
+    "byAction": {
+      "keep": 55,
+      "compact": 34,
+      "delete": 3
+    },
+    "charactersSaved": 2087
+  },
+  "memories": [
+    {
+      "original": "AWS Profile: brkthru-mediatool-dev (NOT prod)",
+      "processed": "AWS Profile: brkthru-mediatool-dev (NOT prod)",
+      "project": "media-tool",
+      "action": "keep"
+    },
+    {
+      "original": "Commit after each logical unit of work",
+      "processed": "Commit after each logical unit of work",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Platform buys (56,020), media plans, and platform entities (142,333) not yet migrated",
+      "processed": "Platform (56,020), platform entities (142,333) migrated",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Benefits include no duplicate business logic, versioned calculations, consistent validation, complete audit trail, and bulk operations support up to 1000 records per request",
+      "processed": "Benefits duplicate business versioned calculations, consistent validation, complete operations 1000",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "All calculated fields include metadata: value, calculationVersion, calculatedAt, context, formula",
+      "processed": "All calculated fields include metadata: value, calculationVersion, calculatedAt, context, formula",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Updated .gitignore to ignore entire data/ directory",
+      "processed": "Updated .gitignore to ignore entire data/ directory",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Master scripts created include run-production-etl.ts, quick-start-etl.sh, detect-schema-changes.ts, migrate-mongo-database.ts",
+      "processed": "Master scripts created include run-production-etl.ts, quick-start-etl.sh, detect-schema-changes.ts, migrate-mongo-database.ts",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Current improvements include adding ActiveFilters tab, fixing result count, redesigning toolbar layout, creating Priority pill renderer, fixing Status column total, adding Remaining column, adding stats UI blocks, and updating dev docs",
+      "processed": "",
+      "project": "unknown",
+      "action": "delete",
+      "reason": "Test data"
+    },
+    {
+      "original": "This is the canonical PostgreSQL backup that should be used for transformations",
+      "processed": "PostgreSQL",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Field categories include Input, Calculated, Dynamic, and System",
+      "processed": "Field categories include Input, Calculated, Dynamic, and System",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Completed Bravo-1 Directory Structure Cleanup on 2025-06-27",
+      "processed": "Completed Bravo-1 Directory Structure Cleanup on 2025-06-27",
+      "project": "bravo-1",
+      "action": "keep"
+    },
+    {
+      "original": "New workflow stores only raw PostgreSQL exports in S3",
+      "processed": "PostgreSQL",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Implemented Calculation Engine v1.0.0 with separated concerns",
+      "processed": "Implemented Calculation Engine v1.0.0 with separated concerns",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Export types include CampaignEntity, CampaignInput, CampaignUpdate, CampaignListItem, CampaignMetricsType, CampaignStatusType",
+      "processed": "Export types include CampaignEntity, CampaignInput, CampaignUpdate, CampaignListItem, CampaignMetricsType, CampaignStatusType",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Views use complex SQL with CTEs and window functions",
+      "processed": "Views use complex SQL with CTEs and window functions",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Integrated toolbar combining search/filters/active filters in one component",
+      "processed": "",
+      "project": "unknown",
+      "action": "delete",
+      "reason": "Test data"
+    },
+    {
+      "original": "Enhanced MongoDB Guide with SQL mindset comparison, advanced patterns, troubleshooting, tools list from archived guides",
+      "processed": "MongoDB",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Contains 238,463 documents extracted from PostgreSQL on 2025-06-18",
+      "processed": "PostgreSQL",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Contains specific questions for clarification",
+      "processed": "Contains specific questions for clarification",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Remaining entities need migration: strategies (13,417), line items (4,118), platform buys (56,020), media plans, platform entities (142,333), accounts (9,796), users (326)",
+      "processed": "Remaining entities migration: strategies (13,417), (4,118), platform (56,020), platform entities (142,333), accounts (9,796), (326)",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Runs in Docker on port 5432",
+      "processed": "5432 Docker",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Missing elements include: full media buy implementation, platform integrations, reporting dashboards, and mobile support",
+      "processed": "Missing elements include: implementation, platform integrations, reporting dashboards,",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Contextual rules defined in roundingRules: YouTube+views uses DISPLAY_SUBCENT (3 decimals), Facebook+video uses 4 decimals",
+      "processed": "Contextual roundingRules: YouTube+views DISPLAY_SUBCENT (3 decimals), Facebook+video 4 decimals",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Implemented BigNumber.js for calculations",
+      "processed": "Implemented BigNumber.js for calculations",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "User data is embedded in team object (owner, leadAccountManager, mediaTrader)",
+      "processed": "User data is embedded in team object (owner, leadAccountManager, mediaTrader)",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Includes non-functional requirements such as performance, scalability, and security",
+      "processed": "Includes non-functional requirements such as performance, scalability, and security",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Organized export structure: exports/raw/, exports/transformed/, exports/temp/, exports/logs/",
+      "processed": "Organized export structure: exports/raw/, exports/transformed/, exports/temp/, exports/logs/",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "TypeScript files already use toISOString() which is always UTC",
+      "processed": "TypeScript",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "PostgreSQL to MongoDB migration for bravo-1",
+      "processed": "[bravo-1] PostgreSQL MongoDB",
+      "project": "bravo-1",
+      "action": "compact"
+    },
+    {
+      "original": "Created comprehensive ETL system for production data synchronization",
+      "processed": "Created comprehensive ETL system for production data synchronization",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Never batch multiple unrelated changes",
+      "processed": "Never batch multiple unrelated changes",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "RESTRUCTURE-INSTRUCTIONS.md removed as complete",
+      "processed": "RESTRUCTURE-INSTRUCTIONS.md removed as complete",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "IMPORTANT Git Commit Guidelines for bravo-1 project: Commit frequently with meaningful messages using conventional format (feat:, fix:, docs:, style:, refactor:, test:, chore:)",
+      "processed": "[bravo-1] [bravo-1] IMPORTANT Git Commit Guidelines bravo-1 project: Commit frequently meaningful messages conventional refactor:,",
+      "project": "bravo-1",
+      "action": "compact"
+    },
+    {
+      "original": "Working on Bravo-1 Campaign UI Updates",
+      "processed": "Working on Bravo-1 Campaign UI Updates",
+      "project": "bravo-1",
+      "action": "keep"
+    },
+    {
+      "original": "handleMediaStrategy function checks budget allocation to determine if strategy exists",
+      "processed": "handleMediaStrategy function checks budget allocation to determine if strategy exists",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Workaround handles Promise-based instances and forces grid refresh",
+      "processed": "Workaround handles Promise-based instances and forces grid refresh",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "ag-grid-enterprise: v33.3.2",
+      "processed": "ag-grid-enterprise: v33.3.2",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "API is now the only way to load data via /api/etl/import and bulk endpoints",
+      "processed": "API is now the only way to load data via /api/etl/import and bulk endpoints",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Uses separate collections for campaigns, strategies, lineItems (NOT embedded)",
+      "processed": "Uses separate collections for campaigns, strategies, lineItems (NOT embedded)",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Enabled pre-commit hooks via trunk git-hooks sync",
+      "processed": "Enabled pre-commit hooks via trunk git-hooks sync",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "135 campaigns failed due to validation issues",
+      "processed": "135 campaigns failed due to validation issues",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "This loads all 13,417 campaigns vs the 5 test campaigns from seed script",
+      "processed": "This 13,417 campaigns 5 campaigns",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Completed comprehensive schema design session on 2025-06-23 with Ryan's feedback",
+      "processed": "Completed comprehensive schema design session on 2025-06-23 with Ryan's feedback",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "load-data.ts loads transformed data back to MongoDB with automatic backup",
+      "processed": "MongoDB",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Default policies: storage=6 decimals, display/api=2 decimals",
+      "processed": "Default policies: storage=6 decimals, display/api=2 decimals",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Export preserves all relationships",
+      "processed": "Export preserves all relationships",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Original calculationEngine export now uses the adapter, ensuring existing code continues working while new code can use calculationEngineV2 directly",
+      "processed": "Original calculationEngine adapter, ensuring existing continues calculationEngineV2 directly",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Ensures consistent timestamps regardless of server timezone (previously was BST/UTC+1)",
+      "processed": "Ensures consistent timestamps regardless of server timezone (previously was BST/UTC+1)",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Widened columns: Category from 150px to 160px, Priority from 130px to 140px, Progress from 140px to 170px",
+      "processed": "Widened columns: Category 150px 160px, Priority 130px 140px, Progress 140px 170px",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Warning: Do not run pipeline multiple times in production until fixed",
+      "processed": "Warning: Do pipeline multiple production",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Key files include CLAUDE.md (AI assistant guidance), .gitignore (excludes all data directories), and docker-compose.yml (MongoDB container setup).",
+      "processed": "docker MongoDB",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Never edit files in /media-tool/",
+      "processed": "Never edit files in /media-tool/",
+      "project": "media-tool",
+      "action": "keep"
+    },
+    {
+      "original": "Use new field names directly",
+      "processed": "Use new field names directly",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Component shows filter conditions like 'Today-7d to Today' for date ranges",
+      "processed": "Component conditions 'Today-7d Today'",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Created .prettierrc.json with single quotes and 100 char width",
+      "processed": "Created .prettierrc.json with single quotes and 100 char width",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Archived outdated docs: KEY-DIFFERENCES.md, POSTGRESQL-VIEW-REQUIREMENTS.md, POSTGRES-MONGODB-COMPARISON.md",
+      "processed": "POSTGRESQL MONGODB",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Removed empty directories: data-export/, data-transformed/, exports/",
+      "processed": "Removed empty directories: data-export/, data-transformed/, exports/",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Each campaign row has 'Init Strategy' or 'Edit Strategy' button",
+      "processed": "Each campaign row has 'Init Strategy' or 'Edit Strategy' button",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Bravo-1 lint status after trunk setup: Auto-formatted 57 files",
+      "processed": "Bravo-1 lint status after trunk setup: Auto-formatted 57 files",
+      "project": "bravo-1",
+      "action": "keep"
+    },
+    {
+      "original": "Recommended implementation tasks include replacing custom modals with HeadlessUI Dialog component, replacing theme toggle with HeadlessUI RadioGroup or Switch, using Combobox for searchable dropdowns, implementing Menu for dropdown menus, adding Disclosure for collapsible sections, and using Transition for smooth animations",
+      "processed": "Recommended implementation replacing HeadlessUI Dialog component, replacing HeadlessUI RadioGroup Switch, Combobox searchable dropdowns, implementing Menu dropdown Disclosure collapsible sections, Transition animations",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Remaining issues: 24 low-priority markdown warnings (MD040 fenced code blocks, MD024 duplicate headings, MD034 bare URLs)",
+      "processed": "",
+      "project": "unknown",
+      "action": "delete",
+      "reason": "Test data"
+    },
+    {
+      "original": "Current state includes 13,417 campaigns with real user data, transformation working, S3 uploads working but transformed data was empty, application connects successfully to MongoDB",
+      "processed": "MongoDB",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Upgraded from zod 3.22.4 to 3.25.0 (includes Zod 4 via import from 'zod/v4')",
+      "processed": "Upgraded 3.22.4 3.25.0 (includes Zod 4 'zod/v4')",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Created clean top-level structure: backend/, data/, docs/, frontend/, scripts/, shared/, tests/",
+      "processed": "Created clean top-level structure: backend/, data/, docs/, frontend/, scripts/, shared/, tests/",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "No dual-field support needed",
+      "processed": "No dual-field support needed",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Fixed all documentation to use correct profile and bucket name",
+      "processed": "Fixed all documentation to use correct profile and bucket name",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Using PostgreSQL as source for local media_tool database",
+      "processed": "PostgreSQL",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Created new setupGridStatePersistence function that saves filters, columns, sorting, and grouping to URL",
+      "processed": "Created setupGridStatePersistence function filters, columns, sorting, grouping URL",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "All data now uses clean schema with no backward compatibility fields",
+      "processed": "All data now uses clean schema with no backward compatibility fields",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Version history needs type-safe snapshots to preserve financial precision",
+      "processed": "Version history needs type-safe snapshots to preserve financial precision",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "ESLint configs in backend/.eslintrc.json and frontend/.eslintrc.json with strict TypeScript rules",
+      "processed": "TypeScript",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Next steps include implementing LineItemService with calculation engine, creating bulk endpoints for line items, extending ETL import to handle strategies and line items, adding comprehensive calculation tests, and implementing logging for calculation audit trail",
+      "processed": "Next implementing LineItemService calculation creating endpoints extending ETL strategies comprehensive calculation implementing calculation",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Container name is bravo1_mongodb",
+      "processed": "Container name is bravo1_mongodb",
+      "project": "bravo-1",
+      "action": "keep"
+    },
+    {
+      "original": "AG Grid React Components Demo - Major UI/UX Improvements (December 2024)",
+      "processed": "React",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Created raw export script in bravo-1/scripts/postgres-export/",
+      "processed": "Created raw export script in bravo-1/scripts/postgres-export/",
+      "project": "bravo-1",
+      "action": "keep"
+    },
+    {
+      "original": "Campaigns page tested with Playwright",
+      "processed": "Campaigns page tested with Playwright",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Documentation created includes ETL-PRODUCTION-WORKFLOW.md and ETL-SYSTEM-DESIGN.md",
+      "processed": "Documentation created includes ETL-PRODUCTION-WORKFLOW.md and ETL-SYSTEM-DESIGN.md",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Campaign calculated fields include: budget.remaining, allocationPercentage, spendPercentage, pacing metrics",
+      "processed": "Campaign calculated fields include: budget.remaining, allocationPercentage, spendPercentage, pacing metrics",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "PostgreSQL views analysis includes detailed_campaigns for denormalized data with calculated metrics",
+      "processed": "PostgreSQL",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Working on Bravo-1 Schema Implementation",
+      "processed": "Working on Bravo-1 Schema Implementation",
+      "project": "bravo-1",
+      "action": "keep"
+    },
+    {
+      "original": "Technical implementation details include: Created calculateStats() helper function, Stats update on filterChanged and modelUpdated events, Fixed ActiveFilters to show filter type for date filters, Used correct filter types, Removed displayedRowCount state variable",
+      "processed": "Technical implementation include: Created calculateStats() function, Stats filterChanged modelUpdated Fixed ActiveFilters filters, Used Removed displayedRowCount variable",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "PostgreSQL has real users linked via zoho_user_id to campaigns.owner_user_id",
+      "processed": "PostgreSQL",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "GitHub Issues to create for Bravo-1 from RYANS_WISH_LIST.md",
+      "processed": "GitHub Issues to create for Bravo-1 from RYANS_WISH_LIST.md",
+      "project": "bravo-1",
+      "action": "keep"
+    },
+    {
+      "original": "Updated PIPELINE-TIMESTAMPED-EXPORTS.md documentation to explain UTC usage",
+      "processed": "Updated PIPELINE-TIMESTAMPED-EXPORTS.md documentation to explain UTC usage",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Documented entities include Campaigns, Media Strategies, Line Items, Platform Buys, Media Plans, Platform Buy Daily Impressions, and Platform Buy Daily Videos",
+      "processed": "Documented entities include Campaigns, Media Strategies, Line Items, Platform Buys, Media Plans, Platform Buy Daily Impressions, and Platform Buy Daily Videos",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Seed script has been removed",
+      "processed": "Seed script has been removed",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Created raw PostgreSQL export with 848,937 records (924MB)",
+      "processed": "PostgreSQL",
+      "project": "unknown",
+      "action": "compact"
+    },
+    {
+      "original": "Data was already migrated",
+      "processed": "Data was already migrated",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Turborepo Evaluation: Evaluate Turborepo for better monorepo management",
+      "processed": "Turborepo Evaluation: Evaluate Turborepo for better monorepo management",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Changed impressions to units with unitType field",
+      "processed": "Changed impressions to units with unitType field",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Dark mode toggle present",
+      "processed": "Dark mode toggle present",
+      "project": "unknown",
+      "action": "keep"
+    },
+    {
+      "original": "Modified files include src/utils/gridStateUtils.ts (new), src/index.ts, README.md, and demo",
+      "processed": "src/utils/gridStateUtils.ts src/index.ts",
+      "project": "unknown",
+      "action": "compact"
+    }
+  ]
+}

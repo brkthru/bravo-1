@@ -1,51 +1,68 @@
 # Bravo-1 Documentation
 
-Welcome to the Bravo-1 documentation. This directory contains organized documentation for the MongoDB-based media planning system.
+Welcome to the Bravo-1 documentation. This directory contains comprehensive documentation for the MongoDB-based media planning system.
 
-## Documentation Structure
+## 🚀 Start Here
 
-### 📁 [MongoDB Documentation](./mongodb/)
-- [MongoDB Quick Reference](./mongodb/MONGODB-QUICK-REFERENCE.md) - Common MongoDB commands and operations
-- [MongoDB Developer Guide](./mongodb/MONGODB-DEVELOPER-GUIDE.md) - Comprehensive guide with tools and patterns
-- [MongoDB Joins Guide](./mongodb/MONGODB-JOINS-GUIDE.md) - How to perform joins in MongoDB
-- [MongoDB Advanced Patterns](./mongodb/MONGODB-ADVANCED-PATTERNS.md) - Advanced querying and optimization
+1. **[Architecture Overview](../ARCHITECTURE.md)** - System design and technology decisions
+2. **[Main README](../README.md)** - Quick start guide
+3. **[Documentation Index](./INDEX.md)** - Complete documentation listing
 
-### 📁 [Migration Documentation](./migration/)
-- [Current MongoDB State](./migration/CURRENT-MONGODB-STATE.md) - Current database structure and statistics
-- [Migration README](./migration/MIGRATION-README.md) - Basic migration instructions
-- [Migration Summary](./migration/MIGRATION-SUMMARY.md) - Summary of migration accomplishments
-- [ETL Data Recovery Summary](./migration/ETL-DATA-RECOVERY-SUMMARY.md) - ETL process documentation
-- [Final Summary](./migration/FINAL-SUMMARY.md) - Comprehensive migration results
-- [Versioning Analysis Report](./migration/VERSIONING-ANALYSIS-REPORT.md) - Version control implementation analysis
+## 📚 Key Documentation
 
-### 📁 [UI Documentation](./ui/)
-- [Frontend Migration Guide](./ui/FRONTEND-MIGRATION-GUIDE.md) - Guide for frontend developers
-- [Tailwind UI Components](./ui/TAILWIND-UI-COMPONENTS.md) - Available UI components
+### System Design
 
-### 📁 [Development Documentation](./development/)
-- [Data Structure Proposal](./development/DATA-STRUCTURE-PROPOSAL.md) - Proposed MongoDB schema
-- [Demo Data](./development/DEMO-DATA.md) - Locations of mocked/demo data
-- [Test Coverage Report](./development/TEST-COVERAGE-REPORT.md) - Test coverage analysis
+- **[Architecture](../ARCHITECTURE.md)** - Complete system architecture
+- **[UI Component Architecture](./ui/TAILWIND-UI-COMPONENTS.md)** - HeadlessUI + Tailwind patterns
+- **[MongoDB Schema Design](./MONGODB-SCHEMA-DESIGN.md)** - Database architecture
 
-## Important Notes
+### Development Guides
 
-### ⚠️ Documentation Accuracy
+- **[MongoDB Guide](./MONGODB-GUIDE.md)** - Query patterns and best practices
+- **[CLAUDE.md](../CLAUDE.md)** - AI assistant guidelines
+- **[ETL Pipeline](./ETL-PIPELINE-DETAILED.md)** - Data transformation process
 
-Some documentation reflects the **proposed** MongoDB structure while others document the **actual implementation**. Key differences:
+### Deployment & Operations
 
-1. **Proposed Structure** (in proposal docs):
-   - Campaigns contain embedded strategies and line items
-   - Single document per campaign with all data
+- **[Cloud Deployment Setup](./CLOUD-DEPLOYMENT-SETUP.md)** - AWS deployment
+- **[Pipeline Timestamped Exports](./PIPELINE-TIMESTAMPED-EXPORTS.md)** - Backup/restore
 
-2. **Actual Implementation** (current state):
-   - Campaigns, strategies, and lineItems are SEPARATE collections
-   - Linked by foreign keys (campaignId, strategyId)
-   - Line items can be queried independently
+## 📁 Documentation Structure
 
-Always refer to [Current MongoDB State](./migration/CURRENT-MONGODB-STATE.md) for the actual database structure.
+```
+docs/
+├── INDEX.md                  # Documentation index
+├── MONGODB-GUIDE.md          # MongoDB usage guide
+├── MONGODB-SCHEMA-DESIGN.md  # Schema decisions
+├── archive/                  # Historical documents
+├── development/              # Development resources
+├── migration/                # Migration documentation
+└── ui/                       # UI documentation
+```
 
-## Quick Links
+## ⚠️ Important Notes
 
-- [Key Differences from Media-Tool](../KEY-DIFFERENCES.md)
-- [Main README](../README.md)
-- [Backend README](../backend/README.md)
+### Database Structure
+
+The actual implementation uses **separate collections** (not embedded):
+
+- `campaigns` collection
+- `strategies` collection
+- `lineItems` collection
+- Collections are linked by foreign keys
+
+Always refer to [Current MongoDB State](./migration/CURRENT-MONGODB-STATE.md) for the actual structure.
+
+### UI Architecture
+
+We use **HeadlessUI + Tailwind CSS** pattern:
+
+- HeadlessUI provides behavior and accessibility
+- Tailwind CSS provides all visual styling
+- See [UI Component Architecture](./ui/TAILWIND-UI-COMPONENTS.md) for details
+
+## 🔗 Quick Links
+
+- [Test Guide](../tests/README.md) - E2E testing with Playwright
+- [Backend Scripts](../backend/src/scripts/) - Database utilities
+- [ETL Scripts](../scripts/etl/) - Data migration tools

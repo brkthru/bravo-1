@@ -1,7 +1,7 @@
 {
-  "name": "@mediatool/shared",
-  "version": "1.0.0",
-  "description": "Shared types and utilities for MediaTool",
+  "name": "@bravo-1/shared",
+  "version": "0.1.0",
+  "description": "Shared types, schemas, and utilities for Bravo-1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "private": true,

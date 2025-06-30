@@ -1,7 +1,7 @@
 {
-  "name": "@mediatool/frontend",
-  "version": "1.0.0",
-  "description": "MediaTool frontend with React and Tailwind UI",
+  "name": "@bravo-1/frontend",
+  "version": "0.1.0",
+  "description": "Bravo-1 frontend with React, AG-Grid, and Tailwind UI",
   "private": true,
   "type": "module",
   "scripts": {
@@ -13,7 +13,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
-    "@mediatool/shared": "*",
+    "@bravo-1/shared": "*",
     "@tanstack/react-query": "^5.15.0",
     "ag-grid-community": "^33.3.2",
     "ag-grid-enterprise": "^33.3.2",

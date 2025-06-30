@@ -28,34 +28,39 @@ yarn-error.log*
 .DS_Store
 Thumbs.db
 
-# Data files - DO NOT COMMIT
-# MongoDB backups
-data/mongodb-backups/
-scripts/data-export/
-
-# PostgreSQL exports
-exports/raw/
-exports/transformed/
-exports/temp/
-exports/logs/
-exports/*.tar.gz
-exports/mongodb-versions.json
-
-# ETL working directories
+# Data files - DO NOT COMMIT PRODUCTION DATA
+/data/
+/exports/
 scripts/etl/data-export/
 scripts/etl/data-transformed/
-scripts/etl/data-export-backup-*/
-scripts/etl/data-transformed-backup-*/
+scripts/etl/data/
+scripts/postgres-export/data/
+scripts/production-pipeline/data/
+scripts/production-pipeline/exports/
 
-# PostgreSQL export directories
-scripts/postgres-export/postgres-raw-export/
-scripts/postgres-export/postgres-raw-export-backup-*/
+# Any JSON data files
+*.data.json
+*-export.json
+*-transformed.json
+
+# Test outputs
+/tests/coverage/
+/tests/playwright-report/
+/tests/test-results/
 
 # Production pipeline config (may contain credentials)
 scripts/production-pipeline/config/pipeline.env
 
+# AWS and credentials
+.aws/
+*credentials*
+*secret*
+*.pem
+*.key
+
 # Archive directory (old scripts)
 scripts/archive/
+scripts/etl/archive/
 
 # Test data
 *.sql
@@ -73,3 +78,4 @@ bun.lockb
 tmp/
 temp/
 *.tmp
+.trash/

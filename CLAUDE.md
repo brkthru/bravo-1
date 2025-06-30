@@ -45,7 +45,7 @@ User Input → Validation → Storage → Calculations → Response
 
 #### 1. Calculation Engine (v1.0.0)
 
-- **Location**: `backend/src/calculations/calculation-engine.ts`
+- **Location**: `headless-api/src/calculations/calculation-engine.ts`
 - **Pattern**: Pure calculations → Context-aware rounding
 - **Versioning**: Business rules tracked with version/timestamp
 - **See**: `docs/FIELD-CALCULATIONS-COMPREHENSIVE.md`
@@ -97,7 +97,7 @@ User Input → Validation → Storage → Calculations → Response
 ### Servers:
 
 - MongoDB: `localhost:27017/bravo-1`
-- Backend: `localhost:3001`
+- Headless API: `localhost:3001`
 - Frontend: `localhost:5174`
 
 ### Key Collections:

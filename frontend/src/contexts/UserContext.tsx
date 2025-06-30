@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { User } from '@mediatool/shared';
+import { User } from '@bravo-1/shared';
 
 interface UserContextType {
   currentUser: User | null;
@@ -38,8 +38,12 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
         if (result.data && result.data.length > 0) {
           // Pick a random active account manager for demo purposes
-          const accountManagers = result.data.filter((u: User) => 
-            u.isActive && (u.role?.includes('account') || u.role === 'account_manager' || u.role === 'senior_account_manager')
+          const accountManagers = result.data.filter(
+            (u: User) =>
+              u.isActive &&
+              (u.role?.includes('account') ||
+                u.role === 'account_manager' ||
+                u.role === 'senior_account_manager')
           );
           if (accountManagers.length > 0) {
             const randomUser = accountManagers[Math.floor(Math.random() * accountManagers.length)];

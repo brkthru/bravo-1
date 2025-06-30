@@ -1,107 +1,187 @@
-# Bravo-1 - Modern Campaign Management Platform
+# Bravo-1
 
-A MongoDB-based media planning system for managing advertising campaigns, built with React, TypeScript, and Express.
+A modern media planning system built with a headless API architecture, MongoDB, and React.
+
+Bravo-1 is a ground-up rewrite of the media-tool system, focusing on:
+
+- **Headless API** architecture for multiple client support
+- **MongoDB** document store for flexible data modeling
+- **Versioned business logic** with audit trails
+- **Financial precision** handling for media budgets
+- **Modern UI** with AG-Grid and Tailwind CSS
 
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Node.js 18+ and npm
-- Docker Desktop (for MongoDB)
-- Git
+- Docker and Docker Compose
+- AWS CLI configured with SSO (for data access)
+- macOS (primary development platform)
 
-### Setup in 5 Minutes
+### 1. Clone and Install
 
-1. **Clone and install dependencies**
-   ```bash
-   git clone <repository-url>
-   cd bravo-1
-   npm install
-   ```
+```bash
+git clone https://github.com/brkthru/bravo-1.git
+cd bravo-1
+npm install
+```
 
-2. **Set up environment variables**
-   ```bash
-   cp .env.example .env
-   ```
-   No changes needed for local development!
+### 2. Start MongoDB
 
-3. **Start MongoDB with Docker**
-   ```bash
-   docker-compose up -d mongodb
-   ```
+```bash
+docker-compose up -d mongodb
+```
 
-4. **Load sample data (choose one)**
-   ```bash
-   # Option A: Quick start with 5 test campaigns
-   cd backend && npm run seed
-   
-   # Option B: Full production data (13,417 campaigns)
-   cd bravo-1
-   bun run scripts/etl/run-etl.ts transform
-   bun run scripts/etl/run-etl.ts load
-   ```
+### 3. Load Production Data
 
-5. **Start the application**
-   ```bash
-   # From project root, in separate terminals:
-   npm run dev:backend   # Backend on http://localhost:3001
-   npm run dev:frontend  # Frontend on http://localhost:5174
-   ```
+```bash
+# Configure AWS SSO (one-time setup)
+aws configure sso --profile brkthru-mediatool-dev
 
-6. **Verify it's working**
-   - Open http://localhost:5174/campaigns
-   - You should see the campaigns list with data
+# Login to AWS
+aws sso login --profile brkthru-mediatool-dev
 
-## 📋 Project Overview
+# Download and load the latest data
+cd scripts/etl
+./quick-start-etl.sh
+```
 
-Bravo-1 is a complete rewrite of the PostgreSQL-based media-tool, featuring:
-- **MongoDB** for flexible document storage
-- **React 18** with TypeScript
-- **Tailwind CSS** for styling
-- **AG-Grid** for powerful data tables
-- **Express.js** REST API
-- **Zod** for type-safe validation
+### 4. Start Development Servers
 
-## 🏗 Architecture
+```bash
+# From project root
+npm run dev
+```
+
+This starts:
+
+- Headless API: http://localhost:3001
+- Frontend: http://localhost:5174
+- API Docs: http://localhost:3001/api-docs
+
+## 📚 Full Setup Guide
+
+### Environment Configuration
+
+1. Copy environment templates:
+
+```bash
+cp headless-api/.env.example headless-api/.env
+cp frontend/.env.example frontend/.env
+```
+
+2. Verify MongoDB connection in `headless-api/.env`:
+
+```env
+MONGODB_URI=mongodb://localhost:27017
+DATABASE_NAME=bravo-1
+```
+
+### Data Pipeline
+
+The ETL pipeline imports production data from PostgreSQL exports:
+
+```bash
+cd scripts/etl
+
+# Step 1: Download latest export from S3
+bun run-production-etl.ts download
+
+# Step 2: Transform to MongoDB format
+bun run-production-etl.ts transform
+
+# Step 3: Load into MongoDB
+bun run-production-etl.ts load
+```
+
+**Dataset**: 13,417 campaigns from 2025-06-22 export
+
+### Running Tests
+
+```bash
+# All tests (unit + E2E)
+npm test
+
+# Unit tests only
+npm run test:unit
+
+# E2E tests only
+npm run test:e2e
+
+# Test coverage report
+npm run test:coverage
+
+# Code quality
+npm run check  # Trunk linting
+npm run fmt    # Auto-format
+```
+
+## 🏗️ Architecture
+
+### Project Structure
 
 ```
 bravo-1/
-├── backend/          # Express API server
-│   ├── src/
-│   │   ├── models/   # MongoDB models
-│   │   ├── routes/   # API endpoints
-│   │   └── config/   # Database config
-├── frontend/         # React application
-│   ├── src/
-│   │   ├── pages/    # Route components
-│   │   ├── components/
-│   │   └── services/ # API client
-├── shared/           # Shared types (Zod schemas)
-├── scripts/          # ETL and utilities
-└── tests/            # E2E tests (Playwright)
-
-## Development
-
-### Backend (Express + MongoDB)
-```bash
-cd backend
-npm run dev        # Start with auto-reload
-npm run build      # Build for production
-npm run seed       # Seed sample data
+├── headless-api/       # Express.js REST API
+├── frontend/           # React + Vite application
+├── shared/            # Shared types and schemas
+├── bff-backend/       # (Placeholder) Backend for Frontend
+├── scripts/           # ETL and utility scripts
+├── tests/             # E2E Playwright tests
+└── docs/              # Architecture and guides
 ```
 
-### Frontend (React + Vite)
+### Key Architectural Decisions
+
+1. **Headless API First**: True headless design supporting multiple clients
+2. **Document Store**: MongoDB for flexible schema evolution
+3. **Schema-First Development**: Single source of truth in Zod schemas
+4. **Versioned Business Logic**: All calculations tracked with versions
+5. **Layered Architecture**: Clear separation of concerns
+
+See [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed design documentation.
+
+## 🔧 Development
+
+### Code Quality Standards
+
+We enforce strict code quality through:
+
+- **Trunk.io**: Pre-commit hooks and CI checks
+- **Test Coverage**: Minimum 60% coverage required
+- **TDD Approach**: Write tests first, then implementation
+
+### Git Workflow
+
 ```bash
-cd frontend
-npm run dev        # Start development server
-npm run build      # Build for production
+# Feature branch
+git checkout -b feat/your-feature
+
+# Make changes with TDD
+# 1. Write failing test
+# 2. Implement feature
+# 3. Ensure tests pass
+
+# Run quality checks
+trunk check
+npm test
+
+# Commit with conventional format
+git commit -m "feat: add campaign bulk operations"
+
+# Create PR for review
 ```
 
-### Shared Types
-```bash
-cd shared
-npm run build      # Build shared package
-npm run dev        # Watch mode
-```
+### API Development
+
+The headless API uses:
+
+- OpenAPI 3.0 specification
+- Automatic documentation generation
+- Versioned endpoints (`/v0/campaigns`)
+
+View live API docs at http://localhost:3001/api-docs
 
 ## 📊 Data Model
 
@@ -120,7 +200,7 @@ npm run dev        # Watch mode
   updatedAt: Date
 }
 
-// strategies collection  
+// strategies collection
 {
   _id: ObjectId("..."),
   campaignId: ObjectId("..."),  // Foreign key to campaigns
@@ -143,59 +223,39 @@ npm run dev        # Watch mode
 }
 ```
 
-## API Endpoints
+## 📖 Documentation
 
-### Campaigns
-- `GET /api/campaigns` - List campaigns (with optional search)
-- `GET /api/campaigns/:id` - Get campaign details
-- `POST /api/campaigns` - Create campaign
-- `PUT /api/campaigns/:id` - Update campaign
-- `DELETE /api/campaigns/:id` - Delete campaign
+- [Architecture Overview](./ARCHITECTURE.md)
+- [API Documentation](http://localhost:3001/api-docs)
+- [ETL Pipeline Guide](./docs/ETL-SYSTEM-DESIGN.md)
+- [Testing Guide](./tests/README.md)
+- [Field Calculations](./docs/FIELD-CALCULATIONS-COMPREHENSIVE.md)
 
-## UI Components
+## 🤝 Contributing
 
-### Tailwind UI Patterns Used
-- **Application Shell** - Main layout with sidebar
-- **Data Tables** - AG-Grid with Tailwind styling
-- **Stats Cards** - Campaign metrics display
-- **Progress Bars** - Pacing indicators
-- **Badges** - Status indicators
-- **Search** - Campaign filtering
+This is a private repository for the Brkthru organization. We welcome contributions from team members and AI agents.
 
-### AG-Grid Simplifications
-- Standard themes with Tailwind customization
-- Simple React cell renderers instead of complex custom components
-- Built-in features for sorting, filtering, pagination
-- Removed unnecessary enterprise features
+### For AI Agents
 
-## Comparison with Original
+- Follow TDD practices outlined in [CLAUDE.md](./CLAUDE.md)
+- Use memory tools to maintain context
+- Create issues with `ai-generated` label
+- All PRs require human review
 
-| Feature | Original | v2 Simplified |
-|---------|----------|---------------|
-| Database | PostgreSQL with complex stored procedures | MongoDB with denormalized documents |
-| Backend | tRPC + complex abstractions | Express REST API |
-| Frontend | Custom CSS + complex AG-Grid | Tailwind UI + simplified AG-Grid |
-| State | Zustand + custom patterns | React Query + Context |
-| Types | Custom validation | Zod schemas |
-| Auth | Microsoft Entra ID | Simplified (to be implemented) |
+### For Developers
 
-## Migration Benefits
+- Review [ARCHITECTURE.md](./ARCHITECTURE.md) first
+- Follow existing patterns and conventions
+- Maintain test coverage above 60%
+- Document significant changes
 
-1. **Reduced Complexity**: 70% fewer lines of code
-2. **Better Performance**: Denormalized data reduces joins
-3. **Easier Maintenance**: Standard patterns and libraries
-4. **Faster Development**: Pre-built Tailwind UI components
-5. **Better Testing**: Simpler data flows and fewer abstractions
+## 🚨 Important Notes
 
-## Next Steps
+1. **Never use seed data** - Always load full production dataset
+2. **media-tool/ is read-only** - Reference only, never modify
+3. **No direct DB access** - All operations through headless API
+4. **Version business logic** - Track all calculation changes
 
-1. Implement campaign detail pages
-2. Add line item management
-3. Build media plan functionality
-4. Add user authentication
-5. Implement platform integrations
-6. Create data migration scripts from PostgreSQL
+## 📄 License
 
-## Contributing
-
-This is a prototype/proof-of-concept. See MIGRATION-TODOS.md for current development priorities.
+Private repository - Brkthru proprietary
