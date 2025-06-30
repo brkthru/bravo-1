@@ -1,0 +1,22 @@
+# Add this recipe to media-tool/terraform/Justfile for complete clones:
+
+clone-db-complete:
+    @echo "Cloning COMPLETE production database (including performance metrics)..."
+    PGPASSWORD=$(aws secretsmanager get-secret-value \
+        --profile {{aws_profile}} \
+        --region {{aws_region}} \
+        --secret-id "{{project}}/rds/master" \
+        --query 'SecretString' \
+        --output text | jq -r '.password') \
+    pg_dump \
+        -h {{db_host}} \
+        -p {{db_port}} \
+        -U {{db_user}} \
+        -d {{db_name}} \
+        --no-owner \
+        --no-privileges \
+        -v \
+        | psql \
+            -h localhost \
+            -U postgres \
+            -d {{db_name}}

@@ -12,6 +12,8 @@ Bravo-1 is a ground-up rewrite of the media-tool system, focusing on:
 
 ## 🚀 Quick Start
 
+See [QUICKSTART.md](./QUICKSTART.md) for a detailed getting started guide.
+
 ### Prerequisites
 
 - Node.js 18+ and npm
@@ -33,18 +35,14 @@ npm install
 docker-compose up -d mongodb
 ```
 
-### 3. Load Production Data
+### 3. Load Production Data (NEW Simplified Method)
 
 ```bash
-# Configure AWS SSO (one-time setup)
-aws configure sso --profile brkthru-mediatool-dev
-
 # Login to AWS
 aws sso login --profile brkthru-mediatool-dev
 
-# Download and load the latest data
-cd scripts/etl
-./quick-start-etl.sh
+# Import latest production data from S3
+./scripts/production-pipeline/import-from-s3.sh --latest
 ```
 
 ### 4. Start Development Servers
