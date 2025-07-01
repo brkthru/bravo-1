@@ -201,7 +201,7 @@ echo "  Strategies: ${STRATEGY_COUNT}"
 echo "  LineItems:  ${LINEITEM_COUNT}"
 echo
 echo "Next steps:"
-echo "1. Start the backend:  cd ${BASE_DIR} && npm run dev:backend"
+echo "1. Start the backend:  cd ${BASE_DIR} && npm run dev:api"
 echo "2. Start the frontend: cd ${BASE_DIR} && npm run dev:frontend"
 echo "3. Open browser to:    http://localhost:5174"
 

@@ -54,7 +54,7 @@ In separate terminals:
 
 ```bash
 # Terminal 1: Backend
-npm run dev:backend
+npm run dev:api
 
 # Terminal 2: Frontend
 npm run dev:frontend
@@ -155,7 +155,7 @@ The production data import includes:
 ```bash
 # 1. Start services
 docker-compose up -d mongodb
-npm run dev:backend
+npm run dev:api
 npm run dev:frontend
 
 # 2. Make changes and test

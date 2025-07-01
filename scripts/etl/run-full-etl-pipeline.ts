@@ -221,7 +221,7 @@ async function main() {
       );
     } catch (error) {
       logger.error('ETL API is not running. Please start the backend server first.');
-      logger.debug('Run: npm run dev:backend');
+      logger.debug('Run: npm run dev:api');
       process.exit(1);
     }
 
