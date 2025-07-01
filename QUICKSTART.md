@@ -18,8 +18,11 @@ This guide helps you get Bravo-1 running with production data in under 10 minute
 git clone https://github.com/brkthru/bravo-1.git
 cd bravo-1
 
-# Install dependencies
+# Install dependencies (this sets up workspace links)
 npm install
+
+# If you get module errors, force reinstall to ensure workspace links are created
+# npm install --force
 ```
 
 ### 2. Start MongoDB
@@ -103,6 +106,20 @@ Use the URL from step 2:
 ```
 
 ## Troubleshooting
+
+### Module Not Found Error (@bravo-1/shared)
+
+If you get an error like "Cannot find module '@bravo-1/shared'":
+
+```bash
+# Force reinstall to create workspace symlinks
+npm install --force
+
+# Or if that doesn't work, try:
+npm run install:all
+```
+
+This is a monorepo with npm workspaces, so the shared package needs to be properly linked.
 
 ### MongoDB Connection Failed
 
