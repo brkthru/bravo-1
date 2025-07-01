@@ -35,7 +35,15 @@ cp headless-api/.env.example headless-api/.env
 docker-compose up -d mongodb
 ```
 
-### 3. Start the Backend API
+### 3. Build the Shared Module
+
+The API depends on the shared module being built first:
+
+```bash
+cd shared && npm run build && cd ..
+```
+
+### 4. Start the Backend API
 
 The import process requires the API to be running. In a new terminal:
 
@@ -45,7 +53,7 @@ npm run dev:api
 
 Wait for the message: `Server is running on port 3001`
 
-### 4. Import Production Data
+### 5. Import Production Data
 
 In another terminal:
 
@@ -67,14 +75,14 @@ This will:
 - Call the ETL API to load it into MongoDB
 - Show you the record counts
 
-### 5. Start the Frontend
+### 6. Start the Frontend
 
 ```bash
 # In another terminal
 npm run dev:frontend
 ```
 
-### 6. Open Browser
+### 7. Open Browser
 
 Navigate to http://localhost:5174
 
@@ -120,17 +128,20 @@ Use the URL from step 2:
 
 ### Module Not Found Error (@bravo-1/shared)
 
-If you get an error like "Cannot find module '@bravo-1/shared'":
+If you get an error like "Cannot find module '@bravo-1/shared/dist/index.js'":
 
 ```bash
-# Force reinstall to create workspace symlinks
+# Build the shared module first
+cd shared && npm run build && cd ..
+
+# If you still get errors, force reinstall to create workspace symlinks
 npm install --force
 
 # Or if that doesn't work, try:
 npm run install:all
 ```
 
-This is a monorepo with npm workspaces, so the shared package needs to be properly linked.
+This is a monorepo with npm workspaces. The shared package needs to be built before other packages can use it.
 
 ### MongoDB Connection Failed
 
@@ -184,18 +195,21 @@ The production data import includes:
 # 1. Start MongoDB
 docker-compose up -d mongodb
 
-# 2. Start backend API (in terminal 1)
+# 2. Build shared module (if you've made changes to it)
+cd shared && npm run build && cd ..
+
+# 3. Start backend API (in terminal 1)
 npm run dev:api
 
-# 3. Start frontend (in terminal 2)
+# 4. Start frontend (in terminal 2)
 npm run dev:frontend
 
-# 4. Make changes and test
+# 5. Make changes and test
 
-# 5. Run linters before committing
+# 6. Run linters before committing
 trunk check
 
-# 6. Commit changes
+# 7. Commit changes
 git add .
 git commit -m "feat: your changes"
 ```

@@ -68,7 +68,7 @@ export const AccountListItemSchema = z.object({
   agencyMarkupRate: MarkupRateSchema.optional(),
   creditLimit: FinancialAmountSchema.optional(),
   campaignCount: z.number().int().min(0).default(0),
-  totalRevenue: FinancialAmountSchema.default(0),
+  totalRevenue: FinancialAmountSchema.default('0'),
   updatedAt: z.date(),
 });
 

@@ -66,7 +66,7 @@ export const MediaBuySchema = z.object({
   
   // Financial
   plannedSpend: FinancialAmountSchema,
-  actualSpend: FinancialAmountSchema.default(0),
+  actualSpend: FinancialAmountSchema.default('0'),
   
   // Performance
   unitType: UnitTypeEnumSchema,
