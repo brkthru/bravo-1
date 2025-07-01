@@ -36,6 +36,9 @@ aws sso login --profile brkthru-mediatool-dev
 
 # Import latest production data
 ./scripts/production-pipeline/import-from-s3.sh --latest
+
+# Or force clean import (skip confirmation prompts)
+./scripts/production-pipeline/import-from-s3.sh --latest --force
 ```
 
 This will:

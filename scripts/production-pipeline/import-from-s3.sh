@@ -40,6 +40,7 @@ error() {
 LOCAL_FILE=""
 S3_URL=""
 SKIP_DOWNLOAD=false
+FORCE_CLEAN=false
 
 while [[ $# -gt 0 ]]; do
 	case $1 in
@@ -61,8 +62,13 @@ while [[ $# -gt 0 ]]; do
 		S3_URL="s3://${S3_BUCKET}/${S3_PREFIX}/${LATEST_S3}"
 		shift
 		;;
+	--force)
+		FORCE_CLEAN=true
+		shift
+		;;
 	*)
-		echo "Usage: $0 [--local-file <file>] [--s3-url <url>] [--latest]"
+		echo "Usage: $0 [--local-file <file>] [--s3-url <url>] [--latest] [--force]"
+		echo "  --force: Skip confirmation prompts and clean existing data"
 		exit 1
 		;;
 	esac
@@ -77,6 +83,35 @@ if ! docker ps | grep -q "${MONGO_CONTAINER}"; then
 	cd "${BASE_DIR}"
 	docker-compose up -d mongodb
 	sleep 5
+fi
+
+# Check for existing data
+log "Checking for existing data..."
+DB_EXISTS=$(docker exec "${MONGO_CONTAINER}" mongosh bravo-1 --quiet --eval "db.getName()" 2>/dev/null || echo "")
+if [[ ${DB_EXISTS} == "bravo-1" ]]; then
+	CAMPAIGN_COUNT=$(docker exec "${MONGO_CONTAINER}" mongosh bravo-1 --quiet --eval "db.campaigns.countDocuments()" 2>/dev/null || echo "0")
+	if [[ ${CAMPAIGN_COUNT} -gt 0 ]]; then
+		echo
+		echo -e "${YELLOW}⚠️  WARNING: Existing data detected!${NC}"
+		echo "   Database 'bravo-1' contains ${CAMPAIGN_COUNT} campaigns"
+		echo
+
+		if [[ ${FORCE_CLEAN} == true ]]; then
+			log "Force flag detected - cleaning existing data..."
+		else
+			read -p "Do you want to DELETE all existing data and start fresh? (y/N) " -n 1 -r
+			echo
+			if [[ ! ${REPLY} =~ ^[Yy]$ ]]; then
+				echo "Import cancelled. To force cleanup, use --force flag"
+				exit 0
+			fi
+		fi
+
+		# Drop the database
+		log "Dropping existing bravo-1 database..."
+		docker exec "${MONGO_CONTAINER}" mongosh bravo-1 --quiet --eval "db.dropDatabase()"
+		log "Database cleaned"
+	fi
 fi
 
 # Download from S3 if needed
