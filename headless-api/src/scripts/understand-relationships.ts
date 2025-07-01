@@ -42,14 +42,18 @@ async function understandRelationships() {
     // Check mediaBuys
     const mediaBuy = await db.collection('mediaBuys').findOne({});
     console.log('\nSample media buy (first few fields):');
-    console.log({
-      _id: mediaBuy._id,
-      name: mediaBuy.name,
-      campaignName: mediaBuy.campaignName,
-      accountName: mediaBuy.accountName,
-      strategyId: mediaBuy.strategyId,
-      accountId: mediaBuy.accountId,
-    });
+    if (mediaBuy) {
+      console.log({
+        _id: mediaBuy._id,
+        name: mediaBuy.name,
+        campaignName: mediaBuy.campaignName,
+        accountName: mediaBuy.accountName,
+        strategyId: mediaBuy.strategyId,
+        accountId: mediaBuy.accountId,
+      });
+    } else {
+      console.log('No media buys found');
+    }
   } catch (error) {
     console.error('Error:', error);
   } finally {

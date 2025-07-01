@@ -1,6 +1,6 @@
 import { Collection, ObjectId } from 'mongodb';
 import { database } from '../config/database';
-import { Campaign, CreateCampaignRequest, UpdateCampaignRequest } from '@bravo-1/shared';
+import { Campaign, CreateCampaignRequest, UpdateCampaignRequest, MediaActivity } from '@bravo-1/shared';
 
 export class CampaignModel {
   private get collection(): Collection {
@@ -304,6 +304,9 @@ export class CampaignModel {
             name: 'Sarah Johnson',
             email: 'sarah.johnson@company.com',
           },
+          csd: null,
+          seniorMediaTraders: [],
+          mediaTraders: [],
         },
         {
           accountManager: {
@@ -311,6 +314,9 @@ export class CampaignModel {
             name: 'Michael Chen',
             email: 'michael.chen@company.com',
           },
+          csd: null,
+          seniorMediaTraders: [],
+          mediaTraders: [],
         },
         {
           accountManager: {
@@ -318,6 +324,9 @@ export class CampaignModel {
             name: 'David Kim',
             email: 'david.kim@company.com',
           },
+          csd: null,
+          seniorMediaTraders: [],
+          mediaTraders: [],
         },
         {
           accountManager: {
@@ -325,6 +334,9 @@ export class CampaignModel {
             name: 'Emily Rodriguez',
             email: 'emily.rodriguez@company.com',
           },
+          csd: null,
+          seniorMediaTraders: [],
+          mediaTraders: [],
         },
         {
           accountManager: {
@@ -332,6 +344,9 @@ export class CampaignModel {
             name: 'Jessica Thompson',
             email: 'jessica.thompson@company.com',
           },
+          csd: null,
+          seniorMediaTraders: [],
+          mediaTraders: [],
         },
       ];
       teamObj = teams[teamIndex];
@@ -339,7 +354,7 @@ export class CampaignModel {
 
     // Determine media activity
     const hasLineItems = doc.lineItemCount > 0;
-    let mediaActivity = 'None active';
+    let mediaActivity: MediaActivity = 'None active';
     if (hasLineItems) {
       if (deliveryPacing > 0.9) {
         mediaActivity = 'All active';
@@ -396,7 +411,7 @@ export class CampaignModel {
       { index: { 'team.accountManager.id': 1 }, options: {} },
       { index: { 'team.csd.id': 1 }, options: {} },
       { index: { createdAt: -1 }, options: {} },
-    ];
+    ] as const;
 
     for (const { index, options } of indexes) {
       try {

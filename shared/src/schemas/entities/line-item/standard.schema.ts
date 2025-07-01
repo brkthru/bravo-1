@@ -27,7 +27,7 @@ export const StandardLineItemInputSchema = LineItemBaseInputSchema.extend({
   type: z.literal('standard'),
   price: FinancialAmountSchema,
   unitPrice: UnitPriceSchema,
-  targetMargin: MarginSchema.default(20), // Default 20% margin
+  targetMargin: MarginSchema.default('20'), // Default 20% margin
   
   // estimatedUnits can be calculated from price / unitPrice
   estimatedUnits: z.number().optional(),

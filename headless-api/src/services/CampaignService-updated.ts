@@ -29,7 +29,6 @@ export interface CalculatedField {
   context: string;
   formula?: string;
   precision?: number;
-  roundingMode?: string;
   isStored?: boolean; // vs dynamic
 }
 
@@ -289,7 +288,6 @@ export class CampaignService {
           context: 'campaign_price',
           formula: spendResult.formula,
           precision: spendForStorage.precision,
-          roundingMode: spendForStorage.roundingMode,
           isStored: true,
         };
 
@@ -313,7 +311,6 @@ export class CampaignService {
           context: 'campaign_price',
           formula: remainingResult.formula,
           precision: remainingForStorage.precision,
-          roundingMode: remainingForStorage.roundingMode,
           isStored: true,
         };
       }
@@ -430,9 +427,8 @@ export class CampaignService {
           });
         }
 
-        // Date validation - support both formats
-        const dates = campaign.dates || { start: campaign.startDate, end: campaign.endDate };
-        if (!dates.start || !dates.end) {
+        // Date validation
+        if (!campaign.dates?.start || !campaign.dates?.end) {
           errors.push({
             index: startIndex + i,
             error: 'Campaign start and end dates are required',
@@ -440,11 +436,8 @@ export class CampaignService {
           });
         }
 
-        // Price/Budget validation - support both
-        const hasPrice = campaign.price?.targetAmount !== undefined;
-        const hasBudget = campaign.budget?.total !== undefined;
-
-        if (!hasPrice && !hasBudget) {
+        // Price validation
+        if (!campaign.price?.targetAmount) {
           errors.push({
             index: startIndex + i,
             error: 'Campaign price or budget is required',

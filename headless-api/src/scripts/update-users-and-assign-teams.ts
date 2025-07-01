@@ -32,7 +32,7 @@ async function updateUsersAndAssignTeams() {
     ];
 
     // Update users with random roles
-    const bulkOps = [];
+    const bulkOps: any[] = [];
     usersWithoutRoles.forEach((user, index) => {
       const role = roles[index % roles.length];
       bulkOps.push({
@@ -77,7 +77,7 @@ async function updateUsersAndAssignTeams() {
     const campaigns = await db.collection('campaigns').find({}).toArray();
     console.log(`\nUpdating ${campaigns.length} campaigns with team assignments...`);
 
-    const campaignUpdates = [];
+    const campaignUpdates: any[] = [];
     campaigns.forEach((campaign) => {
       const randomAM = accountManagers[Math.floor(Math.random() * accountManagers.length)];
       const randomMT =

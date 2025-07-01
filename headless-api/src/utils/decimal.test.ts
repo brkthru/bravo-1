@@ -137,7 +137,7 @@ describe('MongoDecimal Utility - ADR 0019', () => {
       const result = MongoDecimal.convertFieldsToDecimal128(obj, fields);
 
       expect(result.budget.total).toBeInstanceOf(Decimal128);
-      expect(result.budget.allocated).toBeUndefined();
+      expect((result.budget as any).allocated).toBeUndefined();
     });
   });
 

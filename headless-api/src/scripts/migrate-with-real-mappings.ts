@@ -119,9 +119,9 @@ async function migrateWithRealMappings() {
         totalBudget += li.price || 0;
 
         // Get spend from media plans for this line item
-        const plansForLineItem = mediaPlansForStrategy.filter((mp) => mp.lineItemId === li._id);
-        totalSpent += plansForLineItem.reduce((sum, mp) => sum + (mp.actualSpend || 0), 0);
-        totalPlannedSpend += plansForLineItem.reduce((sum, mp) => sum + (mp.plannedSpend || 0), 0);
+        const plansForLineItem = mediaPlansForStrategy.filter((mp: any) => mp.lineItemId === li._id);
+        totalSpent += plansForLineItem.reduce((sum: number, mp: any) => sum + (mp.actualSpend || 0), 0);
+        totalPlannedSpend += plansForLineItem.reduce((sum: number, mp: any) => sum + (mp.plannedSpend || 0), 0);
       }
 
       // Default budget if no line items
@@ -173,7 +173,7 @@ async function migrateWithRealMappings() {
       }
 
       // Get media trader from line items
-      const mediaTraderIds = lineItemsForStrategy.flatMap((li) => li.mediaTraderUserIds || []);
+      const mediaTraderIds = lineItemsForStrategy.flatMap((li: any) => li.mediaTraderUserIds || []);
       if (mediaTraderIds.length > 0) {
         const trader = userMap.get(mediaTraderIds[0]);
         if (trader) {
@@ -194,11 +194,11 @@ async function migrateWithRealMappings() {
 
       if (lineItemsForStrategy.length > 0) {
         const starts = lineItemsForStrategy
-          .filter((li) => li.startDate)
-          .map((li) => new Date(li.startDate));
+          .filter((li: any) => li.startDate)
+          .map((li: any) => new Date(li.startDate));
         const ends = lineItemsForStrategy
-          .filter((li) => li.endDate)
-          .map((li) => new Date(li.endDate));
+          .filter((li: any) => li.endDate)
+          .map((li: any) => new Date(li.endDate));
 
         if (starts.length > 0) startDate = new Date(Math.min(...starts));
         if (ends.length > 0) endDate = new Date(Math.max(...ends));
@@ -206,8 +206,8 @@ async function migrateWithRealMappings() {
 
       // Calculate pacing
       const now = new Date();
-      const totalDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
-      const daysElapsed = Math.max(0, Math.ceil((now - startDate) / (1000 * 60 * 60 * 24)));
+      const totalDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+      const daysElapsed = Math.max(0, Math.ceil((now.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)));
       const expectedProgress = Math.min(1, daysElapsed / totalDays);
 
       const deliveryPacing =
@@ -218,7 +218,7 @@ async function migrateWithRealMappings() {
       const status = strategy.isActive && mediaActivity !== 'None active' ? 'L1' : 'L2';
 
       const campaign = {
-        _id: strategy._id,
+        _id: strategy._id.toString(),
         campaignNumber: `CN-${(10000 + processed).toString()}`,
         name: campaignName,
         accountName: accountName,
