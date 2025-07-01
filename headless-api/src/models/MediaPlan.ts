@@ -18,7 +18,7 @@ export const MediaPlanSchema = z.object({
   actualSpend: z.number().optional(),
   plannedUnits: z.number(),
   actualUnits: z.number().optional(),
-  unitType: UnitTypeSchema,
+  unitType: z.enum(['impressions', 'clicks', 'conversions', 'video_views', 'completed_video_views', 'engagements', 'leads']),
   targetUnitCost: z.number().optional(),
   startDate: z.date(),
   endDate: z.date(),
@@ -141,7 +141,7 @@ export class MediaPlanModel {
       { index: { startDate: 1, endDate: 1 }, options: {} },
       { index: { platformEntityId: 1, startDate: 1, endDate: 1 }, options: {} },
       { index: { createdAt: -1 }, options: {} },
-    ];
+    ] as const;
 
     for (const { index, options } of indexes) {
       try {

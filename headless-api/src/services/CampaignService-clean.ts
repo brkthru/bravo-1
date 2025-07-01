@@ -29,7 +29,6 @@ export interface CalculatedField {
   context: string;
   formula?: string;
   precision?: number;
-  roundingMode?: string;
   isStored?: boolean;
 }
 
@@ -264,7 +263,6 @@ export class CampaignService {
             context: 'campaign_price',
             formula: spendResult.formula,
             precision: spendForStorage.precision,
-            roundingMode: spendForStorage.roundingMode,
             isStored: true,
           };
 
@@ -293,7 +291,6 @@ export class CampaignService {
             context: 'campaign_price',
             formula: remainingResult.formula,
             precision: remainingForStorage.precision,
-            roundingMode: remainingForStorage.roundingMode,
             isStored: true,
           };
         }

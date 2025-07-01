@@ -188,7 +188,7 @@ export class UserModel {
       { index: { name: 'text', email: 'text' }, options: {} },
       { index: { isActive: 1 }, options: {} },
       { index: { createdAt: -1 }, options: {} },
-    ];
+    ] as const;
 
     for (const { index, options } of indexes) {
       try {

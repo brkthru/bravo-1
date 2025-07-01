@@ -1,15 +1,69 @@
 import { describe, test, expect, beforeAll, afterAll, beforeEach } from '@jest/globals';
 import { Collection, Db, MongoClient, ObjectId } from 'mongodb';
 import { CampaignModel } from './Campaign';
-import { Campaign, CampaignStatus } from '@bravo-1/shared';
+import { Campaign, CampaignStatus, CreateCampaignRequest } from '@bravo-1/shared';
 import { database } from '../config/database';
+
+// Helper function to create valid campaign data with new schema
+function createMockCampaignData(overrides: Partial<CreateCampaignRequest> = {}): CreateCampaignRequest {
+  return {
+    name: 'Test Campaign',
+    accountName: 'Test Account',
+    campaignNumber: 'CAMP-001',
+    status: 'L1' as CampaignStatus,
+    displayStatus: 'active',
+    team: {
+      accountManager: {
+        id: 'user-1',
+        name: 'Test Manager',
+        email: 'test@example.com',
+      },
+      csd: null,
+      seniorMediaTraders: [],
+      mediaTraders: [],
+    },
+    dates: {
+      start: new Date('2025-01-01'),
+      end: new Date('2025-12-31'),
+      daysElapsed: 0,
+      totalDuration: 365,
+    },
+    price: {
+      targetAmount: 10000,
+      actualAmount: 0,
+      remainingAmount: 10000,
+      currency: 'USD',
+    },
+    metrics: {
+      deliveryPacing: 0,
+      spendPacing: 0,
+      marginAmount: 3000,
+      marginPercentage: 30,
+      units: 0,
+      unitType: 'impressions',
+      revenueDelivered: 0,
+      budgetSpent: 0,
+      marginActual: 0,
+    },
+    mediaActivity: 'None active',
+    lineItems: [],
+    lineItemCount: 0,
+    ...overrides,
+  };
+}
 
 describe('CampaignModel', () => {
   let campaignModel: CampaignModel;
 
   beforeAll(async () => {
-    const uri = process.env.MONGODB_URI_TEST || 'mongodb://localhost:27017/mediatool_test';
-    await database.connect(uri);
+    // Set test environment variables if not already set
+    if (!process.env.MONGODB_URI) {
+      process.env.MONGODB_URI = 'mongodb://localhost:27017';
+    }
+    if (!process.env.DATABASE_NAME) {
+      process.env.DATABASE_NAME = 'mediatool_test';
+    }
+    await database.connect();
     campaignModel = new CampaignModel();
   });
 
@@ -29,17 +83,10 @@ describe('CampaignModel', () => {
     });
 
     test('should return all campaigns with transformed data', async () => {
+      const mockCampaignData = createMockCampaignData();
       const mockCampaign = {
         _id: new ObjectId(),
-        name: 'Test Campaign',
-        accountName: 'Test Account',
-        campaignNumber: 'CAMP-001',
-        budget: 10000,
-        status: 'active' as CampaignStatus,
-        dates: {
-          start: new Date('2025-01-01'),
-          end: new Date('2025-12-31'),
-        },
+        ...mockCampaignData,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
@@ -54,9 +101,12 @@ describe('CampaignModel', () => {
         name: mockCampaign.name,
         accountName: mockCampaign.accountName,
         campaignNumber: mockCampaign.campaignNumber,
-        budget: mockCampaign.budget,
         status: mockCampaign.status,
       });
+      
+      // Check price object instead of budget
+      expect(campaigns[0].price).toBeDefined();
+      expect(campaigns[0].price.targetAmount).toBe(mockCampaign.price.targetAmount);
 
       // Check that pacing metrics are calculated
       expect(campaigns[0].metrics).toBeDefined();
@@ -65,17 +115,10 @@ describe('CampaignModel', () => {
     });
 
     test('should calculate consistent pacing for same campaign ID', async () => {
+      const mockCampaignData = createMockCampaignData();
       const mockCampaign = {
         _id: new ObjectId('507f1f77bcf86cd799439011'),
-        name: 'Test Campaign',
-        accountName: 'Test Account',
-        campaignNumber: 'CAMP-001',
-        budget: 10000,
-        status: 'active' as CampaignStatus,
-        dates: {
-          start: new Date('2025-01-01'),
-          end: new Date('2025-12-31'),
-        },
+        ...mockCampaignData,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
@@ -98,17 +141,10 @@ describe('CampaignModel', () => {
     });
 
     test('should return campaign by ID', async () => {
+      const mockCampaignData = createMockCampaignData();
       const mockCampaign = {
         _id: new ObjectId(),
-        name: 'Test Campaign',
-        accountName: 'Test Account',
-        campaignNumber: 'CAMP-001',
-        budget: 10000,
-        status: 'active' as CampaignStatus,
-        dates: {
-          start: new Date('2025-01-01'),
-          end: new Date('2025-12-31'),
-        },
+        ...mockCampaignData,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
@@ -133,43 +169,34 @@ describe('CampaignModel', () => {
       const campaigns = [
         {
           _id: new ObjectId(),
-          name: 'Holiday Campaign 2025',
-          accountName: 'Tech Giant',
-          campaignNumber: 'CAMP-001',
-          budget: 10000,
-          status: 'active' as CampaignStatus,
-          dates: {
-            start: new Date('2025-01-01'),
-            end: new Date('2025-12-31'),
-          },
+          ...createMockCampaignData({
+            name: 'Holiday Campaign 2025',
+            accountName: 'Tech Giant',
+            campaignNumber: 'CAMP-001',
+            price: { targetAmount: 10000, actualAmount: 0, remainingAmount: 10000, currency: 'USD' },
+          }),
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           _id: new ObjectId(),
-          name: 'Summer Sale',
-          accountName: 'Fashion Brand',
-          campaignNumber: 'CAMP-002',
-          budget: 20000,
-          status: 'active' as CampaignStatus,
-          dates: {
-            start: new Date('2025-06-01'),
-            end: new Date('2025-08-31'),
-          },
+          ...createMockCampaignData({
+            name: 'Summer Sale',
+            accountName: 'Fashion Brand',
+            campaignNumber: 'CAMP-002',
+            price: { targetAmount: 20000, actualAmount: 0, remainingAmount: 20000, currency: 'USD' },
+          }),
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           _id: new ObjectId(),
-          name: 'Tech Product Launch',
-          accountName: 'Tech Giant',
-          campaignNumber: 'TECH-003',
-          budget: 50000,
-          status: 'active' as CampaignStatus,
-          dates: {
-            start: new Date('2025-03-01'),
-            end: new Date('2025-04-30'),
-          },
+          ...createMockCampaignData({
+            name: 'Tech Product Launch',
+            accountName: 'Tech Giant',
+            campaignNumber: 'TECH-003',
+            price: { targetAmount: 50000, actualAmount: 0, remainingAmount: 50000, currency: 'USD' },
+          }),
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -216,44 +243,35 @@ describe('CampaignModel', () => {
 
   describe('create', () => {
     test('should create a new campaign', async () => {
-      const newCampaign = {
+      const newCampaign = createMockCampaignData({
         name: 'New Campaign',
         accountName: 'New Account',
         campaignNumber: 'NEW-001',
-        budget: 15000,
-        status: 'active' as CampaignStatus,
-        dates: {
-          start: new Date('2025-01-01'),
-          end: new Date('2025-12-31'),
-        },
-      };
+        price: { targetAmount: 15000, actualAmount: 0, remainingAmount: 15000, currency: 'USD' },
+      });
 
       const created = await campaignModel.create(newCampaign);
 
       expect(created._id).toBeDefined();
       expect(created.name).toBe(newCampaign.name);
       expect(created.accountName).toBe(newCampaign.accountName);
-      expect(created.budget).toBe(newCampaign.budget);
+      expect(created.price.targetAmount).toBe(newCampaign.price.targetAmount);
       expect(created.createdAt).toBeDefined();
       expect(created.updatedAt).toBeDefined();
 
       // Verify it was saved to database
+      const db = database.getDb();
       const saved = await db.collection('campaigns').findOne({ _id: new ObjectId(created._id) });
       expect(saved).toBeTruthy();
     });
 
     test('should set createdAt and updatedAt timestamps', async () => {
-      const newCampaign = {
+      const newCampaign = createMockCampaignData({
         name: 'New Campaign',
         accountName: 'New Account',
         campaignNumber: 'NEW-001',
-        budget: 15000,
-        status: 'active' as CampaignStatus,
-        dates: {
-          start: new Date('2025-01-01'),
-          end: new Date('2025-12-31'),
-        },
-      };
+        price: { targetAmount: 15000, actualAmount: 0, remainingAmount: 15000, currency: 'USD' },
+      });
 
       const created = await campaignModel.create(newCampaign);
 
@@ -265,17 +283,15 @@ describe('CampaignModel', () => {
 
   describe('update', () => {
     test('should update an existing campaign', async () => {
-      const mockCampaign = {
-        _id: new ObjectId(),
+      const mockCampaignData = createMockCampaignData({
         name: 'Original Name',
         accountName: 'Test Account',
         campaignNumber: 'CAMP-001',
-        budget: 10000,
-        status: 'active' as CampaignStatus,
-        dates: {
-          start: new Date('2025-01-01'),
-          end: new Date('2025-12-31'),
-        },
+        price: { targetAmount: 10000, actualAmount: 0, remainingAmount: 10000, currency: 'USD' },
+      });
+      const mockCampaign = {
+        _id: new ObjectId(),
+        ...mockCampaignData,
         createdAt: new Date('2025-01-01'),
         updatedAt: new Date('2025-01-01'),
       };
@@ -285,14 +301,14 @@ describe('CampaignModel', () => {
 
       const updates = {
         name: 'Updated Name',
-        budget: 20000,
+        price: { targetAmount: 20000, actualAmount: 0, remainingAmount: 20000, currency: 'USD' },
       };
 
       const updated = await campaignModel.update(mockCampaign._id.toString(), updates);
 
       expect(updated).toBeTruthy();
       expect(updated?.name).toBe('Updated Name');
-      expect(updated?.budget).toBe(20000);
+      expect(updated?.price.targetAmount).toBe(20000);
       expect(updated?.accountName).toBe(mockCampaign.accountName); // Unchanged
       expect(updated?.updatedAt.getTime()).toBeGreaterThan(mockCampaign.updatedAt.getTime());
     });
@@ -310,17 +326,14 @@ describe('CampaignModel', () => {
 
   describe('delete', () => {
     test('should delete an existing campaign', async () => {
-      const mockCampaign = {
-        _id: new ObjectId(),
+      const mockCampaignData = createMockCampaignData({
         name: 'To Delete',
         accountName: 'Test Account',
         campaignNumber: 'CAMP-001',
-        budget: 10000,
-        status: 'active' as CampaignStatus,
-        dates: {
-          start: new Date('2025-01-01'),
-          end: new Date('2025-12-31'),
-        },
+      });
+      const mockCampaign = {
+        _id: new ObjectId(),
+        ...mockCampaignData,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
@@ -351,15 +364,12 @@ describe('CampaignModel', () => {
       // Create 100 campaigns to test the distribution
       const campaigns = Array.from({ length: 100 }, (_, i) => ({
         _id: new ObjectId(),
-        name: `Campaign ${i}`,
-        accountName: `Account ${i}`,
-        campaignNumber: `CAMP-${i.toString().padStart(3, '0')}`,
-        budget: 10000 + i * 1000,
-        status: 'active' as CampaignStatus,
-        dates: {
-          start: new Date('2025-01-01'),
-          end: new Date('2025-12-31'),
-        },
+        ...createMockCampaignData({
+          name: `Campaign ${i}`,
+          accountName: `Account ${i}`,
+          campaignNumber: `CAMP-${i.toString().padStart(3, '0')}`,
+          price: { targetAmount: 10000 + i * 1000, actualAmount: 0, remainingAmount: 10000 + i * 1000, currency: 'USD' },
+        }),
         createdAt: new Date(),
         updatedAt: new Date(),
       }));
@@ -378,15 +388,11 @@ describe('CampaignModel', () => {
     test('should ensure spend pacing is usually lower than delivery pacing', async () => {
       const campaigns = Array.from({ length: 50 }, (_, i) => ({
         _id: new ObjectId(),
-        name: `Campaign ${i}`,
-        accountName: `Account ${i}`,
-        campaignNumber: `CAMP-${i.toString().padStart(3, '0')}`,
-        budget: 10000,
-        status: 'active' as CampaignStatus,
-        dates: {
-          start: new Date('2025-01-01'),
-          end: new Date('2025-12-31'),
-        },
+        ...createMockCampaignData({
+          name: `Campaign ${i}`,
+          accountName: `Account ${i}`,
+          campaignNumber: `CAMP-${i.toString().padStart(3, '0')}`,
+        }),
         createdAt: new Date(),
         updatedAt: new Date(),
       }));

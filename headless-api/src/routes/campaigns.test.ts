@@ -11,8 +11,9 @@ app.use('/api/campaigns', campaignsRouter);
 
 describe('Campaigns API Routes', () => {
   beforeAll(async () => {
-    const uri = process.env.MONGODB_URI_TEST || 'mongodb://localhost:27017/mediatool_test';
-    await database.connect(uri);
+    process.env.MONGODB_URI = process.env.MONGODB_URI_TEST || 'mongodb://localhost:27017';
+    process.env.DATABASE_NAME = 'mediatool_test';
+    await database.connect();
   });
 
   afterAll(async () => {
@@ -128,7 +129,9 @@ describe('Campaigns API Routes', () => {
 
       // Reconnect for other tests
       const uri = process.env.MONGODB_URI_TEST || 'mongodb://localhost:27017/mediatool_test';
-      await database.connect(uri);
+      process.env.MONGODB_URI = uri;
+      process.env.DATABASE_NAME = 'mediatool_test';
+      await database.connect();
     });
   });
 
@@ -238,7 +241,9 @@ describe('Campaigns API Routes', () => {
 
       // Reconnect
       const uri = process.env.MONGODB_URI_TEST || 'mongodb://localhost:27017/mediatool_test';
-      await database.connect(uri);
+      process.env.MONGODB_URI = uri;
+      process.env.DATABASE_NAME = 'mediatool_test';
+      await database.connect();
     });
   });
 
@@ -374,7 +379,9 @@ describe('Campaigns API Routes', () => {
 
       // Reconnect
       const uri = process.env.MONGODB_URI_TEST || 'mongodb://localhost:27017/mediatool_test';
-      await database.connect(uri);
+      process.env.MONGODB_URI = uri;
+      process.env.DATABASE_NAME = 'mediatool_test';
+      await database.connect();
     });
   });
 });

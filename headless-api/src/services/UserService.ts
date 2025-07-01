@@ -1,6 +1,6 @@
-import { Collection, Db, ObjectId } from 'mongodb';
+import { Collection, Db, ObjectId, Document } from 'mongodb';
 import { database } from '../config/database';
-import { User, UserInput, UserUpdate } from '@bravo-1/shared';
+import { UserEntity as User, UserInput, UserUpdate } from '@bravo-1/shared';
 
 export interface BulkUpsertOptions {
   validateAll?: boolean;
@@ -20,33 +20,53 @@ export interface BulkUpsertResult {
 
 export class UserService {
   private db: Db;
-  private collection: Collection<User>;
+  private collection: Collection<Document>;
 
   constructor() {
     this.db = database.getDb();
-    this.collection = this.db.collection<User>('users');
+    this.collection = this.db.collection('users');
   }
 
   async findAll(filter: any = {}, options: any = {}): Promise<User[]> {
-    return await this.collection.find(filter, options).toArray();
+    const docs = await this.collection.find(filter, options).toArray();
+    return docs.map(doc => ({
+      ...doc,
+      _id: doc._id.toString(),
+    })) as User[];
   }
 
   async findById(id: string): Promise<User | null> {
-    return await this.collection.findOne({ _id: new ObjectId(id) });
+    const doc = await this.collection.findOne({ _id: new ObjectId(id) });
+    if (!doc) return null;
+    return {
+      ...doc,
+      _id: doc._id.toString(),
+    } as User;
   }
 
   async findByEmail(email: string): Promise<User | null> {
-    return await this.collection.findOne({ email: email.toLowerCase() });
+    const doc = await this.collection.findOne({ email: email.toLowerCase() });
+    if (!doc) return null;
+    return {
+      ...doc,
+      _id: doc._id.toString(),
+    } as User;
   }
 
   async findByZohoId(zohoUserId: string): Promise<User | null> {
-    return await this.collection.findOne({ zohoUserId });
+    const doc = await this.collection.findOne({ zohoUserId });
+    if (!doc) return null;
+    return {
+      ...doc,
+      _id: doc._id.toString(),
+    } as User;
   }
 
   async create(input: UserInput): Promise<User> {
     const now = new Date();
+    const objectId = new ObjectId();
     const user: User = {
-      _id: new ObjectId(),
+      _id: objectId.toString(),
       ...input,
       email: input.email.toLowerCase(),
       displayName: input.displayName || `${input.firstName} ${input.lastName}`,
@@ -93,8 +113,10 @@ export class UserService {
       updatedAt: now,
     };
 
-    const result = await this.collection.insertOne(user);
-    return { ...user, _id: result.insertedId };
+    // Create document for MongoDB with ObjectId
+    const mongoDoc = { ...user, _id: objectId };
+    const result = await this.collection.insertOne(mongoDoc);
+    return user; // Return the user with string _id
   }
 
   async update(id: string, update: UserUpdate): Promise<User | null> {
@@ -108,7 +130,11 @@ export class UserService {
       },
       { returnDocument: 'after' }
     );
-    return result;
+    if (!result) return null;
+    return {
+      ...result,
+      _id: result._id.toString(),
+    } as User;
   }
 
   async bulkUpsert(users: any[], options: BulkUpsertOptions = {}): Promise<BulkUpsertResult> {
@@ -126,8 +152,9 @@ export class UserService {
 
         // Prepare user data
         const now = new Date();
-        const user: User = {
-          _id: userData._id ? new ObjectId(userData._id) : new ObjectId(),
+        const objectId = userData._id ? new ObjectId(userData._id) : new ObjectId();
+        const user: any = {
+          _id: objectId.toString(),
           email: userData.email.toLowerCase(),
           firstName: userData.firstName,
           lastName: userData.lastName,
@@ -207,8 +234,9 @@ export class UserService {
           );
           result.updated++;
         } else {
-          // Insert new user
-          await this.collection.insertOne(user);
+          // Insert new user - convert _id back to ObjectId for MongoDB
+          const mongoDoc = { ...user, _id: objectId };
+          await this.collection.insertOne(mongoDoc);
           result.inserted++;
         }
       } catch (error) {

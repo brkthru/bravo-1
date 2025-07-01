@@ -93,7 +93,7 @@ async function migrateWithNames() {
       // Create campaign
       const campaign = {
         _id: strategy._id,
-        campaignNumber: `STR-${strategy._id.substring(0, 8).toUpperCase()}`,
+        campaignNumber: `STR-${strategy._id.toString().substring(0, 8).toUpperCase()}`,
         name: campaignName,
         accountName: accountName,
         accountId: account?._id || null,
