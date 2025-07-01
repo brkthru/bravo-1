@@ -7,7 +7,9 @@ set -euo pipefail
 
 # Configuration
 TIMESTAMP=$(date -u +%Y%m%d-%H%M%S)
-BASE_DIR="/Users/ryan/code-repos/github/brkthru/bravo_code/bravo-1"
+# Get the script's directory and derive BASE_DIR from it
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BASE_DIR="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 EXPORT_BASE_DIR="${BASE_DIR}/exports"
 SCRIPTS_DIR="${BASE_DIR}/scripts"
 
