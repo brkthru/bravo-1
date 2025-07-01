@@ -12,53 +12,9 @@ Bravo-1 is a ground-up rewrite of the media-tool system, focusing on:
 
 ## 🚀 Quick Start
 
-See [QUICKSTART.md](./QUICKSTART.md) for a detailed getting started guide.
+See [QUICKSTART.md](./QUICKSTART.md) for detailed setup and getting started instructions.
 
-### Prerequisites
-
-- Node.js 18+ and npm
-- Docker and Docker Compose
-- AWS CLI configured with SSO (for data access)
-- macOS (primary development platform)
-
-### 1. Clone and Install
-
-```bash
-git clone https://github.com/brkthru/bravo-1.git
-cd bravo-1
-npm install
-```
-
-### 2. Start MongoDB
-
-```bash
-docker-compose up -d mongodb
-```
-
-### 3. Load Production Data (NEW Simplified Method)
-
-```bash
-# Login to AWS
-aws sso login --profile brkthru-mediatool-dev
-
-# Import latest production data from S3
-./scripts/production-pipeline/import-from-s3.sh --latest
-```
-
-### 4. Start Development Servers
-
-```bash
-# From project root
-npm run dev
-```
-
-This starts:
-
-- Headless API: http://localhost:3001
-- Frontend: http://localhost:5174
-- API Docs: http://localhost:3001/api-docs
-
-## 📚 Full Setup Guide
+## 📚 Setup Guide
 
 ### Environment Configuration
 
@@ -78,9 +34,15 @@ DATABASE_NAME=bravo-1
 
 ### Data Pipeline
 
-The ETL pipeline imports production data from PostgreSQL exports:
+The ETL pipeline imports production data from PostgreSQL exports. 
+
+**Note**: The API server must be running for the load step. Use the simplified import script instead:
 
 ```bash
+# Recommended: Use the simplified import script
+./scripts/production-pipeline/import-from-s3.sh --latest
+
+# Or manually with the ETL scripts:
 cd scripts/etl
 
 # Step 1: Download latest export from S3
@@ -89,7 +51,7 @@ bun run-production-etl.ts download
 # Step 2: Transform to MongoDB format
 bun run-production-etl.ts transform
 
-# Step 3: Load into MongoDB
+# Step 3: Load into MongoDB (requires API server running)
 bun run-production-etl.ts load
 ```
 
