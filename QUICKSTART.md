@@ -23,6 +23,10 @@ npm install
 
 # If you get module errors, force reinstall to ensure workspace links are created
 # npm install --force
+
+# Create .env files from examples
+cp .env.example .env
+cp headless-api/.env.example headless-api/.env
 ```
 
 ### 2. Start MongoDB
@@ -198,22 +202,12 @@ git commit -m "feat: your changes"
 
 ## Environment Variables
 
-Create `.env` files if missing:
+The `.env` files are created from the `.env.example` files during setup (step 1). The default values should work for local development:
 
-**backend/.env**
+- **Root .env**: MongoDB and server configuration
+- **headless-api/.env**: API-specific settings including PostgreSQL config (for migrations)
 
-```
-NODE_ENV=development
-PORT=3001
-MONGODB_URI=mongodb://localhost:27017/bravo-1
-LOG_LEVEL=debug
-```
-
-**frontend/.env**
-
-```
-VITE_API_URL=http://localhost:3001/api
-```
+No changes are needed unless you're using non-standard ports or remote databases.
 
 ## Support
 
