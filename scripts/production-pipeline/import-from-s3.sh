@@ -14,6 +14,7 @@ ETL_DIR="${SCRIPTS_DIR}/etl"
 # AWS configuration
 AWS_PROFILE="${AWS_PROFILE:-brkthru-mediatool-dev}"
 S3_BUCKET="${S3_BUCKET:-media-tool-backups-1750593763}"
+S3_PREFIX="${S3_PREFIX:-postgres-complete-exports}"
 
 # MongoDB configuration
 MONGO_URI="${MONGO_URI:-mongodb://localhost:27017/bravo-1}"
@@ -53,11 +54,11 @@ while [[ $# -gt 0 ]]; do
 		;;
 	--latest)
 		# Get latest export from S3
-		LATEST_S3=$(aws s3 ls "s3://${S3_BUCKET}/postgres-exports/" --profile "${AWS_PROFILE}" | grep "\.tar\.gz" | sort | tail -1 | awk '{print $4}')
+		LATEST_S3=$(aws s3 ls "s3://${S3_BUCKET}/${S3_PREFIX}/" --profile "${AWS_PROFILE}" | grep "\.tar\.gz" | sort | tail -1 | awk '{print $4}')
 		if [[ -z ${LATEST_S3} ]]; then
 			error "No exports found in S3!"
 		fi
-		S3_URL="s3://${S3_BUCKET}/postgres-exports/${LATEST_S3}"
+		S3_URL="s3://${S3_BUCKET}/${S3_PREFIX}/${LATEST_S3}"
 		shift
 		;;
 	*)
