@@ -31,7 +31,19 @@ npm install
 docker-compose up -d mongodb
 ```
 
-### 3. Import Production Data
+### 3. Start the Backend API
+
+The import process requires the API to be running. In a new terminal:
+
+```bash
+npm run dev:api
+```
+
+Wait for the message: `Server is running on port 3001`
+
+### 4. Import Production Data
+
+In another terminal:
 
 ```bash
 # Login to AWS (if needed)
@@ -48,22 +60,17 @@ This will:
 
 - Download the latest PostgreSQL export from S3 (~91MB)
 - Extract and transform the data
-- Load it into MongoDB
+- Call the ETL API to load it into MongoDB
 - Show you the record counts
 
-### 4. Start the Application
-
-In separate terminals:
+### 5. Start the Frontend
 
 ```bash
-# Terminal 1: Backend
-npm run dev:api
-
-# Terminal 2: Frontend
+# In another terminal
 npm run dev:frontend
 ```
 
-### 5. Open Browser
+### 6. Open Browser
 
 Navigate to http://localhost:5174
 
@@ -170,17 +177,21 @@ The production data import includes:
 ## Daily Development Workflow
 
 ```bash
-# 1. Start services
+# 1. Start MongoDB
 docker-compose up -d mongodb
+
+# 2. Start backend API (in terminal 1)
 npm run dev:api
+
+# 3. Start frontend (in terminal 2)
 npm run dev:frontend
 
-# 2. Make changes and test
+# 4. Make changes and test
 
-# 3. Run linters before committing
+# 5. Run linters before committing
 trunk check
 
-# 4. Commit changes
+# 6. Commit changes
 git add .
 git commit -m "feat: your changes"
 ```
