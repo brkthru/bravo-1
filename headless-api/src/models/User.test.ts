@@ -91,10 +91,10 @@ describe('UserModel', () => {
 
       const db = database.getDb();
       await db.collection('users').insertMany(mockUsers);
-      const traders = await userModel.findAll({ role: UserRole.MEDIA_TRADER });
+      const traders = await userModel.findAll({ role: 'media_trader' });
 
       expect(traders).toHaveLength(2);
-      expect(traders.every((u) => u.role === UserRole.MEDIA_TRADER)).toBe(true);
+      expect(traders.every((u) => u.role === 'media_trader')).toBe(true);
     });
 
     test('should filter by isActive status', async () => {
@@ -349,7 +349,7 @@ describe('UserModel', () => {
 
       const updates = {
         name: 'Updated Name',
-        role: UserRole.SENIOR_MEDIA_TRADER,
+        role: 'senior_media_trader',
         department: 'New Department',
       };
 
@@ -357,7 +357,7 @@ describe('UserModel', () => {
 
       expect(updated).toBeTruthy();
       expect(updated?.name).toBe('Updated Name');
-      expect(updated?.role).toBe(UserRole.SENIOR_MEDIA_TRADER);
+      expect(updated?.role).toBe('senior_media_trader');
       expect(updated?.department).toBe('New Department');
       expect(updated?.email).toBe(mockUser.email); // Unchanged
       expect(updated?.updatedAt.getTime()).toBeGreaterThan(mockUser.updatedAt.getTime());
@@ -447,7 +447,8 @@ describe('UserModel', () => {
         updatedAt: new Date(),
       };
 
-      await collection.insertMany([director, manager1, manager2, trader]);
+      const db = database.getDb();
+      await db.collection('users').insertMany([director, manager1, manager2, trader]);
       const hierarchy = await userModel.getHierarchy();
 
       expect(hierarchy).toHaveLength(1); // One top-level user (director)
