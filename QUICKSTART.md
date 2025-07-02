@@ -29,25 +29,24 @@ cp .env.example .env
 cp headless-api/.env.example headless-api/.env
 ```
 
-### 2. Start MongoDB
+### 2. Start Development Environment
+
+The easiest way is to use the all-in-one command:
 
 ```bash
-docker-compose up -d mongodb
+npm run dev
 ```
 
-### 3. Start the Backend API
+This automatically:
 
-The import process requires the API to be running. In a new terminal:
+- Checks if Docker is running (attempts to start it on macOS)
+- Ensures MongoDB is running
+- Starts the backend API on port 3001
+- Starts the frontend on port 5174
 
-```bash
-npm run dev:api
-```
+### 3. Import Production Data
 
-Wait for the message: `Server is running on port 3001`
-
-### 4. Import Production Data
-
-In another terminal:
+In a new terminal, while the backend is running:
 
 ```bash
 # Login to AWS (if needed)
@@ -67,14 +66,7 @@ This will:
 - Call the ETL API to load it into MongoDB
 - Show you the record counts
 
-### 5. Start the Frontend
-
-```bash
-# In another terminal
-npm run dev:frontend
-```
-
-### 6. Open Browser
+### 4. Open Browser
 
 Navigate to http://localhost:5174
 
@@ -181,23 +173,32 @@ The production data import includes:
 ## Daily Development Workflow
 
 ```bash
-# 1. Start MongoDB
-docker-compose up -d mongodb
+# 1. Start everything with one command
+npm run dev
 
-# 2. Start backend API (in terminal 1)
-npm run dev:api
+# 2. Make changes and test
 
-# 3. Start frontend (in terminal 2)
-npm run dev:frontend
-
-# 4. Make changes and test
-
-# 5. Run linters before committing
+# 3. Run linters before committing
 trunk check
 
-# 6. Commit changes
+# 4. Commit changes
 git add .
 git commit -m "feat: your changes"
+```
+
+### Manual Component Control
+
+If you need to start components individually:
+
+```bash
+# Ensure MongoDB is running
+npm run dev:db
+
+# Start only the backend API
+npm run dev:api
+
+# Start only the frontend
+npm run dev:frontend
 ```
 
 ## Environment Variables
