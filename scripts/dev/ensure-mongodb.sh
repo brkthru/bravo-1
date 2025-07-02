@@ -29,7 +29,7 @@ check_docker() {
 
 			# Wait for Docker to start (max 30 seconds)
 			echo "⏳ Waiting for Docker to start..."
-			for i in {1..30}; do
+			for _ in {1..30}; do
 				if docker info >/dev/null 2>&1; then
 					echo -e "${GREEN}✓ Docker is now running${NC}"
 					return 0
@@ -51,6 +51,7 @@ check_docker() {
 
 # Function to check if MongoDB container exists
 check_container_exists() {
+	# shellcheck disable=SC2312
 	if docker ps -a --format '{{.Names}}' | grep -q "^${MONGODB_CONTAINER}$"; then
 		return 0
 	else
@@ -60,6 +61,7 @@ check_container_exists() {
 
 # Function to check if MongoDB container is running
 check_container_running() {
+	# shellcheck disable=SC2312
 	if docker ps --format '{{.Names}}' | grep -q "^${MONGODB_CONTAINER}$"; then
 		return 0
 	else
@@ -70,15 +72,18 @@ check_container_running() {
 # Main logic
 check_docker
 
+# shellcheck disable=SC2310
 if check_container_running; then
 	echo -e "${GREEN}✓ MongoDB is already running${NC}"
 
 	# Show connection info
+	# shellcheck disable=SC2312
 	MONGO_PORT=$(docker port "${MONGODB_CONTAINER}" 27017 2>/dev/null | cut -d: -f2)
 	echo "📊 MongoDB connection: mongodb://localhost:${MONGO_PORT:-27017}/bravo-1"
 	exit 0
 fi
 
+# shellcheck disable=SC2310
 if check_container_exists; then
 	echo -e "${YELLOW}⚠️  MongoDB container exists but is not running${NC}"
 	echo "🚀 Starting MongoDB container..."
@@ -86,7 +91,7 @@ if check_container_exists; then
 
 	# Wait for container to be ready
 	echo "⏳ Waiting for MongoDB to be ready..."
-	for i in {1..10}; do
+	for _ in {1..10}; do
 		if docker exec "${MONGODB_CONTAINER}" mongosh --eval "db.adminCommand('ping')" >/dev/null 2>&1; then
 			echo -e "${GREEN}✓ MongoDB is ready${NC}"
 			exit 0
@@ -110,7 +115,7 @@ else
 
 	# Wait for MongoDB to be ready
 	echo "⏳ Waiting for MongoDB to be ready..."
-	for i in {1..20}; do
+	for _ in {1..20}; do
 		if docker exec "${MONGODB_CONTAINER}" mongosh --eval "db.adminCommand('ping')" >/dev/null 2>&1; then
 			echo -e "${GREEN}✓ MongoDB is ready${NC}"
 			echo "📊 MongoDB connection: mongodb://localhost:27017/bravo-1"

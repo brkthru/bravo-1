@@ -168,5 +168,5 @@ jobs:
         with:
           name: build-artifacts
           path: |
-            backend/dist/
+            headless-api/dist/
             frontend/dist/
