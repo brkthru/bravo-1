@@ -68,7 +68,7 @@ This will:
 
 ### 4. Open Browser
 
-Navigate to http://localhost:5174
+Navigate to <http://localhost:5174>
 
 You should see:
 
