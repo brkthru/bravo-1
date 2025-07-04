@@ -168,9 +168,11 @@ describe('Users API Routes', () => {
 
       const director = {
         _id: new ObjectId(),
+        employeeId: 'emp-dir-001',
         email: 'director@example.com',
         name: 'Director',
         role: 'account_director' as const,
+        department: 'Executive',
         isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -178,10 +180,12 @@ describe('Users API Routes', () => {
 
       const manager = {
         _id: new ObjectId(),
+        employeeId: 'emp-mgr-001',
         email: 'manager@example.com',
         name: 'Manager',
         role: 'account_manager' as const,
-        managerId: director._id.toString(),
+        managerId: 'emp-dir-001',
+        department: 'Sales',
         isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),

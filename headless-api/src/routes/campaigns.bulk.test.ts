@@ -17,7 +17,7 @@ describe('Campaign Bulk API Endpoints', () => {
     process.env.MONGODB_URI = uri;
 
     // Connect to database
-    await database.connect();
+    await database.connect(uri);
 
     // Setup Express app
     app = express();
