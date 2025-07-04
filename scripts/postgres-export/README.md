@@ -5,6 +5,7 @@ This directory contains scripts to export raw data from the PostgreSQL media-too
 ## Purpose
 
 Create a faithful backup of all PostgreSQL data that can be:
+
 - Stored in version control or cloud storage
 - Used to experiment with different MongoDB schema designs
 - Restored to create test environments
@@ -28,16 +29,19 @@ bun install
 ## Usage
 
 ### Using Bun (recommended for performance):
+
 ```bash
 bun run export
 ```
 
 ### Using Node.js:
+
 ```bash
 npm run export:node
 ```
 
 ### With custom database connection:
+
 ```bash
 PG_HOST=localhost \
 PG_PORT=5432 \
@@ -67,15 +71,17 @@ postgres-raw-export/
 ## Exported Tables
 
 The export includes all application tables:
+
 - Core entities: campaigns, accounts, users, teams
 - Media planning: line_items, strategies, media_buys
 - Platform data: media_platforms, platform_entities
 - Configuration: channels, tactics, unit_price_types
-- History tables: *_history tables for audit trails
+- History tables: \*\_history tables for audit trails
 
 ## Data Characteristics
 
 ### Raw Export Features:
+
 - No transformations applied
 - Preserves all PostgreSQL data types as JSON
 - Maintains all relationships via IDs
@@ -83,6 +89,7 @@ The export includes all application tables:
 - Preserves null values and empty arrays
 
 ### Key Data Points:
+
 - ~13,417 campaigns with real names (CN- prefixed)
 - Real user data with emails and zoho_user_ids
 - Proper team assignments and relationships
@@ -92,11 +99,13 @@ The export includes all application tables:
 ## Schema Notes
 
 ### User Relationships:
+
 - Campaigns reference users via `owner_user_id` and `lead_account_owner_user_id`
 - These map to `users.zoho_user_id` (not users.id)
 - Teams are linked through reps and reps_x_teams tables
 
 ### Hierarchical Structure:
+
 ```
 accounts
   └── campaigns
@@ -112,19 +121,21 @@ accounts
 After export completes:
 
 1. **Verify Data Integrity**
+
    ```bash
    # Check export summary
    cat postgres-raw-export/export-summary.json
-   
+
    # Verify campaign data
    cat postgres-raw-export/campaigns.json | jq 'length'
    ```
 
 2. **Backup to Cloud Storage**
+
    ```bash
    # Compress for storage
    tar -czf postgres-backup-$(date +%Y%m%d).tar.gz postgres-raw-export/
-   
+
    # Upload to S3, GCS, etc.
    aws s3 cp postgres-backup-*.tar.gz s3://your-bucket/backups/
    ```
@@ -147,6 +158,7 @@ To use this data for MongoDB migration:
 ## Security Notes
 
 ⚠️ **This export contains real user data including emails**
+
 - Store exports securely
 - Don't commit to public repositories
 - Sanitize data if needed for development

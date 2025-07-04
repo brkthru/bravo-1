@@ -30,6 +30,7 @@ scripts/
 ## Quick Start
 
 ### 1. Export from PostgreSQL
+
 ```bash
 cd production-pipeline
 ./production-export-pipeline-local.sh
@@ -38,9 +39,11 @@ cd production-pipeline
 This creates timestamped exports in `/exports/raw/YYYYMMDD-HHMMSS/`
 
 ### 2. Transform Data
+
 The pipeline automatically transforms data and stores it in `/exports/transformed/YYYYMMDD-HHMMSS/`
 
 ### 3. Load into MongoDB
+
 The pipeline automatically loads transformed data into MongoDB
 
 ## Data Flow
@@ -54,16 +57,19 @@ PostgreSQL → Export (JSON) → Transform → Load → MongoDB
 ## Key Scripts
 
 ### Production Pipeline (`production-pipeline/`)
+
 - **production-export-pipeline.sh**: Full pipeline with AWS S3 backup
 - **production-export-pipeline-local.sh**: Local version without S3
 - **compare-exports.sh**: Compare different export versions
 - **restore-from-backup.sh**: Restore a specific timestamped backup
 
 ### ETL Scripts (`etl/`)
+
 - **run-etl.ts**: Main ETL runner (use with `bun run`)
 - **transform-postgres-data.ts**: Transforms PostgreSQL structure to MongoDB
 
 ### PostgreSQL Export (`postgres-export/`)
+
 - **export-postgres-raw.ts**: Exports all PostgreSQL tables to JSON
 
 ## Timestamps
@@ -79,6 +85,7 @@ All timestamps are in UTC format (YYYYMMDD-HHMMSS) to ensure consistency across 
 ## Environment Variables
 
 Create `production-pipeline/config/pipeline.env`:
+
 ```bash
 # PostgreSQL Configuration
 PROD_PG_HOST=localhost
@@ -96,6 +103,7 @@ S3_BUCKET=media-tool-backups
 ## For New Users
 
 See [Download and Setup Guide](production-pipeline/SETUP-NEW-USER.md) for instructions on:
+
 - Downloading data from S3
 - Setting up local environment
 - Loading data into MongoDB

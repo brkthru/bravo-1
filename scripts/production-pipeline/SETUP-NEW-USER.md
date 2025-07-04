@@ -5,24 +5,26 @@ This guide helps new developers get the Bravo-1 project running with production 
 ## Prerequisites
 
 1. **Install Required Tools**
+
    ```bash
    # Install Homebrew if not already installed
    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-   
+
    # Install AWS CLI
    brew install awscli
-   
+
    # Install Docker Desktop
    # Download from: https://www.docker.com/products/docker-desktop
-   
+
    # Install Bun
    curl -fsSL https://bun.sh/install | bash
-   
+
    # Install Node.js (if not already installed)
    brew install node
    ```
 
 2. **Clone the Repository**
+
    ```bash
    git clone https://github.com/brkthru/bravo_code.git
    cd bravo_code/bravo-1
@@ -36,14 +38,15 @@ This guide helps new developers get the Bravo-1 project running with production 
 ## AWS Setup
 
 1. **Configure AWS SSO**
-   
+
    Add to `~/.aws/config`:
+
    ```ini
    [profile brkthru-mediatool-dev]
    sso_session = brkthru-sso
    sso_account_id = 654654602045
    sso_role_name = AdministratorAccess
-   
+
    [sso-session brkthru-sso]
    sso_region = us-east-1
    sso_start_url = https://d-9067e956d7.awsapps.com/start/#
@@ -58,6 +61,7 @@ This guide helps new developers get the Bravo-1 project running with production 
 ## Database Setup
 
 1. **Start MongoDB Container**
+
    ```bash
    docker-compose up -d mongodb
    ```
@@ -88,17 +92,19 @@ cd scripts/production-pipeline
 ### Option 2: Manual Download
 
 1. **List Available Exports**
+
    ```bash
    aws s3 ls s3://media-tool-backups-1750593763/postgres-exports/metadata/ \
      --profile brkthru-mediatool-dev
    ```
 
 2. **Download Specific Export**
+
    ```bash
    # Set the timestamp you want
    TIMESTAMP="20250622-072326"
    DATE=$(echo $TIMESTAMP | cut -c1-8)
-   
+
    # Download files
    aws s3 cp \
      s3://media-tool-backups-1750593763/postgres-exports/transformed/${DATE:0:4}-${DATE:4:2}-${DATE:6:2}/${TIMESTAMP}-transformed.tar.gz \
@@ -107,11 +113,12 @@ cd scripts/production-pipeline
    ```
 
 3. **Extract and Load**
+
    ```bash
    # Extract
    cd exports/transformed
    tar -xzf ../temp/${TIMESTAMP}-transformed.tar.gz
-   
+
    # Load into MongoDB
    cd ../../scripts/etl
    cp -r ../../exports/transformed/${TIMESTAMP}/* ./data-transformed/
@@ -121,11 +128,13 @@ cd scripts/production-pipeline
 ## Start the Application
 
 1. **Backend Server** (Terminal 1)
+
    ```bash
    npm run dev:backend
    ```
 
 2. **Frontend Server** (Terminal 2)
+
    ```bash
    npm run dev:frontend
    ```
@@ -137,10 +146,11 @@ cd scripts/production-pipeline
 ## Verify Data
 
 1. **Check MongoDB**
+
    ```bash
    # Connect to MongoDB
    docker exec -it bravo1_mongodb mongosh
-   
+
    # In MongoDB shell
    use mediatool_v2
    db.campaigns.countDocuments()  // Should show 13,417
@@ -153,6 +163,7 @@ cd scripts/production-pipeline
 ## Troubleshooting
 
 ### AWS Authentication Issues
+
 ```bash
 # Re-authenticate
 aws sso login --sso-session brkthru-sso
@@ -162,6 +173,7 @@ aws sts get-caller-identity --profile brkthru-mediatool-dev
 ```
 
 ### MongoDB Connection Issues
+
 ```bash
 # Restart MongoDB
 docker-compose down
@@ -172,6 +184,7 @@ docker logs bravo1_mongodb
 ```
 
 ### Data Loading Issues
+
 ```bash
 # Check file permissions
 ls -la exports/transformed/

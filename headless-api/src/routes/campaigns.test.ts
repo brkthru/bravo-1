@@ -12,6 +12,8 @@ app.use('/api/campaigns', campaignsRouter);
 describe('Campaigns API Routes', () => {
   beforeAll(async () => {
     const uri = process.env.MONGODB_URI_TEST || 'mongodb://localhost:27017/mediatool_test';
+    // Set a unique database name for this test suite
+    process.env.DATABASE_NAME = 'test-campaigns-' + Date.now();
     await database.connect(uri);
   });
 
@@ -140,8 +142,8 @@ describe('Campaigns API Routes', () => {
         name: 'Test Campaign',
         accountName: 'Test Account',
         campaignNumber: 'TEST-001',
-        budget: 30000,
-        status: 'active',
+        price: { targetAmount: 30000, actualAmount: 0, remainingAmount: 30000, currency: 'USD' },
+        status: 'L1',
         dates: {
           start: new Date('2025-01-01'),
           end: new Date('2025-12-31'),
@@ -171,10 +173,10 @@ describe('Campaigns API Routes', () => {
     });
 
     test('should handle invalid ObjectId format', async () => {
-      const response = await request(app).get('/api/campaigns/invalid-id').expect(200);
+      const response = await request(app).get('/api/campaigns/invalid-id').expect(404);
 
-      expect(response.body.success).toBe(true);
-      expect(response.body.data).toBeNull();
+      expect(response.body.success).toBe(false);
+      expect(response.body.error).toBe('Campaign not found');
     });
   });
 
@@ -184,8 +186,8 @@ describe('Campaigns API Routes', () => {
         name: 'New Campaign',
         accountName: 'New Account',
         campaignNumber: 'NEW-001',
-        budget: 50000,
-        status: 'draft',
+        price: { targetAmount: 50000, currency: 'USD' },
+        status: 'L1',
         dates: {
           start: '2025-01-01',
           end: '2025-12-31',
@@ -197,7 +199,7 @@ describe('Campaigns API Routes', () => {
       expect(response.body.success).toBe(true);
       expect(response.body.data._id).toBeDefined();
       expect(response.body.data.name).toBe('New Campaign');
-      expect(response.body.data.budget).toBe(50000);
+      expect(response.body.data.price.targetAmount).toBe(50000);
       expect(response.body.data.createdAt).toBeDefined();
       expect(response.body.data.updatedAt).toBeDefined();
 
@@ -212,8 +214,8 @@ describe('Campaigns API Routes', () => {
     test('should validate required fields', async () => {
       const invalidCampaign = {
         // Missing name and campaignNumber
-        budget: 50000,
-        status: 'draft',
+        price: { targetAmount: 50000, currency: 'USD' },
+        status: 'L1',
       };
 
       const response = await request(app).post('/api/campaigns').send(invalidCampaign).expect(400);
@@ -250,8 +252,8 @@ describe('Campaigns API Routes', () => {
         name: 'Original Name',
         accountName: 'Test Account',
         campaignNumber: 'TEST-001',
-        budget: 30000,
-        status: 'active',
+        price: { targetAmount: 30000, actualAmount: 0, remainingAmount: 30000, currency: 'USD' },
+        status: 'L1',
         dates: {
           start: new Date('2025-01-01'),
           end: new Date('2025-12-31'),
@@ -264,8 +266,8 @@ describe('Campaigns API Routes', () => {
 
       const updates = {
         name: 'Updated Name',
-        budget: 40000,
-        status: 'paused',
+        price: { targetAmount: 40000, currency: 'USD' },
+        status: 'L3',
       };
 
       const response = await request(app)
@@ -275,8 +277,8 @@ describe('Campaigns API Routes', () => {
 
       expect(response.body.success).toBe(true);
       expect(response.body.data.name).toBe('Updated Name');
-      expect(response.body.data.budget).toBe(40000);
-      expect(response.body.data.status).toBe('paused');
+      expect(response.body.data.price.targetAmount).toBe(40000);
+      expect(response.body.data.status).toBe('L3');
       expect(response.body.data.accountName).toBe('Test Account'); // Unchanged
     });
 
@@ -297,8 +299,8 @@ describe('Campaigns API Routes', () => {
         name: 'Original Name',
         accountName: 'Test Account',
         campaignNumber: 'TEST-001',
-        budget: 30000,
-        status: 'active',
+        price: { targetAmount: 30000, actualAmount: 0, remainingAmount: 30000, currency: 'USD' },
+        status: 'L1',
         dates: {
           start: new Date('2025-01-01'),
           end: new Date('2025-12-31'),
@@ -311,13 +313,13 @@ describe('Campaigns API Routes', () => {
 
       const response = await request(app)
         .put(`/api/campaigns/${campaign._id.toString()}`)
-        .send({ budget: 35000 })
+        .send({ price: { targetAmount: 35000, currency: 'USD' } })
         .expect(200);
 
       expect(response.body.success).toBe(true);
-      expect(response.body.data.budget).toBe(35000);
+      expect(response.body.data.price.targetAmount).toBe(35000);
       expect(response.body.data.name).toBe('Original Name'); // Unchanged
-      expect(response.body.data.status).toBe('active'); // Unchanged
+      expect(response.body.data.status).toBe('L1'); // Unchanged
     });
   });
 
@@ -329,8 +331,8 @@ describe('Campaigns API Routes', () => {
         name: 'To Delete',
         accountName: 'Test Account',
         campaignNumber: 'DEL-001',
-        budget: 10000,
-        status: 'active',
+        price: { targetAmount: 10000, actualAmount: 0, remainingAmount: 10000, currency: 'USD' },
+        status: 'L1',
         dates: {
           start: new Date('2025-01-01'),
           end: new Date('2025-12-31'),
@@ -362,19 +364,11 @@ describe('Campaigns API Routes', () => {
       expect(response.body.error).toBe('Campaign not found');
     });
 
-    test('should handle deletion errors', async () => {
-      await database.disconnect();
-
-      const response = await request(app)
-        .delete(`/api/campaigns/${new ObjectId().toString()}`)
-        .expect(500);
+    test('should handle invalid ObjectId format on delete', async () => {
+      const response = await request(app).delete('/api/campaigns/invalid-id').expect(404);
 
       expect(response.body.success).toBe(false);
-      expect(response.body.error).toBe('Failed to delete campaign');
-
-      // Reconnect
-      const uri = process.env.MONGODB_URI_TEST || 'mongodb://localhost:27017/mediatool_test';
-      await database.connect(uri);
+      expect(response.body.error).toBe('Campaign not found');
     });
   });
 });

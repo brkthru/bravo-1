@@ -31,18 +31,22 @@ describe('UserModel', () => {
       const mockUsers = [
         {
           _id: new ObjectId(),
+          employeeId: 'emp-001',
           email: 'user1@example.com',
           name: 'User One',
-          role: 'media_trader',
+          role: 'media_trader' as const,
+          department: 'Trading',
           isActive: true,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           _id: new ObjectId(),
+          employeeId: 'emp-002',
           email: 'user2@example.com',
           name: 'User Two',
-          role: 'account_manager',
+          role: 'account_manager' as const,
+          department: 'Sales',
           isActive: true,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -62,27 +66,33 @@ describe('UserModel', () => {
       const mockUsers = [
         {
           _id: new ObjectId(),
+          employeeId: 'emp-003',
           email: 'trader1@example.com',
           name: 'Trader One',
-          role: 'media_trader',
+          role: 'media_trader' as const,
+          department: 'Trading',
           isActive: true,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           _id: new ObjectId(),
+          employeeId: 'emp-004',
           email: 'manager1@example.com',
           name: 'Manager One',
-          role: 'account_manager',
+          role: 'account_manager' as const,
+          department: 'Sales',
           isActive: true,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           _id: new ObjectId(),
+          employeeId: 'emp-005',
           email: 'trader2@example.com',
           name: 'Trader Two',
-          role: 'media_trader',
+          role: 'media_trader' as const,
+          department: 'Trading',
           isActive: true,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -101,18 +111,22 @@ describe('UserModel', () => {
       const mockUsers = [
         {
           _id: new ObjectId(),
+          employeeId: 'emp-006',
           email: 'active@example.com',
           name: 'Active User',
-          role: 'account_manager',
+          role: 'account_manager' as const,
+          department: 'Sales',
           isActive: true,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           _id: new ObjectId(),
+          employeeId: 'emp-007',
           email: 'inactive@example.com',
           name: 'Inactive User',
-          role: 'account_manager',
+          role: 'account_manager' as const,
+          department: 'Sales',
           isActive: false,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -131,9 +145,10 @@ describe('UserModel', () => {
       const mockUsers = [
         {
           _id: new ObjectId(),
+          employeeId: 'emp-008',
           email: 'sales1@example.com',
           name: 'Sales User',
-          role: 'account_manager',
+          role: 'account_manager' as const,
           department: 'Sales',
           isActive: true,
           createdAt: new Date(),
@@ -141,9 +156,10 @@ describe('UserModel', () => {
         },
         {
           _id: new ObjectId(),
+          employeeId: 'emp-009',
           email: 'tech1@example.com',
           name: 'Tech User',
-          role: 'media_trader',
+          role: 'media_trader' as const,
           department: 'Technology',
           isActive: true,
           createdAt: new Date(),
@@ -164,9 +180,11 @@ describe('UserModel', () => {
       const mockUsers = [
         {
           _id: new ObjectId(),
+          employeeId: 'emp-010',
           email: 'user1@example.com',
           name: 'User with Manager',
-          role: 'media_trader',
+          role: 'media_trader' as const,
+          department: 'Trading',
           managerId: managerId.toString(),
           isActive: true,
           createdAt: new Date(),
@@ -174,9 +192,11 @@ describe('UserModel', () => {
         },
         {
           _id: new ObjectId(),
+          employeeId: 'emp-011',
           email: 'user2@example.com',
           name: 'User without Manager',
-          role: 'media_trader',
+          role: 'media_trader' as const,
+          department: 'Trading',
           isActive: true,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -201,9 +221,11 @@ describe('UserModel', () => {
     test('should return user by ID', async () => {
       const mockUser = {
         _id: new ObjectId(),
+        employeeId: 'emp-012',
         email: 'test@example.com',
         name: 'Test User',
-        role: 'account_manager',
+        role: 'account_manager' as const,
+        department: 'Sales',
         isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -230,9 +252,10 @@ describe('UserModel', () => {
       const users = [
         {
           _id: new ObjectId(),
+          employeeId: 'emp-013',
           email: 'john.doe@example.com',
           name: 'John Doe',
-          role: 'account_manager',
+          role: 'account_manager' as const,
           department: 'Sales',
           isActive: true,
           createdAt: new Date(),
@@ -240,9 +263,10 @@ describe('UserModel', () => {
         },
         {
           _id: new ObjectId(),
+          employeeId: 'emp-014',
           email: 'jane.smith@example.com',
           name: 'Jane Smith',
-          role: 'media_trader',
+          role: 'media_trader' as const,
           department: 'Operations',
           isActive: true,
           createdAt: new Date(),
@@ -250,9 +274,10 @@ describe('UserModel', () => {
         },
         {
           _id: new ObjectId(),
+          employeeId: 'emp-015',
           email: 'bob.johnson@example.com',
           name: 'Bob Johnson',
-          role: 'senior_account_manager',
+          role: 'senior_account_manager' as const,
           department: 'Sales',
           isActive: true,
           createdAt: new Date(),
@@ -296,9 +321,10 @@ describe('UserModel', () => {
   describe('create', () => {
     test('should create a new user', async () => {
       const newUser = {
+        employeeId: 'emp-new',
         email: 'new@example.com',
         name: 'New User',
-        role: 'media_trader',
+        role: 'media_trader' as const,
         department: 'Operations',
       };
 
@@ -313,15 +339,18 @@ describe('UserModel', () => {
       expect(created.updatedAt).toBeDefined();
 
       // Verify it was saved to database
+      const db = database.getDb();
       const saved = await db.collection('users').findOne({ _id: new ObjectId(created._id) });
       expect(saved).toBeTruthy();
     });
 
     test('should set default values', async () => {
       const newUser = {
+        employeeId: 'emp-minimal',
         email: 'minimal@example.com',
         name: 'Minimal User',
-        role: 'account_manager',
+        role: 'account_manager' as const,
+        department: 'Sales',
       };
 
       const created = await userModel.create(newUser);
@@ -336,9 +365,11 @@ describe('UserModel', () => {
     test('should update an existing user', async () => {
       const mockUser = {
         _id: new ObjectId(),
+        employeeId: 'emp-update',
         email: 'original@example.com',
         name: 'Original Name',
-        role: 'media_trader',
+        role: 'media_trader' as const,
+        department: 'Trading',
         isActive: true,
         createdAt: new Date('2025-01-01'),
         updatedAt: new Date('2025-01-01'),
@@ -349,7 +380,7 @@ describe('UserModel', () => {
 
       const updates = {
         name: 'Updated Name',
-        role: 'senior_media_trader',
+        role: 'senior_media_trader' as const,
         department: 'New Department',
       };
 
@@ -373,9 +404,11 @@ describe('UserModel', () => {
     test('should delete an existing user', async () => {
       const mockUser = {
         _id: new ObjectId(),
+        employeeId: 'emp-delete',
         email: 'todelete@example.com',
         name: 'To Delete',
-        role: 'account_manager',
+        role: 'account_manager' as const,
+        department: 'Sales',
         isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -406,9 +439,11 @@ describe('UserModel', () => {
     test('should return hierarchical structure', async () => {
       const director = {
         _id: new ObjectId(),
+        employeeId: 'emp-001',
         email: 'director@example.com',
         name: 'Director',
         role: 'account_director',
+        department: 'Executive',
         isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -416,10 +451,12 @@ describe('UserModel', () => {
 
       const manager1 = {
         _id: new ObjectId(),
+        employeeId: 'emp-002',
         email: 'manager1@example.com',
         name: 'Manager 1',
         role: 'account_manager',
-        managerId: director._id.toString(),
+        managerId: 'emp-001',
+        department: 'Sales',
         isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -427,10 +464,12 @@ describe('UserModel', () => {
 
       const manager2 = {
         _id: new ObjectId(),
+        employeeId: 'emp-003',
         email: 'manager2@example.com',
         name: 'Manager 2',
         role: 'account_manager',
-        managerId: director._id.toString(),
+        managerId: 'emp-001',
+        department: 'Sales',
         isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -438,10 +477,12 @@ describe('UserModel', () => {
 
       const trader = {
         _id: new ObjectId(),
+        employeeId: 'emp-004',
         email: 'trader@example.com',
         name: 'Trader',
         role: 'media_trader',
-        managerId: manager1._id.toString(),
+        managerId: 'emp-002',
+        department: 'Trading',
         isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -463,9 +504,11 @@ describe('UserModel', () => {
     test('should only include active users', async () => {
       const activeManager = {
         _id: new ObjectId(),
+        employeeId: 'emp-005',
         email: 'active@example.com',
         name: 'Active Manager',
         role: 'account_manager',
+        department: 'Sales',
         isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -473,15 +516,17 @@ describe('UserModel', () => {
 
       const inactiveManager = {
         _id: new ObjectId(),
+        employeeId: 'emp-006',
         email: 'inactive@example.com',
         name: 'Inactive Manager',
         role: 'account_manager',
+        department: 'Sales',
         isActive: false,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
 
-      await collection.insertMany([activeManager, inactiveManager]);
+      await database.getDb().collection('users').insertMany([activeManager, inactiveManager]);
       const hierarchy = await userModel.getHierarchy();
 
       expect(hierarchy).toHaveLength(1);

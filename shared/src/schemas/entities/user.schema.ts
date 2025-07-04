@@ -62,7 +62,12 @@ export const UserPreferencesSchema = z.object({
       systemAnnouncements: z.boolean().default(true),
       dailyDigest: z.boolean().default(false),
     })
-    .default({}),
+    .default({
+      campaignUpdates: true,
+      performanceAlerts: true,
+      systemAnnouncements: true,
+      dailyDigest: false,
+    }),
 
   // Dashboard preferences
   defaultDashboard: z
@@ -90,9 +95,23 @@ export const UserPreferencesSchema = z.object({
           includeRisks: z.boolean().default(true),
           customPriorities: z.array(z.string()).default([]),
         })
-        .default({}),
+        .default({
+          includeFinancials: true,
+          includePerformance: true,
+          includeRisks: true,
+          customPriorities: [],
+        }),
     })
-    .default({}),
+    .default({
+      enabled: true,
+      personalizedPrompts: [],
+      summaryPreferences: {
+        includeFinancials: true,
+        includePerformance: true,
+        includeRisks: true,
+        customPriorities: [],
+      },
+    }),
 });
 
 // Main user entity schema
@@ -162,7 +181,11 @@ export const UserEntitySchema = z
         upcomingPeriods: z.array(OutOfOfficePeriodSchema).default([]),
         historicalPeriods: z.array(OutOfOfficePeriodSchema).default([]),
       })
-      .default({}),
+      .default({
+        isOutOfOffice: false,
+        upcomingPeriods: [],
+        historicalPeriods: [],
+      }),
 
     // Backup relationships
     primaryBackup: z
@@ -179,7 +202,7 @@ export const UserEntitySchema = z
       .optional(),
 
     // Preferences
-    preferences: UserPreferencesSchema.default({}),
+    preferences: UserPreferencesSchema,
 
     // External system IDs
     zohoUserId: TrimmedStringSchema.optional(),

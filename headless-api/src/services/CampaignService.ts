@@ -90,6 +90,7 @@ export class CampaignService {
     for (const [batchIndex, batch] of batches.entries()) {
       try {
         // Validate batch if required
+        let validCampaigns = batch;
         if (validateAll) {
           const validationErrors = await this.validateBatch(batch, batchIndex * BATCH_SIZE);
           if (validationErrors.length > 0) {
@@ -97,18 +98,25 @@ export class CampaignService {
             if (stopOnError) {
               break;
             }
-            continue;
+            // Filter out invalid campaigns
+            const errorIndices = new Set(
+              validationErrors.map((e) => e.index - batchIndex * BATCH_SIZE)
+            );
+            validCampaigns = batch.filter((_, index) => !errorIndices.has(index));
           }
         }
 
-        // Apply calculations if required
-        const processedBatch = applyCalculations
-          ? await Promise.all(batch.map((campaign) => this.applyCalculations(campaign)))
-          : batch;
+        // Only process valid campaigns
+        if (validCampaigns.length > 0) {
+          // Apply calculations if required
+          const processedBatch = applyCalculations
+            ? await Promise.all(validCampaigns.map((campaign) => this.applyCalculations(campaign)))
+            : validCampaigns;
 
-        // Perform bulk insert
-        const insertResult = await this.campaignModel.bulkInsert(processedBatch);
-        result.inserted += insertResult.insertedCount;
+          // Perform bulk insert
+          const insertResult = await this.campaignModel.bulkInsert(processedBatch);
+          result.inserted += insertResult.insertedCount;
+        }
       } catch (error) {
         const batchError = {
           index: batchIndex * BATCH_SIZE,
@@ -471,6 +479,14 @@ export class CampaignService {
           errors.push({
             index: startIndex + i,
             error: 'Campaign name is required',
+            data: campaign,
+          });
+        }
+
+        if (!campaign.campaignNumber) {
+          errors.push({
+            index: startIndex + i,
+            error: 'Campaign number is required',
             data: campaign,
           });
         }

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { 
-  HomeIcon, 
-  ChartBarIcon, 
+import {
+  HomeIcon,
+  ChartBarIcon,
   DocumentTextIcon,
   CogIcon,
   UserCircleIcon,
@@ -11,7 +11,7 @@ import {
   ClipboardDocumentListIcon,
   ShoppingCartIcon,
   ChartPieIcon,
-  CalendarIcon
+  CalendarIcon,
 } from '@heroicons/react/24/outline';
 import { BoltIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
@@ -25,7 +25,7 @@ const navigationGroups = [
     items: [
       { name: 'Home', href: '/', icon: HomeIcon },
       { name: 'My Schedule', href: '/my-schedule', icon: CalendarIcon },
-    ]
+    ],
   },
   {
     name: 'Planning',
@@ -33,45 +33,45 @@ const navigationGroups = [
       { name: 'Accounts', href: '/accounts', icon: BuildingOfficeIcon },
       { name: 'Campaigns', href: '/campaigns', icon: ChartBarIcon },
       { name: 'Line Items', href: '/line-items', icon: DocumentTextIcon },
-    ]
+    ],
   },
   {
     name: 'Execution',
     items: [
       { name: 'Media Plans', href: '/media-plans', icon: ClipboardDocumentListIcon },
       { name: 'Platform Buys', href: '/platform-buys', icon: ShoppingCartIcon },
-    ]
+    ],
   },
   {
     name: 'Analytics',
     items: [
       { name: 'Dashboard', href: '/analytics', icon: ChartPieIcon },
       { name: 'Reports', href: '/reports', icon: DocumentTextIcon },
-    ]
+    ],
   },
   {
     name: 'Billing',
-    items: [
-      { name: 'Invoices', href: '/invoices', icon: ArrowTrendingUpIcon },
-    ]
+    items: [{ name: 'Invoices', href: '/invoices', icon: ArrowTrendingUpIcon }],
   },
   {
     name: 'System',
     items: [
       { name: 'Settings', href: '/settings', icon: CogIcon },
       { name: 'Users', href: '/users', icon: UserCircleIcon },
-    ]
-  }
+    ],
+  },
 ];
 
 export default function Layout() {
   const location = useLocation();
   const { resolvedTheme } = useTheme();
   const { currentUser, isLoading } = useUser();
-  
+
   const userName = currentUser?.name || 'Account Manager';
-  const userRole = currentUser?.role?.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) || 'View profile';
-  const avatarUrl = currentUser?.name 
+  const userRole =
+    currentUser?.role?.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()) ||
+    'View profile';
+  const avatarUrl = currentUser?.name
     ? `https://api.dicebear.com/9.x/avataaars/svg?seed=${encodeURIComponent(currentUser.name)}`
     : 'https://api.dicebear.com/9.x/avataaars/svg?seed=Account%20Manager';
 
@@ -96,7 +96,8 @@ export default function Layout() {
                   </h3>
                   <div className="space-y-1">
                     {group.items.map((item) => {
-                      const isActive = location.pathname === item.href || 
+                      const isActive =
+                        location.pathname === item.href ||
                         (item.href !== '/' && location.pathname.startsWith(item.href));
                       return (
                         <Link
@@ -111,7 +112,9 @@ export default function Layout() {
                         >
                           <item.icon
                             className={clsx(
-                              isActive ? 'text-primary-500 dark:text-primary-400' : 'text-gray-400 dark:text-gray-500 group-hover:text-gray-500 dark:group-hover:text-gray-400',
+                              isActive
+                                ? 'text-primary-500 dark:text-primary-400'
+                                : 'text-gray-400 dark:text-gray-500 group-hover:text-gray-500 dark:group-hover:text-gray-400',
                               'mr-3 h-6 w-6 flex-shrink-0'
                             )}
                             aria-hidden="true"
@@ -125,13 +128,13 @@ export default function Layout() {
               ))}
             </nav>
           </div>
-          
+
           {/* User section */}
           <div className="flex flex-shrink-0 border-t border-gray-200 dark:border-gray-700 p-4">
             <Link to="/settings" className="group block w-full flex-shrink-0">
               <div className="flex items-center">
                 <div>
-                  <img 
+                  <img
                     src={avatarUrl}
                     alt={userName}
                     className="h-9 w-9 rounded-full bg-gray-100"
@@ -160,9 +163,10 @@ export default function Layout() {
               <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
                 {(() => {
                   for (const group of navigationGroups) {
-                    const activeItem = group.items.find(item => 
-                      location.pathname === item.href || 
-                      (item.href !== '/' && location.pathname.startsWith(item.href))
+                    const activeItem = group.items.find(
+                      (item) =>
+                        location.pathname === item.href ||
+                        (item.href !== '/' && location.pathname.startsWith(item.href))
                     );
                     if (activeItem) return activeItem.name;
                   }
@@ -172,15 +176,12 @@ export default function Layout() {
             </div>
             <div className="ml-4 flex items-center space-x-4 md:ml-6">
               <ThemeToggle />
-              <div className="text-xs text-gray-500 dark:text-gray-400">
-                v1.0
-              </div>
-              <Link to="/settings" className="rounded-full hover:ring-2 hover:ring-primary-500 transition-all">
-                <img 
-                  src={avatarUrl}
-                  alt={userName}
-                  className="h-8 w-8 rounded-full bg-gray-100"
-                />
+              <div className="text-xs text-gray-500 dark:text-gray-400">v1.0</div>
+              <Link
+                to="/settings"
+                className="rounded-full hover:ring-2 hover:ring-primary-500 transition-all"
+              >
+                <img src={avatarUrl} alt={userName} className="h-8 w-8 rounded-full bg-gray-100" />
               </Link>
             </div>
           </div>

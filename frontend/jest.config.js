@@ -1,12 +1,12 @@
 module.exports = {
   testEnvironment: 'jsdom',
   transform: {
-    '^.+.tsx?$': ['@swc/jest', {}]
+    '^.+.tsx?$': ['@swc/jest', {}],
   },
   moduleNameMapper: {
     '^@mediatool/shared$': '<rootDir>/../shared/src/index.ts',
     '\\.(css|less|scss|sass)$': '<rootDir>/__mocks__/styleMock.js',
-    '\\.(jpg|jpeg|png|gif|svg)$': '<rootDir>/__mocks__/fileMock.js'
+    '\\.(jpg|jpeg|png|gif|svg)$': '<rootDir>/__mocks__/fileMock.js',
   },
   rootDir: __dirname,
   testMatch: ['**/?(*.)test.{ts,tsx}'],
@@ -17,6 +17,6 @@ module.exports = {
     '!src/**/*.test.{ts,tsx}',
     '!src/test-utils/**',
     '!src/**/*.d.ts',
-    '!src/main.tsx'
-  ]
+    '!src/main.tsx',
+  ],
 };

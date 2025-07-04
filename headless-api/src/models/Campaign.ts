@@ -200,6 +200,7 @@ export class CampaignModel {
         $or: [
           { name: { $regex: query, $options: 'i' } },
           { campaignNumber: { $regex: query, $options: 'i' } },
+          { accountName: { $regex: query, $options: 'i' } },
         ],
       })
       .toArray();

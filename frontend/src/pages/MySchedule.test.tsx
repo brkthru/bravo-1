@@ -13,10 +13,10 @@ jest.mock('../contexts/UserContext', () => ({
       _id: 'test-user-id',
       name: 'Test User',
       email: 'test@example.com',
-      role: 'account_manager'
+      role: 'account_manager',
     },
-    isLoading: false
-  })
+    isLoading: false,
+  }),
 }));
 
 // Mock fetch
@@ -34,9 +34,7 @@ const renderWithProviders = (component: React.ReactElement) => {
   return render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <UserProvider>
-          {component}
-        </UserProvider>
+        <UserProvider>{component}</UserProvider>
       </BrowserRouter>
     </QueryClientProvider>
   );
@@ -56,15 +54,15 @@ describe('MySchedule', () => {
             budget: 10000,
             dates: {
               start: new Date().toISOString(),
-              end: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString() // 7 days from now
+              end: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(), // 7 days from now
             },
             team: {
-              leadAccountManager: { id: 'test-user-id', name: 'Test User' }
+              leadAccountManager: { id: 'test-user-id', name: 'Test User' },
             },
             metrics: {
               deliveryPacing: 0.8,
-              spendPacing: 0.75
-            }
+              spendPacing: 0.75,
+            },
           },
           {
             _id: '2',
@@ -73,34 +71,34 @@ describe('MySchedule', () => {
             budget: 50000,
             dates: {
               start: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(), // 30 days ago
-              end: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString() // 2 days from now
+              end: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days from now
             },
             team: {
-              leadAccountManager: { id: 'test-user-id', name: 'Test User' }
+              leadAccountManager: { id: 'test-user-id', name: 'Test User' },
             },
             metrics: {
               deliveryPacing: 0.4, // Under-pacing
-              spendPacing: 0.35
-            }
-          }
-        ]
-      })
+              spendPacing: 0.35,
+            },
+          },
+        ],
+      }),
     });
   });
 
   test('renders the MySchedule page', async () => {
     renderWithProviders(<MySchedule />);
-    
+
     expect(screen.getByText('My Schedule')).toBeInTheDocument();
     expect(screen.getByText(/Your personalized campaign cockpit/)).toBeInTheDocument();
   });
 
   test('displays calendar with current month', () => {
     renderWithProviders(<MySchedule />);
-    
+
     const currentMonth = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
     expect(screen.getByText(currentMonth)).toBeInTheDocument();
-    
+
     // Check for day headers
     expect(screen.getByText('Sun')).toBeInTheDocument();
     expect(screen.getByText('Mon')).toBeInTheDocument();
@@ -109,16 +107,16 @@ describe('MySchedule', () => {
 
   test('navigates between months', () => {
     renderWithProviders(<MySchedule />);
-    
+
     const currentDate = new Date();
     const nextMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
     const nextMonthName = nextMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-    
+
     // Click next month button
-    const nextButton = screen.getAllByRole('button').find(btn => 
-      btn.querySelector('[class*="ChevronRightIcon"]')
-    );
-    
+    const nextButton = screen
+      .getAllByRole('button')
+      .find((btn) => btn.querySelector('[class*="ChevronRightIcon"]'));
+
     if (nextButton) {
       fireEvent.click(nextButton);
       expect(screen.getByText(nextMonthName)).toBeInTheDocument();
@@ -127,7 +125,7 @@ describe('MySchedule', () => {
 
   test('displays campaigns and stats', async () => {
     renderWithProviders(<MySchedule />);
-    
+
     await waitFor(() => {
       expect(screen.getByText('Active Campaigns')).toBeInTheDocument();
       expect(screen.getByText('2')).toBeInTheDocument(); // Number of campaigns
@@ -138,7 +136,7 @@ describe('MySchedule', () => {
 
   test('displays priority tasks', async () => {
     renderWithProviders(<MySchedule />);
-    
+
     await waitFor(() => {
       expect(screen.getByText('Priority Tasks')).toBeInTheDocument();
       expect(screen.getByText('Critical Campaign')).toBeInTheDocument();
@@ -150,35 +148,35 @@ describe('MySchedule', () => {
 
   test('selects a date and shows campaigns for that date', async () => {
     renderWithProviders(<MySchedule />);
-    
+
     // Wait for campaigns to load
     await waitFor(() => {
       expect(screen.getByText('Test Campaign 1')).toBeInTheDocument();
     });
-    
+
     // Click on today's date
     const today = new Date().getDate().toString();
     const todayButtons = screen.getAllByText(today);
-    const todayButton = todayButtons.find(btn => 
-      btn.closest('button') && !btn.closest('button')?.className.includes('text-gray-400')
+    const todayButton = todayButtons.find(
+      (btn) => btn.closest('button') && !btn.closest('button')?.className.includes('text-gray-400')
     );
-    
+
     if (todayButton) {
       fireEvent.click(todayButton.closest('button')!);
-      
+
       // Check selected date details
-      const selectedDateText = new Date().toLocaleDateString('en-US', { 
-        weekday: 'long', 
-        month: 'long', 
-        day: 'numeric' 
+      const selectedDateText = new Date().toLocaleDateString('en-US', {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
       });
       expect(screen.getByText(selectedDateText)).toBeInTheDocument();
     }
   });
 
-  test('shows today\'s events for current date', async () => {
+  test("shows today's events for current date", async () => {
     renderWithProviders(<MySchedule />);
-    
+
     await waitFor(() => {
       expect(screen.getByText("Today's Events")).toBeInTheDocument();
       expect(screen.getByText('Campaign Review - Holiday Season')).toBeInTheDocument();
@@ -188,7 +186,7 @@ describe('MySchedule', () => {
 
   test('displays priority indicators correctly', async () => {
     renderWithProviders(<MySchedule />);
-    
+
     await waitFor(() => {
       // Check for priority indicators (colored dots)
       const priorityTasks = screen.getByText('Priority Tasks').closest('div')?.parentElement;
@@ -202,7 +200,7 @@ describe('MySchedule', () => {
 
   test('shows quick action buttons', async () => {
     renderWithProviders(<MySchedule />);
-    
+
     await waitFor(() => {
       expect(screen.getAllByText('View Details')).toHaveLength(2);
       expect(screen.getAllByText('Check Pacing')).toHaveLength(2);
@@ -210,9 +208,9 @@ describe('MySchedule', () => {
     });
   });
 
-  test('displays today\'s focus summary', async () => {
+  test("displays today's focus summary", async () => {
     renderWithProviders(<MySchedule />);
-    
+
     await waitFor(() => {
       expect(screen.getByText("Today's Focus")).toBeInTheDocument();
       const focusText = screen.getByText(/You have/);
@@ -223,7 +221,7 @@ describe('MySchedule', () => {
 
   test('handles loading state', () => {
     renderWithProviders(<MySchedule />);
-    
+
     // Before data loads
     expect(screen.getByText('Loading tasks...')).toBeInTheDocument();
   });
@@ -231,11 +229,11 @@ describe('MySchedule', () => {
   test('handles empty campaigns', async () => {
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ data: [] })
+      json: async () => ({ data: [] }),
     });
-    
+
     renderWithProviders(<MySchedule />);
-    
+
     await waitFor(() => {
       expect(screen.getByText('No priority tasks')).toBeInTheDocument();
       expect(screen.getByText('0')).toBeInTheDocument(); // Active campaigns count
@@ -251,12 +249,12 @@ describe('MySchedule', () => {
         budget: 10000,
         dates: {
           start: new Date().toISOString(),
-          end: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+          end: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
         },
         team: {
-          leadAccountManager: { id: 'test-user-id', name: 'Test User' }
+          leadAccountManager: { id: 'test-user-id', name: 'Test User' },
         },
-        metrics: { deliveryPacing: 0.8, spendPacing: 0.75 }
+        metrics: { deliveryPacing: 0.8, spendPacing: 0.75 },
       },
       {
         _id: '2',
@@ -265,22 +263,22 @@ describe('MySchedule', () => {
         budget: 20000,
         dates: {
           start: new Date().toISOString(),
-          end: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+          end: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
         },
         team: {
-          leadAccountManager: { id: 'other-user-id', name: 'Other User' }
+          leadAccountManager: { id: 'other-user-id', name: 'Other User' },
         },
-        metrics: { deliveryPacing: 0.9, spendPacing: 0.85 }
-      }
+        metrics: { deliveryPacing: 0.9, spendPacing: 0.85 },
+      },
     ];
-    
+
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ data: campaigns })
+      json: async () => ({ data: campaigns }),
     });
-    
+
     renderWithProviders(<MySchedule />);
-    
+
     await waitFor(() => {
       expect(screen.getByText('My Campaign')).toBeInTheDocument();
       expect(screen.queryByText('Other Campaign')).not.toBeInTheDocument();

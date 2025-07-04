@@ -317,58 +317,7 @@ router.post('/', async (req: Request, res: Response<ApiResponse>) => {
   }
 });
 
-// PUT /api/campaigns/:id - Update campaign
-router.put('/:id', async (req: Request, res: Response<ApiResponse>) => {
-  try {
-    const campaignService = new CampaignService();
-    const { id } = req.params;
-    const updates: UpdateCampaignRequest = req.body;
-
-    const campaign = await campaignService.updateCampaign(id, updates);
-
-    if (!campaign) {
-      return res.status(404).json({
-        success: false,
-        error: 'Campaign not found',
-      });
-    }
-
-    res.json({ success: true, data: campaign });
-  } catch (error) {
-    console.error('Error updating campaign:', error);
-    res.status(500).json({
-      success: false,
-      error: 'Failed to update campaign',
-      details: error instanceof Error ? error.message : 'Unknown error',
-    });
-  }
-});
-
-// DELETE /api/campaigns/:id - Delete campaign
-router.delete('/:id', async (req: Request, res: Response<ApiResponse>) => {
-  try {
-    const campaignModel = new CampaignModel();
-    const { id } = req.params;
-    const deleted = await campaignModel.delete(id);
-
-    if (!deleted) {
-      return res.status(404).json({
-        success: false,
-        error: 'Campaign not found',
-      });
-    }
-
-    res.json({ success: true, data: { deleted: true } });
-  } catch (error) {
-    console.error('Error deleting campaign:', error);
-    res.status(500).json({
-      success: false,
-      error: 'Failed to delete campaign',
-      details: error instanceof Error ? error.message : 'Unknown error',
-    });
-  }
-});
-
+// Bulk routes MUST come before parameterized routes like /:id
 // POST /api/campaigns/bulk - Bulk create campaigns
 router.post('/bulk', async (req: Request, res: Response<ApiResponse>) => {
   try {
@@ -518,6 +467,59 @@ router.post('/bulk/upsert', async (req: Request, res: Response<ApiResponse>) => 
     res.status(500).json({
       success: false,
       error: 'Failed to bulk upsert campaigns',
+      details: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
+// Parameterized routes MUST come after all specific routes
+// PUT /api/campaigns/:id - Update campaign
+router.put('/:id', async (req: Request, res: Response<ApiResponse>) => {
+  try {
+    const campaignService = new CampaignService();
+    const { id } = req.params;
+    const updates: UpdateCampaignRequest = req.body;
+
+    const campaign = await campaignService.updateCampaign(id, updates);
+
+    if (!campaign) {
+      return res.status(404).json({
+        success: false,
+        error: 'Campaign not found',
+      });
+    }
+
+    res.json({ success: true, data: campaign });
+  } catch (error) {
+    console.error('Error updating campaign:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to update campaign',
+      details: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
+// DELETE /api/campaigns/:id - Delete campaign
+router.delete('/:id', async (req: Request, res: Response<ApiResponse>) => {
+  try {
+    const campaignModel = new CampaignModel();
+    const { id } = req.params;
+    const deleted = await campaignModel.delete(id);
+
+    if (!deleted) {
+      return res.status(404).json({
+        success: false,
+        error: 'Campaign not found',
+      });
+    }
+
+    res.json({ success: true, data: { deleted: true } });
+  } catch (error) {
+    console.error('Error deleting campaign:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to delete campaign',
       details: error instanceof Error ? error.message : 'Unknown error',
     });
   }

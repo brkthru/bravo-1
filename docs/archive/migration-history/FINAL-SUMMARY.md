@@ -3,6 +3,7 @@
 ## What We Accomplished
 
 ### 1. Complete Data Migration ✅
+
 - Migrated **238,463 documents** from PostgreSQL to MongoDB
 - Total database size: **410 MB** data, **114 MB** storage
 - Created **22 collections** with **69 indexes** for optimal performance
@@ -10,23 +11,27 @@
 ### 2. Solved Key Architecture Challenges
 
 #### A. Independent Querying of Nested Data
+
 **Problem**: How to query line items independently when they're embedded in campaigns?
 
 **Solutions Implemented**:
+
 1. **MongoDB Views** (`lineItemsView`, `mediaPlansView`) - Real-time computed views
 2. **Materialized Collections** (`lineItems`) - Synced via change streams
 3. **Hybrid Approach** - Keep relationships while enabling independent queries
 
 ```javascript
 // Now you can query line items directly:
-db.lineItems.find({ channelName: "Display", budget: { $gte: 50000 } })
-db.lineItemsView.find({ accountId: "account-123" })
+db.lineItems.find({ channelName: 'Display', budget: { $gte: 50000 } });
+db.lineItemsView.find({ accountId: 'account-123' });
 ```
 
 #### B. Version Control System
+
 **Problem**: Track all changes with who/when/why, support point-in-time recovery
 
 **Solution Implemented**:
+
 - **Change Events**: Every modification tracked with user, timestamp, reason
 - **Version Snapshots**: Complete document state at each version
 - **Unique Identifiers**: Each version has a unique ID (e.g., `v1.2.3`)
@@ -35,9 +40,9 @@ db.lineItemsView.find({ accountId: "account-123" })
 ```javascript
 // Track a change
 await versionControl.trackChange(
-  'campaign', 
-  campaignId, 
-  [{path: 'budget', value: 150000}],
+  'campaign',
+  campaignId,
+  [{ path: 'budget', value: 150000 }],
   userId,
   'Budget increase approved by client'
 );
@@ -50,9 +55,11 @@ await versionControl.tagVersion('v1.2.3', 'exported_to_zoho');
 ```
 
 #### C. Flexible Metrics Architecture
+
 **Problem**: Support multiple metric types without schema changes
 
 **Solution Implemented**:
+
 - Unified `units` + `unitType` pattern
 - Pre-aggregated rollups for performance
 - Time-series optimized structure
@@ -106,6 +113,7 @@ Recommended tools for browsing/managing data:
    - Download: https://www.mongodb.com/products/compass
 
 2. **AdminMongo** (Open source web UI)
+
    ```bash
    npm install -g admin-mongo
    admin-mongo

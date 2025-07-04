@@ -1,21 +1,20 @@
 import * as z from 'zod/v4';
 
 // Date transformation utilities
-export const DateSchema = z.union([z.string(), z.date()])
-  .transform((val) => new Date(val));
+export const DateSchema = z.union([z.string(), z.date()]).transform((val) => new Date(val));
 
 // Date or null
-export const DateOrNullSchema = z.union([z.string(), z.date(), z.null()])
-  .transform((val) => val ? new Date(val) : null);
+export const DateOrNullSchema = z
+  .union([z.string(), z.date(), z.null()])
+  .transform((val) => (val ? new Date(val) : null));
 
 // Date range
-export const DateRangeSchema = z.object({
-  start: DateSchema,
-  end: DateSchema,
-}).refine(
-  (data) => data.start <= data.end,
-  'Start date must be before or equal to end date'
-);
+export const DateRangeSchema = z
+  .object({
+    start: DateSchema,
+    end: DateSchema,
+  })
+  .refine((data) => data.start <= data.end, 'Start date must be before or equal to end date');
 
 // Flight dates (for campaigns and line items)
 export const FlightDatesSchema = DateRangeSchema;

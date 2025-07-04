@@ -7,12 +7,14 @@ class Database {
   private client: MongoClient | null = null;
   private db: Db | null = null;
 
-  async connect(): Promise<void> {
+  async connect(uri?: string): Promise<void> {
     try {
-      this.client = new MongoClient(MONGODB_URI);
+      const mongoUri = uri || MONGODB_URI;
+      const dbName = process.env.DATABASE_NAME || DATABASE_NAME;
+      this.client = new MongoClient(mongoUri);
       await this.client.connect();
-      this.db = this.client.db(DATABASE_NAME);
-      console.log(`Connected to MongoDB: ${DATABASE_NAME}`);
+      this.db = this.client.db(dbName);
+      console.log(`Connected to MongoDB: ${dbName}`);
     } catch (error) {
       console.error('Failed to connect to MongoDB:', error);
       throw error;

@@ -16,7 +16,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      '@bravo-1/shared': path.resolve(__dirname, '../shared/src'),
     },
   },
 });

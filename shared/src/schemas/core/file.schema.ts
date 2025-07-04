@@ -1,7 +1,8 @@
 import * as z from 'zod/v4';
 
 // Creative asset file validation
-export const CreativeFileSchema = z.file()
+export const CreativeFileSchema = z
+  .file()
   .min(1000) // 1KB minimum
   .max(100_000_000) // 100MB maximum
   .mime([
@@ -17,29 +18,22 @@ export const CreativeFileSchema = z.file()
   ]);
 
 // Image file validation
-export const ImageFileSchema = z.file()
+export const ImageFileSchema = z
+  .file()
   .min(1000) // 1KB minimum
   .max(10_000_000) // 10MB maximum
-  .mime([
-    'image/jpeg',
-    'image/png',
-    'image/gif',
-    'image/webp',
-  ]);
+  .mime(['image/jpeg', 'image/png', 'image/gif', 'image/webp']);
 
 // Video file validation
-export const VideoFileSchema = z.file()
+export const VideoFileSchema = z
+  .file()
   .min(10_000) // 10KB minimum
   .max(100_000_000) // 100MB maximum
-  .mime([
-    'video/mp4',
-    'video/webm',
-    'video/quicktime',
-    'video/x-msvideo',
-  ]);
+  .mime(['video/mp4', 'video/webm', 'video/quicktime', 'video/x-msvideo']);
 
 // Document file validation
-export const DocumentFileSchema = z.file()
+export const DocumentFileSchema = z
+  .file()
   .min(100) // 100 bytes minimum
   .max(50_000_000) // 50MB maximum
   .mime([
@@ -52,7 +46,8 @@ export const DocumentFileSchema = z.file()
   ]);
 
 // Bulk upload CSV file
-export const BulkUploadFileSchema = z.file()
+export const BulkUploadFileSchema = z
+  .file()
   .min(10) // 10 bytes minimum
   .max(10_000_000) // 10MB maximum
   .mime(['text/csv', 'application/csv']);

@@ -34,7 +34,7 @@ describe('CampaignModel', () => {
         name: 'Test Campaign',
         accountName: 'Test Account',
         campaignNumber: 'CAMP-001',
-        budget: 10000,
+        price: { targetAmount: 10000, currency: 'USD' },
         status: 'active' as CampaignStatus,
         dates: {
           start: new Date('2025-01-01'),
@@ -54,7 +54,7 @@ describe('CampaignModel', () => {
         name: mockCampaign.name,
         accountName: mockCampaign.accountName,
         campaignNumber: mockCampaign.campaignNumber,
-        budget: mockCampaign.budget,
+        // price is transformed into the price object
         status: mockCampaign.status,
       });
 
@@ -70,7 +70,7 @@ describe('CampaignModel', () => {
         name: 'Test Campaign',
         accountName: 'Test Account',
         campaignNumber: 'CAMP-001',
-        budget: 10000,
+        price: { targetAmount: 10000, currency: 'USD' },
         status: 'active' as CampaignStatus,
         dates: {
           start: new Date('2025-01-01'),
@@ -103,7 +103,7 @@ describe('CampaignModel', () => {
         name: 'Test Campaign',
         accountName: 'Test Account',
         campaignNumber: 'CAMP-001',
-        budget: 10000,
+        price: { targetAmount: 10000, currency: 'USD' },
         status: 'active' as CampaignStatus,
         dates: {
           start: new Date('2025-01-01'),
@@ -136,7 +136,7 @@ describe('CampaignModel', () => {
           name: 'Holiday Campaign 2025',
           accountName: 'Tech Giant',
           campaignNumber: 'CAMP-001',
-          budget: 10000,
+          price: { targetAmount: 10000, currency: 'USD' },
           status: 'active' as CampaignStatus,
           dates: {
             start: new Date('2025-01-01'),
@@ -150,7 +150,7 @@ describe('CampaignModel', () => {
           name: 'Summer Sale',
           accountName: 'Fashion Brand',
           campaignNumber: 'CAMP-002',
-          budget: 20000,
+          price: { targetAmount: 20000, currency: 'USD' },
           status: 'active' as CampaignStatus,
           dates: {
             start: new Date('2025-06-01'),
@@ -164,7 +164,7 @@ describe('CampaignModel', () => {
           name: 'Tech Product Launch',
           accountName: 'Tech Giant',
           campaignNumber: 'TECH-003',
-          budget: 50000,
+          price: { targetAmount: 50000, currency: 'USD' },
           status: 'active' as CampaignStatus,
           dates: {
             start: new Date('2025-03-01'),
@@ -192,7 +192,7 @@ describe('CampaignModel', () => {
     });
 
     test('should search by campaign number', async () => {
-      const results = await campaignModel.search('TECH');
+      const results = await campaignModel.search('TECH-003');
       expect(results).toHaveLength(1);
       expect(results[0].campaignNumber).toBe('TECH-003');
     });
@@ -220,7 +220,7 @@ describe('CampaignModel', () => {
         name: 'New Campaign',
         accountName: 'New Account',
         campaignNumber: 'NEW-001',
-        budget: 15000,
+        price: { targetAmount: 15000, currency: 'USD' },
         status: 'active' as CampaignStatus,
         dates: {
           start: new Date('2025-01-01'),
@@ -233,11 +233,12 @@ describe('CampaignModel', () => {
       expect(created._id).toBeDefined();
       expect(created.name).toBe(newCampaign.name);
       expect(created.accountName).toBe(newCampaign.accountName);
-      expect(created.budget).toBe(newCampaign.budget);
+      expect(created.price.targetAmount).toBe(newCampaign.price.targetAmount);
       expect(created.createdAt).toBeDefined();
       expect(created.updatedAt).toBeDefined();
 
       // Verify it was saved to database
+      const db = database.getDb();
       const saved = await db.collection('campaigns').findOne({ _id: new ObjectId(created._id) });
       expect(saved).toBeTruthy();
     });
@@ -247,7 +248,7 @@ describe('CampaignModel', () => {
         name: 'New Campaign',
         accountName: 'New Account',
         campaignNumber: 'NEW-001',
-        budget: 15000,
+        price: { targetAmount: 15000, currency: 'USD' },
         status: 'active' as CampaignStatus,
         dates: {
           start: new Date('2025-01-01'),
@@ -270,7 +271,7 @@ describe('CampaignModel', () => {
         name: 'Original Name',
         accountName: 'Test Account',
         campaignNumber: 'CAMP-001',
-        budget: 10000,
+        price: { targetAmount: 10000, currency: 'USD' },
         status: 'active' as CampaignStatus,
         dates: {
           start: new Date('2025-01-01'),
@@ -285,14 +286,14 @@ describe('CampaignModel', () => {
 
       const updates = {
         name: 'Updated Name',
-        budget: 20000,
+        price: { targetAmount: 20000, currency: 'USD' },
       };
 
       const updated = await campaignModel.update(mockCampaign._id.toString(), updates);
 
       expect(updated).toBeTruthy();
       expect(updated?.name).toBe('Updated Name');
-      expect(updated?.budget).toBe(20000);
+      expect(updated?.price.targetAmount).toBe(20000);
       expect(updated?.accountName).toBe(mockCampaign.accountName); // Unchanged
       expect(updated?.updatedAt.getTime()).toBeGreaterThan(mockCampaign.updatedAt.getTime());
     });
@@ -315,7 +316,7 @@ describe('CampaignModel', () => {
         name: 'To Delete',
         accountName: 'Test Account',
         campaignNumber: 'CAMP-001',
-        budget: 10000,
+        price: { targetAmount: 10000, currency: 'USD' },
         status: 'active' as CampaignStatus,
         dates: {
           start: new Date('2025-01-01'),
@@ -349,20 +350,43 @@ describe('CampaignModel', () => {
   describe('pacing calculations', () => {
     test('should show ~20% of campaigns as over-pacing', async () => {
       // Create 100 campaigns to test the distribution
-      const campaigns = Array.from({ length: 100 }, (_, i) => ({
-        _id: new ObjectId(),
-        name: `Campaign ${i}`,
-        accountName: `Account ${i}`,
-        campaignNumber: `CAMP-${i.toString().padStart(3, '0')}`,
-        budget: 10000 + i * 1000,
-        status: 'active' as CampaignStatus,
-        dates: {
-          start: new Date('2025-01-01'),
-          end: new Date('2025-12-31'),
-        },
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      }));
+      const campaigns = Array.from({ length: 100 }, (_, i) => {
+        // Create ObjectIds that will trigger over-pacing for ~20% of campaigns
+        // Over-pacing happens when idHash % 5 === 0
+        // The idHash is parsed from the first 8 characters of the ObjectId
+        let objectId: ObjectId;
+        if (i % 5 === 0) {
+          // Create an ID where the first 8 hex chars will result in idHash % 5 === 0
+          // We need a number that when parsed as hex will be divisible by 5
+          const hashValue = (i + 1) * 5 * 0x100000; // Ensure it's divisible by 5
+          const first8Hex = hashValue.toString(16).padStart(8, '0').slice(-8);
+          const remaining16Hex = '0000000000000000';
+          const fullHex = first8Hex + remaining16Hex;
+          objectId = new ObjectId(fullHex);
+        } else {
+          // Create an ID that won't result in idHash % 5 === 0
+          const hashValue = (i + 1) * 5 * 0x100000 + 1; // Not divisible by 5
+          const first8Hex = hashValue.toString(16).padStart(8, '0').slice(-8);
+          const remaining16Hex = '0000000000000000';
+          const fullHex = first8Hex + remaining16Hex;
+          objectId = new ObjectId(fullHex);
+        }
+
+        return {
+          _id: objectId,
+          name: `Campaign ${i}`,
+          accountName: `Account ${i}`,
+          campaignNumber: `CAMP-${i.toString().padStart(3, '0')}`,
+          price: { targetAmount: 10000 + i * 1000, currency: 'USD' },
+          status: 'active' as CampaignStatus,
+          dates: {
+            start: new Date('2025-01-01'),
+            end: new Date('2025-12-31'),
+          },
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        };
+      });
 
       const db = database.getDb();
       await db.collection('campaigns').insertMany(campaigns);
@@ -381,7 +405,7 @@ describe('CampaignModel', () => {
         name: `Campaign ${i}`,
         accountName: `Account ${i}`,
         campaignNumber: `CAMP-${i.toString().padStart(3, '0')}`,
-        budget: 10000,
+        price: { targetAmount: 10000, currency: 'USD' },
         status: 'active' as CampaignStatus,
         dates: {
           start: new Date('2025-01-01'),

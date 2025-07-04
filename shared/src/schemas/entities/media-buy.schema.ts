@@ -1,5 +1,5 @@
 import * as z from 'zod/v4';
-import { 
+import {
   ObjectIdSchema,
   NonEmptyStringSchema,
   StatusSchema,
@@ -7,17 +7,9 @@ import {
   TrimmedStringSchema,
   UrlSchema,
 } from '../core/validation.schema';
-import { 
-  FinancialAmountSchema,
-} from '../core/financial.schema';
-import { 
-  DateSchema,
-  DateRangeSchema,
-} from '../core/dates.schema';
-import { 
-  UnitTypeEnumSchema,
-  ActualUnitsSchema,
-} from '../core/units.schema';
+import { FinancialAmountSchema } from '../core/financial.schema';
+import { DateSchema, DateRangeSchema } from '../core/dates.schema';
+import { UnitTypeEnumSchema, ActualUnitsSchema } from '../core/units.schema';
 
 // Media buy status
 export const MediaBuyStatusSchema = z.enum([
@@ -39,76 +31,88 @@ export const PlatformEntityReferenceSchema = z.object({
 });
 
 // Media buy schema
-export const MediaBuySchema = z.object({
-  _id: ObjectIdSchema,
-  name: NonEmptyStringSchema,
-  lineItemId: ObjectIdSchema,
-  campaignId: ObjectIdSchema,
-  
-  // Status and dates
-  status: MediaBuyStatusSchema,
-  flightDates: DateRangeSchema,
-  
-  // Platform information
-  platform: z.enum([
-    'google_ads',
-    'facebook',
-    'instagram',
-    'linkedin',
-    'twitter',
-    'tiktok',
-    'ttd',
-    'dv360',
-    'amazon',
-    'direct',
-  ]),
-  platformEntityRef: PlatformEntityReferenceSchema.optional(),
-  
-  // Financial
-  plannedSpend: FinancialAmountSchema,
-  actualSpend: FinancialAmountSchema.default(0),
-  
-  // Performance
-  unitType: UnitTypeEnumSchema,
-  plannedUnits: z.number().min(0),
-  actualUnits: ActualUnitsSchema.default(0),
-  
-  // Creative assets
-  creativeAssets: z.array(z.object({
-    id: z.string(),
-    name: TrimmedStringSchema,
-    type: z.enum(['image', 'video', 'carousel', 'text', 'html5']),
-    url: UrlSchema.optional(),
-    thumbnailUrl: UrlSchema.optional(),
-    dimensions: z.object({
-      width: z.number().int().positive(),
-      height: z.number().int().positive(),
-    }).optional(),
-    fileSize: z.number().int().positive().optional(),
-  })).default([]),
-  
-  // Tracking
-  trackingUrls: z.object({
-    clickUrl: UrlSchema.optional(),
-    impressionUrl: UrlSchema.optional(),
-    conversionUrl: UrlSchema.optional(),
-  }).optional(),
-  
-  // Placement details
-  placement: z.object({
-    type: z.enum(['feed', 'stories', 'search', 'display', 'video', 'native']),
-    positions: z.array(z.string()).optional(),
-    devices: z.array(z.enum(['desktop', 'mobile', 'tablet', 'ctv'])).optional(),
-  }).optional(),
-  
-  // Metadata
-  tags: z.array(TrimmedStringSchema).default([]),
-  notes: z.string().optional(),
-  
-  // External references
-  externalId: z.string().optional(),
-  externalUrl: UrlSchema.optional(),
-}).extend(AuditFieldsSchema.shape);
+export const MediaBuySchema = z
+  .object({
+    _id: ObjectIdSchema,
+    name: NonEmptyStringSchema,
+    lineItemId: ObjectIdSchema,
+    campaignId: ObjectIdSchema,
+
+    // Status and dates
+    status: MediaBuyStatusSchema,
+    flightDates: DateRangeSchema,
+
+    // Platform information
+    platform: z.enum([
+      'google_ads',
+      'facebook',
+      'instagram',
+      'linkedin',
+      'twitter',
+      'tiktok',
+      'ttd',
+      'dv360',
+      'amazon',
+      'direct',
+    ]),
+    platformEntityRef: PlatformEntityReferenceSchema.optional(),
+
+    // Financial
+    plannedSpend: FinancialAmountSchema,
+    actualSpend: FinancialAmountSchema.default('0'),
+
+    // Performance
+    unitType: UnitTypeEnumSchema,
+    plannedUnits: z.number().min(0),
+    actualUnits: ActualUnitsSchema.default(0),
+
+    // Creative assets
+    creativeAssets: z
+      .array(
+        z.object({
+          id: z.string(),
+          name: TrimmedStringSchema,
+          type: z.enum(['image', 'video', 'carousel', 'text', 'html5']),
+          url: UrlSchema.optional(),
+          thumbnailUrl: UrlSchema.optional(),
+          dimensions: z
+            .object({
+              width: z.number().int().positive(),
+              height: z.number().int().positive(),
+            })
+            .optional(),
+          fileSize: z.number().int().positive().optional(),
+        })
+      )
+      .default([]),
+
+    // Tracking
+    trackingUrls: z
+      .object({
+        clickUrl: UrlSchema.optional(),
+        impressionUrl: UrlSchema.optional(),
+        conversionUrl: UrlSchema.optional(),
+      })
+      .optional(),
+
+    // Placement details
+    placement: z
+      .object({
+        type: z.enum(['feed', 'stories', 'search', 'display', 'video', 'native']),
+        positions: z.array(z.string()).optional(),
+        devices: z.array(z.enum(['desktop', 'mobile', 'tablet', 'ctv'])).optional(),
+      })
+      .optional(),
+
+    // Metadata
+    tags: z.array(TrimmedStringSchema).default([]),
+    notes: z.string().optional(),
+
+    // External references
+    externalId: z.string().optional(),
+    externalUrl: UrlSchema.optional(),
+  })
+  .extend(AuditFieldsSchema.shape);
 
 // Media buy input
 export const MediaBuyInputSchema = z.object({
@@ -157,29 +161,29 @@ export const MediaBuyListItemSchema = z.object({
 // Media buy metrics
 export const MediaBuyMetricsSchema = z.object({
   mediaBuyId: ObjectIdSchema,
-  
+
   // Performance
   plannedSpend: FinancialAmountSchema,
   actualSpend: FinancialAmountSchema,
   spendPercentage: z.number(),
-  
+
   plannedUnits: z.number(),
   actualUnits: z.number(),
   deliveryPercentage: z.number(),
-  
+
   // Efficiency
   actualCPM: z.number().optional(),
   actualCPC: z.number().optional(),
   actualCPA: z.number().optional(),
-  
+
   // Pacing
   pacingPercentage: z.number(),
   pacingStatus: z.enum(['on_pace', 'ahead', 'behind', 'at_risk']),
-  
+
   // Time
   daysRemaining: z.number().int(),
   timeProgressPercentage: z.number(),
-  
+
   calculatedAt: DateSchema,
 });
 
