@@ -62,7 +62,7 @@ export const validateBudgetBlockTotals = (
   expectedTotalPrice: number,
   tolerance: number = 0.01 // Allow 1 cent difference for rounding
 ) => {
-  const totalPrice = blocks.reduce((sum, block) => sum + block.price, 0);
+  const totalPrice = blocks.reduce((sum, block) => sum + parseFloat(block.price), 0);
   const difference = Math.abs(totalPrice - expectedTotalPrice);
 
   if (difference > tolerance) {
@@ -98,7 +98,7 @@ export const createDefaultPacingSchedule = (
     {
       startDate: flightDates.start,
       endDate: flightDates.end,
-      price,
+      price: price.toString(),
       units,
     },
   ],
