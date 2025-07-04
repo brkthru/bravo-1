@@ -34,7 +34,7 @@ describe('CampaignModel', () => {
         name: 'Test Campaign',
         accountName: 'Test Account',
         campaignNumber: 'CAMP-001',
-        budget: 10000,
+        price: { targetAmount: 10000, currency: 'USD' },
         status: 'active' as CampaignStatus,
         dates: {
           start: new Date('2025-01-01'),
@@ -54,7 +54,7 @@ describe('CampaignModel', () => {
         name: mockCampaign.name,
         accountName: mockCampaign.accountName,
         campaignNumber: mockCampaign.campaignNumber,
-        budget: mockCampaign.budget,
+        // price is transformed into the price object
         status: mockCampaign.status,
       });
 
@@ -70,7 +70,7 @@ describe('CampaignModel', () => {
         name: 'Test Campaign',
         accountName: 'Test Account',
         campaignNumber: 'CAMP-001',
-        budget: 10000,
+        price: { targetAmount: 10000, currency: 'USD' },
         status: 'active' as CampaignStatus,
         dates: {
           start: new Date('2025-01-01'),
@@ -103,7 +103,7 @@ describe('CampaignModel', () => {
         name: 'Test Campaign',
         accountName: 'Test Account',
         campaignNumber: 'CAMP-001',
-        budget: 10000,
+        price: { targetAmount: 10000, currency: 'USD' },
         status: 'active' as CampaignStatus,
         dates: {
           start: new Date('2025-01-01'),
@@ -136,7 +136,7 @@ describe('CampaignModel', () => {
           name: 'Holiday Campaign 2025',
           accountName: 'Tech Giant',
           campaignNumber: 'CAMP-001',
-          budget: 10000,
+          price: { targetAmount: 10000, currency: 'USD' },
           status: 'active' as CampaignStatus,
           dates: {
             start: new Date('2025-01-01'),
@@ -150,7 +150,7 @@ describe('CampaignModel', () => {
           name: 'Summer Sale',
           accountName: 'Fashion Brand',
           campaignNumber: 'CAMP-002',
-          budget: 20000,
+          price: { targetAmount: 20000, currency: 'USD' },
           status: 'active' as CampaignStatus,
           dates: {
             start: new Date('2025-06-01'),
@@ -164,7 +164,7 @@ describe('CampaignModel', () => {
           name: 'Tech Product Launch',
           accountName: 'Tech Giant',
           campaignNumber: 'TECH-003',
-          budget: 50000,
+          price: { targetAmount: 50000, currency: 'USD' },
           status: 'active' as CampaignStatus,
           dates: {
             start: new Date('2025-03-01'),
@@ -220,7 +220,7 @@ describe('CampaignModel', () => {
         name: 'New Campaign',
         accountName: 'New Account',
         campaignNumber: 'NEW-001',
-        budget: 15000,
+        price: { targetAmount: 15000, currency: 'USD' },
         status: 'active' as CampaignStatus,
         dates: {
           start: new Date('2025-01-01'),
@@ -233,7 +233,7 @@ describe('CampaignModel', () => {
       expect(created._id).toBeDefined();
       expect(created.name).toBe(newCampaign.name);
       expect(created.accountName).toBe(newCampaign.accountName);
-      expect(created.budget).toBe(newCampaign.budget);
+      expect(created.price.targetAmount).toBe(newCampaign.price.targetAmount);
       expect(created.createdAt).toBeDefined();
       expect(created.updatedAt).toBeDefined();
 
@@ -247,7 +247,7 @@ describe('CampaignModel', () => {
         name: 'New Campaign',
         accountName: 'New Account',
         campaignNumber: 'NEW-001',
-        budget: 15000,
+        price: { targetAmount: 15000, currency: 'USD' },
         status: 'active' as CampaignStatus,
         dates: {
           start: new Date('2025-01-01'),
@@ -270,7 +270,7 @@ describe('CampaignModel', () => {
         name: 'Original Name',
         accountName: 'Test Account',
         campaignNumber: 'CAMP-001',
-        budget: 10000,
+        price: { targetAmount: 10000, currency: 'USD' },
         status: 'active' as CampaignStatus,
         dates: {
           start: new Date('2025-01-01'),
@@ -292,7 +292,7 @@ describe('CampaignModel', () => {
 
       expect(updated).toBeTruthy();
       expect(updated?.name).toBe('Updated Name');
-      expect(updated?.budget).toBe(20000);
+      expect(updated?.price.targetAmount).toBe(20000);
       expect(updated?.accountName).toBe(mockCampaign.accountName); // Unchanged
       expect(updated?.updatedAt.getTime()).toBeGreaterThan(mockCampaign.updatedAt.getTime());
     });
@@ -315,7 +315,7 @@ describe('CampaignModel', () => {
         name: 'To Delete',
         accountName: 'Test Account',
         campaignNumber: 'CAMP-001',
-        budget: 10000,
+        price: { targetAmount: 10000, currency: 'USD' },
         status: 'active' as CampaignStatus,
         dates: {
           start: new Date('2025-01-01'),
@@ -354,7 +354,7 @@ describe('CampaignModel', () => {
         name: `Campaign ${i}`,
         accountName: `Account ${i}`,
         campaignNumber: `CAMP-${i.toString().padStart(3, '0')}`,
-        budget: 10000 + i * 1000,
+        price: { targetAmount: 10000 + i * 1000, currency: 'USD' },
         status: 'active' as CampaignStatus,
         dates: {
           start: new Date('2025-01-01'),
@@ -381,7 +381,7 @@ describe('CampaignModel', () => {
         name: `Campaign ${i}`,
         accountName: `Account ${i}`,
         campaignNumber: `CAMP-${i.toString().padStart(3, '0')}`,
-        budget: 10000,
+        price: { targetAmount: 10000, currency: 'USD' },
         status: 'active' as CampaignStatus,
         dates: {
           start: new Date('2025-01-01'),

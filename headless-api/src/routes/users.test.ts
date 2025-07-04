@@ -40,7 +40,7 @@ describe('Users API Routes', () => {
           _id: new ObjectId(),
           email: 'user1@example.com',
           name: 'User One',
-          role: UserRole.MEDIA_TRADER,
+          role: 'media_trader' as const,
           isActive: true,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -49,7 +49,7 @@ describe('Users API Routes', () => {
           _id: new ObjectId(),
           email: 'user2@example.com',
           name: 'User Two',
-          role: UserRole.ACCOUNT_MANAGER,
+          role: 'account_manager' as const,
           isActive: true,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -73,7 +73,7 @@ describe('Users API Routes', () => {
           _id: new ObjectId(),
           email: 'trader@example.com',
           name: 'Trader',
-          role: UserRole.MEDIA_TRADER,
+          role: 'media_trader' as const,
           isActive: true,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -82,7 +82,7 @@ describe('Users API Routes', () => {
           _id: new ObjectId(),
           email: 'manager@example.com',
           name: 'Manager',
-          role: UserRole.ACCOUNT_MANAGER,
+          role: 'account_manager' as const,
           isActive: true,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -91,13 +91,11 @@ describe('Users API Routes', () => {
 
       await db.collection('users').insertMany(users);
 
-      const response = await request(app)
-        .get(`/api/users?role=${UserRole.MEDIA_TRADER}`)
-        .expect(200);
+      const response = await request(app).get('/api/users?role=media_trader').expect(200);
 
       expect(response.body.success).toBe(true);
       expect(response.body.data).toHaveLength(1);
-      expect(response.body.data[0].role).toBe(UserRole.MEDIA_TRADER);
+      expect(response.body.data[0].role).toBe('media_trader');
     });
 
     test('should filter users by active status', async () => {
@@ -107,7 +105,7 @@ describe('Users API Routes', () => {
           _id: new ObjectId(),
           email: 'active@example.com',
           name: 'Active User',
-          role: UserRole.ACCOUNT_MANAGER,
+          role: 'account_manager' as const,
           isActive: true,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -116,7 +114,7 @@ describe('Users API Routes', () => {
           _id: new ObjectId(),
           email: 'inactive@example.com',
           name: 'Inactive User',
-          role: UserRole.ACCOUNT_MANAGER,
+          role: 'account_manager' as const,
           isActive: false,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -139,7 +137,7 @@ describe('Users API Routes', () => {
           _id: new ObjectId(),
           email: 'john.doe@example.com',
           name: 'John Doe',
-          role: UserRole.ACCOUNT_MANAGER,
+          role: 'account_manager' as const,
           isActive: true,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -148,7 +146,7 @@ describe('Users API Routes', () => {
           _id: new ObjectId(),
           email: 'jane.smith@example.com',
           name: 'Jane Smith',
-          role: UserRole.MEDIA_TRADER,
+          role: 'media_trader' as const,
           isActive: true,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -173,7 +171,7 @@ describe('Users API Routes', () => {
         _id: new ObjectId(),
         email: 'director@example.com',
         name: 'Director',
-        role: UserRole.ACCOUNT_DIRECTOR,
+        role: 'account_director' as const,
         isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -183,7 +181,7 @@ describe('Users API Routes', () => {
         _id: new ObjectId(),
         email: 'manager@example.com',
         name: 'Manager',
-        role: UserRole.ACCOUNT_MANAGER,
+        role: 'account_manager' as const,
         managerId: director._id.toString(),
         isActive: true,
         createdAt: new Date(),
@@ -209,7 +207,7 @@ describe('Users API Routes', () => {
         _id: new ObjectId(),
         email: 'test@example.com',
         name: 'Test User',
-        role: UserRole.ACCOUNT_MANAGER,
+        role: 'account_manager' as const,
         isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -266,7 +264,7 @@ describe('Users API Routes', () => {
       const newUser = {
         email: 'test@example.com',
         name: 'Test User',
-        role: UserRole.ACCOUNT_MANAGER,
+        role: 'account_manager' as const,
       };
 
       const response = await request(app).post('/api/users').send(newUser).expect(500);
@@ -297,7 +295,7 @@ describe('Users API Routes', () => {
 
       const updates = {
         name: 'Updated Name',
-        role: UserRole.SENIOR_MEDIA_TRADER,
+        role: 'senior_media_trader' as const,
         department: 'New Department',
       };
 
@@ -308,7 +306,7 @@ describe('Users API Routes', () => {
 
       expect(response.body.success).toBe(true);
       expect(response.body.data.name).toBe('Updated Name');
-      expect(response.body.data.role).toBe(UserRole.SENIOR_MEDIA_TRADER);
+      expect(response.body.data.role).toBe('senior_media_trader');
       expect(response.body.data.department).toBe('New Department');
       expect(response.body.data.email).toBe('original@example.com'); // Unchanged
     });
@@ -331,7 +329,7 @@ describe('Users API Routes', () => {
         _id: new ObjectId(),
         email: 'todelete@example.com',
         name: 'To Delete',
-        role: UserRole.ACCOUNT_MANAGER,
+        role: 'account_manager' as const,
         isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),

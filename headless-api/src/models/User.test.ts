@@ -481,7 +481,7 @@ describe('UserModel', () => {
         updatedAt: new Date(),
       };
 
-      await collection.insertMany([activeManager, inactiveManager]);
+      await database.getDb().collection('users').insertMany([activeManager, inactiveManager]);
       const hierarchy = await userModel.getHierarchy();
 
       expect(hierarchy).toHaveLength(1);

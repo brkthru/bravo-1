@@ -29,7 +29,9 @@ export const UserSchema = z.object({
 });
 
 export type User = z.infer<typeof UserSchema>;
-export type CreateUserRequest = Omit<User, '_id' | 'createdAt' | 'updatedAt'>;
+export type CreateUserRequest = Omit<User, '_id' | 'createdAt' | 'updatedAt' | 'isActive'> & {
+  isActive?: boolean;
+};
 export type UpdateUserRequest = Partial<Omit<User, '_id' | 'createdAt' | 'updatedAt'>>;
 
 export class UserModel {
@@ -79,6 +81,7 @@ export class UserModel {
     const user = {
       ...userData,
       _id: new ObjectId(),
+      isActive: userData.isActive ?? true,
       createdAt: now,
       updatedAt: now,
     };
@@ -129,6 +132,7 @@ export class UserModel {
           { name: { $regex: query, $options: 'i' } },
           { email: { $regex: query, $options: 'i' } },
           { employeeId: { $regex: query, $options: 'i' } },
+          { department: { $regex: query, $options: 'i' } },
         ],
       })
       .toArray();
@@ -140,26 +144,29 @@ export class UserModel {
     const users = await this.findAll({ isActive: true });
 
     // Build hierarchy tree
-    const userMap = new Map(users.map((u) => [u.employeeId, u]));
+    const userMap = new Map<string, any>();
     const hierarchy: any[] = [];
 
+    // First pass: create user nodes with subordinates array
     users.forEach((user) => {
-      const userNode = {
+      userMap.set(user.employeeId, {
         ...user,
-        subordinates: [] as any[],
-      };
+        subordinates: [],
+      });
+    });
+
+    // Second pass: build the hierarchy
+    users.forEach((user) => {
+      const userNode = userMap.get(user.employeeId)!;
 
       if (!user.managerId) {
-        // Top-level user
+        // Top-level user (no manager)
         hierarchy.push(userNode);
       } else {
-        // Find manager and add as subordinate
-        const manager = users.find((u) => u.employeeId === user.managerId);
-        if (manager) {
-          const managerNode = hierarchy.find((h) => h._id === manager._id);
-          if (managerNode) {
-            managerNode.subordinates.push(userNode);
-          }
+        // Find manager node and add this user as subordinate
+        const managerNode = userMap.get(user.managerId);
+        if (managerNode) {
+          managerNode.subordinates.push(userNode);
         }
       }
     });
