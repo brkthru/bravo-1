@@ -6,23 +6,29 @@ import campaignRoutes from './campaigns';
 
 import { describe, test, expect, beforeAll, afterAll, afterEach } from '@jest/globals';
 
+// Create Express app at module level
+const app = express();
+app.use(express.json());
+app.use('/api/campaigns', campaignRoutes);
+
 describe('Campaign Bulk API Endpoints', () => {
-  let app: express.Application;
   let mongoServer: MongoMemoryServer;
 
   beforeAll(async () => {
+    // Disconnect any existing connection
+    if (database.isConnected()) {
+      await database.disconnect();
+    }
+
     // Start in-memory MongoDB
     mongoServer = await MongoMemoryServer.create();
     const uri = mongoServer.getUri();
-    process.env.MONGODB_URI = uri;
+
+    // Set a unique database name for this test suite
+    process.env.DATABASE_NAME = 'test-bulk-' + Date.now();
 
     // Connect to database
     await database.connect(uri);
-
-    // Setup Express app
-    app = express();
-    app.use(express.json());
-    app.use('/api/campaigns', campaignRoutes);
   });
 
   afterAll(async () => {

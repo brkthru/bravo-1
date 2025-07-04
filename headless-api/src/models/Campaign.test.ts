@@ -353,19 +353,27 @@ describe('CampaignModel', () => {
       const campaigns = Array.from({ length: 100 }, (_, i) => {
         // Create ObjectIds that will trigger over-pacing for ~20% of campaigns
         // Over-pacing happens when idHash % 5 === 0
-        // We need to control the first 8 chars of the hex string
-        let hexStart;
+        // The idHash is parsed from the first 8 characters of the ObjectId
+        let objectId: ObjectId;
         if (i % 5 === 0) {
-          // Create an ID that will result in idHash % 5 === 0
-          hexStart = (i * 5 * 0x1000000).toString(16).padStart(8, '0');
+          // Create an ID where the first 8 hex chars will result in idHash % 5 === 0
+          // We need a number that when parsed as hex will be divisible by 5
+          const hashValue = (i + 1) * 5 * 0x100000; // Ensure it's divisible by 5
+          const first8Hex = hashValue.toString(16).padStart(8, '0').slice(-8);
+          const remaining16Hex = '0000000000000000';
+          const fullHex = first8Hex + remaining16Hex;
+          objectId = new ObjectId(fullHex);
         } else {
           // Create an ID that won't result in idHash % 5 === 0
-          hexStart = ((i * 5 + 1) * 0x1000000).toString(16).padStart(8, '0');
+          const hashValue = (i + 1) * 5 * 0x100000 + 1; // Not divisible by 5
+          const first8Hex = hashValue.toString(16).padStart(8, '0').slice(-8);
+          const remaining16Hex = '0000000000000000';
+          const fullHex = first8Hex + remaining16Hex;
+          objectId = new ObjectId(fullHex);
         }
-        const fullHex = hexStart + '0000000000000000';
 
         return {
-          _id: new ObjectId(fullHex),
+          _id: objectId,
           name: `Campaign ${i}`,
           accountName: `Account ${i}`,
           campaignNumber: `CAMP-${i.toString().padStart(3, '0')}`,

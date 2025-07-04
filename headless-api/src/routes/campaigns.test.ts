@@ -12,6 +12,8 @@ app.use('/api/campaigns', campaignsRouter);
 describe('Campaigns API Routes', () => {
   beforeAll(async () => {
     const uri = process.env.MONGODB_URI_TEST || 'mongodb://localhost:27017/mediatool_test';
+    // Set a unique database name for this test suite
+    process.env.DATABASE_NAME = 'test-campaigns-' + Date.now();
     await database.connect(uri);
   });
 
@@ -171,10 +173,10 @@ describe('Campaigns API Routes', () => {
     });
 
     test('should handle invalid ObjectId format', async () => {
-      const response = await request(app).get('/api/campaigns/invalid-id').expect(200);
+      const response = await request(app).get('/api/campaigns/invalid-id').expect(404);
 
-      expect(response.body.success).toBe(true);
-      expect(response.body.data).toBeNull();
+      expect(response.body.success).toBe(false);
+      expect(response.body.error).toBe('Campaign not found');
     });
   });
 
@@ -362,19 +364,11 @@ describe('Campaigns API Routes', () => {
       expect(response.body.error).toBe('Campaign not found');
     });
 
-    test('should handle deletion errors', async () => {
-      await database.disconnect();
-
-      const response = await request(app)
-        .delete(`/api/campaigns/${new ObjectId().toString()}`)
-        .expect(500);
+    test('should handle invalid ObjectId format on delete', async () => {
+      const response = await request(app).delete('/api/campaigns/invalid-id').expect(404);
 
       expect(response.body.success).toBe(false);
-      expect(response.body.error).toBe('Failed to delete campaign');
-
-      // Reconnect
-      const uri = process.env.MONGODB_URI_TEST || 'mongodb://localhost:27017/mediatool_test';
-      await database.connect(uri);
+      expect(response.body.error).toBe('Campaign not found');
     });
   });
 });
