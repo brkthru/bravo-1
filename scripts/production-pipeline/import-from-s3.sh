@@ -6,7 +6,9 @@
 set -euo pipefail
 
 # Configuration
-BASE_DIR="/Users/ryan/code-repos/github/brkthru/bravo_code/bravo-1"
+# Get the script's directory and derive BASE_DIR from it
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BASE_DIR="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 EXPORT_BASE_DIR="${BASE_DIR}/exports"
 SCRIPTS_DIR="${BASE_DIR}/scripts"
 ETL_DIR="${SCRIPTS_DIR}/etl"
@@ -28,6 +30,7 @@ RED='\033[0;31m'
 NC='\033[0m'
 
 log() {
+	# shellcheck disable=SC2312
 	echo -e "${GREEN}[$(date -u +'%Y-%m-%d %H:%M:%S UTC')]${NC} $1"
 }
 
@@ -157,7 +160,8 @@ log "Extracted to: ${FULL_EXPORT_PATH}"
 
 # Show what we have
 log "Export contents:"
-ls -la "${FULL_EXPORT_PATH}" | grep -E "\.(json|txt)" | head -10
+# shellcheck disable=SC2010
+find "${FULL_EXPORT_PATH}" -name "*.json" -o -name "*.txt" | head -10
 
 # Run the ETL pipeline
 cd "${ETL_DIR}"
@@ -207,6 +211,7 @@ echo "3. Open browser to:    http://localhost:5174"
 
 # Create success marker
 SUCCESS_FILE="${EXPORT_BASE_DIR}/last-import-success.txt"
+# shellcheck disable=SC2312
 cat >"${SUCCESS_FILE}" <<EOF
 Import Date: $(date -u)
 Source: ${LOCAL_FILE}

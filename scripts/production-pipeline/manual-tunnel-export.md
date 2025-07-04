@@ -3,7 +3,7 @@
 ## Step 1: Start the tunnel manually in media-tool
 
 ```bash
-cd /Users/ryan/code-repos/github/brkthru/bravo_code/media-tool/terraform
+cd ~/code/media-tool/terraform  # Or your media-tool location
 just ssm-db-tunnel prod 5437
 ```
 
@@ -12,7 +12,7 @@ Keep this terminal open!
 ## Step 2: In a new terminal, run the simplified export
 
 ```bash
-cd /Users/ryan/code-repos/github/brkthru/bravo_code/bravo-1/scripts/production-pipeline
+cd ~/code/bravo-1/scripts/production-pipeline  # Or your bravo-1 location
 
 # Get the RDS password
 AWS_PROFILE=brkthru-mediatool-prod

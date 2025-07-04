@@ -10,7 +10,9 @@
     "shared"
   ],
   "scripts": {
-    "dev": "concurrently \"npm run dev:api\" \"npm run dev:frontend\"",
+    "dev": "npm run dev:all",
+    "dev:all": "npm run dev:db && concurrently \"npm run dev:api\" \"npm run dev:frontend\"",
+    "dev:db": "./scripts/dev/ensure-mongodb.sh",
     "dev:api": "cd headless-api && npm run dev",
     "dev:frontend": "cd frontend && npm run dev",
     "build": "npm run build:shared && npm run build:api && npm run build:frontend",

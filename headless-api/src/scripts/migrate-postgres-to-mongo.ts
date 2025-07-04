@@ -650,10 +650,7 @@ Common HTTP status codes:
 
     // Write documentation
     const fs = await import('fs/promises');
-    await fs.writeFile(
-      '/Users/ryan/code-repos/brkthru/bravo_code/media-tool/bravo-1/bravo-1/API-DOCUMENTATION.md',
-      docs
-    );
+    await fs.writeFile('API-DOCUMENTATION.md', docs);
     console.log('API documentation created at API-DOCUMENTATION.md');
   }
 }

@@ -7,7 +7,9 @@ set -euo pipefail
 
 # Configuration
 TIMESTAMP=$(date -u +%Y%m%d-%H%M%S)
-BASE_DIR="/Users/ryan/code-repos/github/brkthru/bravo_code/bravo-1"
+# Get the script's directory and derive BASE_DIR from it
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BASE_DIR="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 EXPORT_BASE_DIR="${BASE_DIR}/exports"
 SCRIPTS_DIR="${BASE_DIR}/scripts"
 
@@ -26,11 +28,11 @@ S3_BUCKET="${S3_BUCKET:-media-tool-backups-1750593763}"
 # Colors
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
-YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m'
 
 log() {
+	# shellcheck disable=SC2312
 	echo -e "${GREEN}[$(date -u +'%Y-%m-%d %H:%M:%S UTC')]${NC} $1"
 }
 
@@ -69,6 +71,7 @@ if ! bun export-postgres-complete.ts; then
 fi
 
 # Find the export directory
+# shellcheck disable=SC2012
 LATEST_EXPORT=$(ls -t "${EXPORT_BASE_DIR}/raw" | head -1)
 EXPORT_DIR="${EXPORT_BASE_DIR}/raw/${LATEST_EXPORT}"
 
@@ -90,6 +93,7 @@ done
 TOTAL_FILES=$(find "${EXPORT_DIR}" -name "*.json" | wc -l)
 TOTAL_SIZE=$(du -sh "${EXPORT_DIR}" | cut -f1)
 
+# shellcheck disable=SC2312
 cat >"${EXPORT_DIR}/export-metadata.json" <<EOF
 {
   "timestamp": "${TIMESTAMP}",
@@ -98,8 +102,8 @@ cat >"${EXPORT_DIR}/export-metadata.json" <<EOF
   "docker_container": "${DOCKER_CONTAINER}",
   "total_files": ${TOTAL_FILES},
   "total_size": "${TOTAL_SIZE}",
-  "export_date": "$(date -u +%Y-%m-%d)",
-  "export_time": "$(date -u +%H:%M:%S)"
+  "export_date": "$(date -u +%Y-%m-%d 2>/dev/null || echo 'unknown')",
+  "export_time": "$(date -u +%H:%M:%S 2>/dev/null || echo 'unknown')"
 }
 EOF
 
@@ -108,6 +112,7 @@ cd "${EXPORT_BASE_DIR}/raw"
 ARCHIVE_NAME="${LATEST_EXPORT}.tar.gz"
 log "Creating archive: ${ARCHIVE_NAME}"
 tar -czf "${ARCHIVE_NAME}" "${LATEST_EXPORT}"
+# shellcheck disable=SC2012
 ARCHIVE_SIZE=$(ls -lh "${ARCHIVE_NAME}" | awk '{print $5}')
 log "Archive size: ${ARCHIVE_SIZE}"
 
@@ -115,6 +120,7 @@ log "Archive size: ${ARCHIVE_SIZE}"
 log "Uploading to S3..."
 S3_PATH="s3://${S3_BUCKET}/postgres-exports/${ARCHIVE_NAME}"
 
+# shellcheck disable=SC2312
 if ! aws s3 cp "${ARCHIVE_NAME}" "${S3_PATH}" \
 	--profile "${AWS_PROFILE}" \
 	--storage-class STANDARD_IA \
