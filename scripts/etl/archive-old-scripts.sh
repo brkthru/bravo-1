@@ -8,7 +8,7 @@ echo ""
 
 # Create archive directory
 ARCHIVE_DIR="./archive/$(date +%Y%m%d)"
-mkdir -p "$ARCHIVE_DIR"
+mkdir -p "${ARCHIVE_DIR}"
 
 # Scripts to keep (essential utilities and the new pipeline)
 KEEP_SCRIPTS=(
@@ -24,7 +24,7 @@ KEEP_SCRIPTS=(
 should_keep() {
 	local file=$1
 	for keep in "${KEEP_SCRIPTS[@]}"; do
-		if [[ $file == "$keep" ]]; then
+		if [[ ${file} == "${keep}" ]]; then
 			return 0
 		fi
 	done
@@ -34,7 +34,7 @@ should_keep() {
 # Archive old scripts
 archived_count=0
 for file in *.ts *.sh *.js; do
-	if [[ -f $file ]] && ! should_keep "$file"; then
+	if [[ -f ${file} ]] && ! should_keep "${file}"; then
 		echo "  Archiving: $file"
 		mv "$file" "$ARCHIVE_DIR/"
 		((archived_count++))

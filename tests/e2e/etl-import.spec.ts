@@ -20,30 +20,60 @@ test.describe('ETL Import API', () => {
       {
         name: 'ETL Test Campaign 1',
         campaignNumber: 'ETL-TEST-001',
-        status: 'active',
-        budget: {
-          total: 50000,
-          allocated: 40000,
-          spent: 20000,
+        status: 'L1',
+        price: {
+          targetAmount: 50000,
+          actualAmount: 20000,
+          remainingAmount: 30000,
+          currency: 'USD',
         },
         dates: {
           start: '2025-01-01',
           end: '2025-12-31',
         },
+        team: {},
+        metrics: {
+          deliveryPacing: 0.5,
+          spendPacing: 0.4,
+          marginAmount: 10000,
+          marginPercentage: 20,
+          units: 100000,
+          unitType: 'impressions',
+          revenueDelivered: 40000,
+          budgetSpent: 20000,
+          marginActual: 0.5,
+        },
+        mediaActivity: 'None active',
+        lineItems: [],
       },
       {
         name: 'ETL Test Campaign 2',
         campaignNumber: 'ETL-TEST-002',
-        status: 'planning',
-        budget: {
-          total: 75000,
-          allocated: 60000,
-          spent: 0,
+        status: 'L2',
+        price: {
+          targetAmount: 75000,
+          actualAmount: 0,
+          remainingAmount: 75000,
+          currency: 'USD',
         },
         dates: {
           start: '2025-02-01',
           end: '2025-11-30',
         },
+        team: {},
+        metrics: {
+          deliveryPacing: 0,
+          spendPacing: 0,
+          marginAmount: 15000,
+          marginPercentage: 20,
+          units: 150000,
+          unitType: 'impressions',
+          revenueDelivered: 0,
+          budgetSpent: 0,
+          marginActual: 0,
+        },
+        mediaActivity: 'Pending',
+        lineItems: [],
       },
     ];
 
@@ -79,7 +109,7 @@ test.describe('ETL Import API', () => {
     // Check that calculations were applied
     const campaign = listResult.data.find((c) => c.campaignNumber === 'ETL-TEST-001');
     expect(campaign).toBeDefined();
-    expect(campaign.budget.remaining).toBeDefined();
+    expect(campaign.price.remainingAmount).toBeDefined();
 
     // If calculatedFields are exposed in the API response
     if (campaign.calculatedFields) {
@@ -92,7 +122,7 @@ test.describe('ETL Import API', () => {
     const invalidCampaigns = [
       {
         // Missing required fields
-        status: 'active',
+        status: 'L1',
       },
     ];
 
@@ -135,12 +165,27 @@ test.describe('ETL Import API', () => {
     const campaigns = Array.from({ length: 100 }, (_, i) => ({
       name: `Batch Campaign ${i + 1}`,
       campaignNumber: `BATCH-${String(i + 1).padStart(3, '0')}`,
-      status: i % 3 === 0 ? 'active' : 'planning',
-      budget: {
-        total: 10000 + i * 1000,
-        allocated: 8000 + i * 800,
-        spent: i * 100,
+      status: i % 3 === 0 ? 'L1' : 'L2',
+      price: {
+        targetAmount: 10000 + i * 1000,
+        actualAmount: i * 100,
+        remainingAmount: 10000 + i * 1000 - i * 100,
+        currency: 'USD',
       },
+      team: {},
+      metrics: {
+        deliveryPacing: Math.random() * 0.5,
+        spendPacing: Math.random() * 0.4,
+        marginAmount: 2000 + i * 200,
+        marginPercentage: 20,
+        units: 100000 + i * 1000,
+        unitType: 'impressions',
+        revenueDelivered: i * 100,
+        budgetSpent: i * 100,
+        marginActual: 0.2,
+      },
+      mediaActivity: i % 3 === 0 ? 'Some active' : 'None active',
+      lineItems: [],
     }));
 
     const response = await request.post(`${API_URL}/etl/import`, {

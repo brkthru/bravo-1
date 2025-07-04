@@ -26,7 +26,7 @@ export default defineConfig({
 
   webServer: [
     {
-      command: 'cd backend && npm run dev',
+      command: 'cd headless-api && npm run dev',
       port: 3001,
       timeout: 120 * 1000,
       reuseExistingServer: !process.env.CI,
