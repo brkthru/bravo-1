@@ -20,7 +20,7 @@ gh api repos/brkthru/bravo-1 \
   --field delete_branch_on_merge=true
 ```
 
-## What This Gives You:
+## What This Gives You
 
 - ✅ Requires 1 PR approval
 - ✅ Prevents accidental force pushes/deletions

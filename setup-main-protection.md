@@ -19,7 +19,7 @@ gh api repos/brkthru/bravo-1/branches/main/protection \
   --field required_linear_history=false
 ```
 
-## What This Does:
+## What This Does
 
 ✅ **Requires Pull Requests** - No direct pushes to main
 ✅ **Requires 1 Approval** - Someone must review the code
@@ -28,7 +28,7 @@ gh api repos/brkthru/bravo-1/branches/main/protection \
 ✅ **Prevents Branch Deletion** - Can't accidentally delete main
 ✅ **Requires Resolving Comments** - All discussions must be resolved
 
-## Why This Is Important:
+## Why This Is Important
 
 1. **Code Review** - Catches bugs, improves code quality
 2. **Knowledge Sharing** - Team stays aware of changes
@@ -36,7 +36,7 @@ gh api repos/brkthru/bravo-1/branches/main/protection \
 4. **Testing Hook** - Even if CI isn't required, it still runs
 5. **Rollback Safety** - Easy to revert PR vs individual commits
 
-## Common Workflows After Protection:
+## Common Workflows After Protection
 
 ```bash
 # Normal development flow
@@ -75,7 +75,7 @@ gh api repos/brkthru/bravo-1/branches/main/protection \
   --field enforce_admins=true
 ```
 
-## Tips:
+## Tips
 
 1. Create PR templates in `.github/pull_request_template.md`
 2. Use draft PRs for work-in-progress

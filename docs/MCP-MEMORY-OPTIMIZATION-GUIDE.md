@@ -88,7 +88,7 @@ mcp__openmemory__delete_all_memories
 
 #### 3. Memory Format Guidelines
 
-```
+```text
 # Bad (verbose):
 "The ETL pipeline for bravo-1 is located in scripts/etl/run-full-etl-pipeline.ts and has issues with idempotency where running it multiple times creates duplicates"
 
@@ -123,14 +123,14 @@ Then use Serena's memory for project-specific info only.
 
 ## Token Saving Tips
 
-### DO:
+### DO
 
 - Use file references: "see scripts/etl/README.md"
 - Compact formats: "MongoDB:27017, backend:3001"
 - One memory per concept
 - Update CLAUDE.md monthly
 
-### DON'T:
+### DON'T
 
 - Store code in memories
 - Duplicate info between systems
