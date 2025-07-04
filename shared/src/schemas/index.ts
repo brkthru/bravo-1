@@ -47,16 +47,12 @@ export function safeParse<T>(
 }
 
 // Helper to validate and throw with formatted error
-export function parseOrThrow<T>(
-  schema: z.ZodSchema<T>,
-  data: unknown,
-  errorMessage?: string
-): T {
+export function parseOrThrow<T>(schema: z.ZodSchema<T>, data: unknown, errorMessage?: string): T {
   const result = schema.safeParse(data);
   if (!result.success) {
     const formatted = result.error.format();
     throw new Error(
-      errorMessage 
+      errorMessage
         ? `${errorMessage}: ${JSON.stringify(formatted, null, 2)}`
         : `Validation failed: ${JSON.stringify(formatted, null, 2)}`
     );

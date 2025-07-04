@@ -25,11 +25,13 @@ export const ValidationResponseSchema = z.object({
   errors: z.array(ValidationErrorSchema),
   warnings: z.array(ValidationWarningSchema),
   data: z.any().optional(),
-  metadata: z.object({
-    validatedAt: z.date(),
-    validationVersion: z.string(),
-    processingTimeMs: z.number().optional(),
-  }).optional(),
+  metadata: z
+    .object({
+      validatedAt: z.date(),
+      validationVersion: z.string(),
+      processingTimeMs: z.number().optional(),
+    })
+    .optional(),
 });
 
 // Business rule validation result
@@ -48,23 +50,31 @@ export const BatchValidationResponseSchema = z.object({
   validItems: z.number().int(),
   invalidItems: z.number().int(),
   itemsWithWarnings: z.number().int(),
-  results: z.array(z.object({
-    index: z.number().int(),
-    itemId: z.string().optional(),
-    validation: ValidationResponseSchema,
-  })),
-  summary: z.object({
-    commonErrors: z.array(z.object({
-      code: z.string(),
-      count: z.number().int(),
-      message: z.string(),
-    })),
-    commonWarnings: z.array(z.object({
-      code: z.string(),
-      count: z.number().int(),
-      message: z.string(),
-    })),
-  }).optional(),
+  results: z.array(
+    z.object({
+      index: z.number().int(),
+      itemId: z.string().optional(),
+      validation: ValidationResponseSchema,
+    })
+  ),
+  summary: z
+    .object({
+      commonErrors: z.array(
+        z.object({
+          code: z.string(),
+          count: z.number().int(),
+          message: z.string(),
+        })
+      ),
+      commonWarnings: z.array(
+        z.object({
+          code: z.string(),
+          count: z.number().int(),
+          message: z.string(),
+        })
+      ),
+    })
+    .optional(),
 });
 
 // Helper function to create validation response
@@ -90,11 +100,11 @@ export function createValidationResponse(
 export function zodErrorToValidationErrors(
   error: z.ZodError
 ): z.infer<typeof ValidationErrorSchema>[] {
-  return error.issues.map(issue => ({
-    field: issue.path.map(p => String(p)).join('.'),
+  return error.issues.map((issue) => ({
+    field: issue.path.map((p) => String(p)).join('.'),
     message: issue.message,
     code: issue.code,
-    path: issue.path.map(p => typeof p === 'symbol' ? String(p) : p),
+    path: issue.path.map((p) => (typeof p === 'symbol' ? String(p) : p)),
     expected: 'expected' in issue ? String(issue.expected) : undefined,
     received: 'received' in issue ? String(issue.received) : undefined,
   }));

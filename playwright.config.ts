@@ -4,7 +4,7 @@ export default defineConfig({
   testDir: './tests/e2e',
   timeout: 30 * 1000,
   expect: {
-    timeout: 5000
+    timeout: 5000,
   },
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
@@ -36,6 +36,6 @@ export default defineConfig({
       port: 5174,
       timeout: 120 * 1000,
       reuseExistingServer: !process.env.CI,
-    }
+    },
   ],
 });

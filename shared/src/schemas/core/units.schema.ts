@@ -14,13 +14,13 @@ export const UnitTypeEnumSchema = z.enum([
 export type UnitTypeEnum = z.infer<typeof UnitTypeEnumSchema>;
 
 // Unit count (always positive integer)
-export const UnitCountSchema = z.number()
+export const UnitCountSchema = z
+  .number()
   .int('Unit count must be an integer')
   .min(0, 'Unit count must be non-negative');
 
 // Estimated units (can be decimal for projections)
-export const EstimatedUnitsSchema = z.number()
-  .min(0, 'Estimated units must be non-negative');
+export const EstimatedUnitsSchema = z.number().min(0, 'Estimated units must be non-negative');
 
 // Actual delivered units
 export const ActualUnitsSchema = UnitCountSchema;

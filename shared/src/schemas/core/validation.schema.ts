@@ -1,8 +1,7 @@
 import * as z from 'zod/v4';
 
 // MongoDB ObjectId validation
-export const ObjectIdSchema = z.string()
-  .regex(/^[0-9a-fA-F]{24}$/, 'Invalid ObjectId format');
+export const ObjectIdSchema = z.string().regex(/^[0-9a-fA-F]{24}$/, 'Invalid ObjectId format');
 
 // Optional ObjectId
 export const OptionalObjectIdSchema = ObjectIdSchema.optional();
@@ -23,8 +22,12 @@ export const NonEmptyStringSchema = z.string().min(1, 'String cannot be empty');
 export const TrimmedStringSchema = z.string().transform((val) => val.trim());
 
 // Safe name (alphanumeric, spaces, hyphens, underscores)
-export const SafeNameSchema = z.string()
-  .regex(/^[a-zA-Z0-9\s\-_]+$/, 'Name can only contain letters, numbers, spaces, hyphens, and underscores')
+export const SafeNameSchema = z
+  .string()
+  .regex(
+    /^[a-zA-Z0-9\s\-_]+$/,
+    'Name can only contain letters, numbers, spaces, hyphens, and underscores'
+  )
   .transform((val) => val.trim());
 
 // Sort direction

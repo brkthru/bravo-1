@@ -17,7 +17,7 @@ export const formatDate = (date: Date | string): string => {
   return new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
     month: 'short',
-    day: 'numeric'
+    day: 'numeric',
   }).format(new Date(date));
 };
 
@@ -25,10 +25,10 @@ export const calculateDaysElapsed = (startDate: Date, endDate: Date): number => 
   const now = new Date();
   const start = new Date(startDate);
   const end = new Date(endDate);
-  
+
   if (now < start) return 0;
   if (now > end) return Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
-  
+
   return Math.ceil((now.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
 };
 
@@ -45,10 +45,14 @@ export const calculatePacing = (actual: number, planned: number): number => {
 
 export const getStatusColor = (status: 'L1' | 'L2' | 'L3'): string => {
   switch (status) {
-    case 'L1': return 'bg-green-100 text-green-800';
-    case 'L2': return 'bg-yellow-100 text-yellow-800'; 
-    case 'L3': return 'bg-red-100 text-red-800';
-    default: return 'bg-gray-100 text-gray-800';
+    case 'L1':
+      return 'bg-green-100 text-green-800';
+    case 'L2':
+      return 'bg-yellow-100 text-yellow-800';
+    case 'L3':
+      return 'bg-red-100 text-red-800';
+    default:
+      return 'bg-gray-100 text-gray-800';
   }
 };
 

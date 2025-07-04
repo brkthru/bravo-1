@@ -1,6 +1,7 @@
 # MongoDB Developer Guide - Media Tool
 
 ## Table of Contents
+
 1. [Understanding MongoDB Data Structures](#understanding-mongodb-data-structures)
 2. [MongoDB Admin Tools](#mongodb-admin-tools)
 3. [Implementing Full-Text Search](#implementing-full-text-search)
@@ -16,14 +17,14 @@
 1. **Embedding vs Joining**
    - PostgreSQL: Normalize data, use JOINs to combine
    - MongoDB: Embed related data that's accessed together
-   
+
    ```javascript
    // PostgreSQL mindset (multiple queries with JOINs)
    SELECT c.*, s.*, li.*
    FROM campaigns c
    JOIN strategies s ON s.campaign_id = c.id
    JOIN line_items li ON li.strategy_id = s.id
-   
+
    // MongoDB mindset (single document fetch)
    db.campaigns.findOne({ _id: campaignId })
    // Returns campaign with embedded strategy and line items
@@ -42,6 +43,7 @@
 ### Our Data Model Design Decisions
 
 #### 1. Campaign Document (Embed Pattern)
+
 ```javascript
 {
   _id: "campaign-123",
@@ -59,11 +61,13 @@
 ```
 
 **Why embed?**
+
 - Strategies are always accessed with campaigns
 - Line items are always accessed with strategies
 - Single read operation gets entire hierarchy
 
 #### 2. Media Plans (Reference Pattern)
+
 ```javascript
 {
   _id: "media-plan-123",
@@ -75,11 +79,13 @@
 ```
 
 **Why separate collection?**
+
 - Many-to-many relationship
 - Shared across multiple line items
 - Independent lifecycle (can be created/deleted separately)
 
 #### 3. Platform Metrics (Time Series Pattern)
+
 ```javascript
 {
   date: ISODate("2024-01-15"),
@@ -92,6 +98,7 @@
 ```
 
 **Why this structure?**
+
 - Optimized for time-based queries
 - Flexible metric types without schema changes
 - Easy aggregation across time periods
@@ -99,7 +106,9 @@
 ## MongoDB Admin Tools
 
 ### 1. MongoDB Compass (Official GUI)
+
 **Best for**: General browsing, query building, performance analysis
+
 ```bash
 # Download from MongoDB website
 # https://www.mongodb.com/products/compass
@@ -109,42 +118,52 @@ mongodb://localhost:27017/mediatool_v2
 ```
 
 Features:
+
 - Visual query builder
 - Schema analysis
 - Index management
 - Performance insights
 
 ### 2. Studio 3T (Premium with Free Trial)
+
 **Best for**: Advanced queries, data migration, SQL translation
+
 ```bash
 # Download from https://studio3t.com/
 ```
 
 Features:
+
 - SQL to MongoDB query translation
 - Visual aggregation builder
 - Data export/import
 - IntelliShell with autocomplete
 
 ### 3. NoSQLBooster (Free Version Available)
+
 **Best for**: Developer productivity
+
 ```bash
 # Download from https://nosqlbooster.com/
 ```
 
 Features:
+
 - IntelliSense
 - Query profiler
 - ES6 syntax support
 - Built-in MongoDB shell
 
 ### 4. Robo 3T (Free, Open Source)
+
 **Best for**: Lightweight browsing
+
 ```bash
 # Download from https://robomongo.org/
 ```
 
 Features:
+
 - Simple interface
 - Basic CRUD operations
 - Embedded shell
@@ -152,6 +171,7 @@ Features:
 ### 5. Web-Based Admin UIs
 
 #### AdminMongo (Open Source)
+
 ```bash
 # Install globally
 npm install -g admin-mongo
@@ -163,6 +183,7 @@ admin-mongo
 ```
 
 #### Mongo Express (Open Source)
+
 ```bash
 # Using Docker
 docker run -it --rm \
@@ -181,45 +202,49 @@ docker run -it --rm \
 ### 1. MongoDB Native Text Search
 
 #### Create Text Indexes
+
 ```javascript
 // Campaign search
 db.campaigns.createIndex({
-  name: "text",
-  campaignNumber: "text",
-  "strategy.lineItems.name": "text",
-  "strategy.lineItems.description": "text"
+  name: 'text',
+  campaignNumber: 'text',
+  'strategy.lineItems.name': 'text',
+  'strategy.lineItems.description': 'text',
 });
 
 // Platform entity search
 db.platformEntities.createIndex({
-  name: "text",
-  externalId: "text"
+  name: 'text',
+  externalId: 'text',
 });
 
 // User search
 db.users.createIndex({
-  name: "text",
-  email: "text"
+  name: 'text',
+  email: 'text',
 });
 ```
 
 #### Search Implementation
+
 ```javascript
 // Simple text search
 async function searchCampaigns(searchTerm) {
-  return await db.campaigns.find({
-    $text: { $search: searchTerm }
-  }).limit(20).toArray();
+  return await db.campaigns
+    .find({
+      $text: { $search: searchTerm },
+    })
+    .limit(20)
+    .toArray();
 }
 
 // With relevance scoring
 async function searchWithScore(searchTerm) {
-  return await db.campaigns.find(
-    { $text: { $search: searchTerm } },
-    { score: { $meta: "textScore" } }
-  ).sort({ score: { $meta: "textScore" } })
-   .limit(20)
-   .toArray();
+  return await db.campaigns
+    .find({ $text: { $search: searchTerm } }, { score: { $meta: 'textScore' } })
+    .sort({ score: { $meta: 'textScore' } })
+    .limit(20)
+    .toArray();
 }
 ```
 
@@ -273,19 +298,19 @@ For advanced search capabilities:
 const changeStream = db.campaigns.watch();
 
 changeStream.on('change', async (change) => {
-  switch(change.operationType) {
+  switch (change.operationType) {
     case 'insert':
     case 'update':
       await esClient.index({
         index: 'campaigns',
         id: change.documentKey._id,
-        body: change.fullDocument
+        body: change.fullDocument,
       });
       break;
     case 'delete':
       await esClient.delete({
         index: 'campaigns',
-        id: change.documentKey._id
+        id: change.documentKey._id,
       });
       break;
   }
@@ -298,7 +323,7 @@ changeStream.on('change', async (change) => {
 // Unified search endpoint
 app.get('/api/search', async (req, res) => {
   const { q, type, filters } = req.query;
-  
+
   const searchPipeline = [
     // Text search stage
     {
@@ -307,36 +332,36 @@ app.get('/api/search', async (req, res) => {
         ...(filters.accountId && { accountId: filters.accountId }),
         ...(filters.dateRange && {
           flightDate: { $gte: new Date(filters.dateRange.start) },
-          endDate: { $lte: new Date(filters.dateRange.end) }
-        })
-      }
+          endDate: { $lte: new Date(filters.dateRange.end) },
+        }),
+      },
     },
     // Add search score
     {
       $addFields: {
-        searchScore: { $meta: "textScore" }
-      }
+        searchScore: { $meta: 'textScore' },
+      },
     },
     // Join with media plans if needed
     {
       $lookup: {
-        from: "mediaPlans",
-        localField: "strategy.lineItems._id",
-        foreignField: "lineItemId",
-        as: "mediaPlansSummary"
-      }
+        from: 'mediaPlans',
+        localField: 'strategy.lineItems._id',
+        foreignField: 'lineItemId',
+        as: 'mediaPlansSummary',
+      },
     },
     // Sort by relevance
     { $sort: { searchScore: -1 } },
-    { $limit: 50 }
+    { $limit: 50 },
   ];
-  
+
   const results = await db.campaigns.aggregate(searchPipeline).toArray();
-  
+
   res.json({
     results,
     total: results.length,
-    query: q
+    query: q,
   });
 });
 ```
@@ -348,6 +373,7 @@ app.get('/api/search', async (req, res) => {
 Based on the PostgreSQL schema, we have several metrics sources:
 
 #### Raw Daily Metrics Tables
+
 ```sql
 -- platform_buy_daily_impressions
 - impressions (integer)
@@ -367,6 +393,7 @@ Based on the PostgreSQL schema, we have several metrics sources:
 ```
 
 #### Calculated Metrics (from line_item_metrics_view)
+
 ```sql
 -- Budget & Cost Metrics
 - media_budget: calculated from price, unit_price, target_margin
@@ -387,6 +414,7 @@ Based on the PostgreSQL schema, we have several metrics sources:
 ```
 
 These need to be transformed into a flexible metrics system that supports:
+
 1. Multiple unit types (impressions, clicks, video views, etc.)
 2. Financial calculations (spend, revenue, margin)
 3. Performance KPIs (CTR, CPC, CPM, completion rates)
@@ -395,13 +423,14 @@ These need to be transformed into a flexible metrics system that supports:
 ### 2. Proposed Metrics Architecture
 
 #### Level 1: Raw Metrics (Daily Granularity)
+
 ```javascript
 // Collection: platformMetrics
 {
   _id: ObjectId(),
   date: ISODate("2024-01-15"),
   platformEntityId: "entity-123",
-  
+
   // Core metrics as array for flexibility
   metrics: [
     { unitType: "impressions", units: 250000 },
@@ -410,15 +439,15 @@ These need to be transformed into a flexible metrics system that supports:
     { unitType: "video_views", units: 50000 },
     { unitType: "video_completions", units: 40000 }
   ],
-  
+
   // Financial metrics
   spend: 1250.50,
-  
+
   // Denormalized references for fast filtering
   campaignId: "campaign-123",
   accountId: "account-456",
   mediaPlatformId: 1,
-  
+
   // Data quality
   dataComplete: true,
   lastUpdated: ISODate()
@@ -426,17 +455,18 @@ These need to be transformed into a flexible metrics system that supports:
 ```
 
 #### Level 2: Pre-Aggregated Metrics (Performance Optimization)
+
 ```javascript
 // Collection: metricsRollups
 {
   _id: ObjectId(),
-  
+
   // Dimensions
   period: "2024-01",          // YYYY-MM for monthly
   periodType: "month",        // day, week, month, quarter, year
   campaignId: "campaign-123",
   accountId: "account-456",
-  
+
   // Aggregated metrics
   totals: {
     spend: 38765.50,
@@ -447,7 +477,7 @@ These need to be transformed into a flexible metrics system that supports:
       { unitType: "video_views", units: 1550000 }
     ]
   },
-  
+
   // Calculated KPIs
   kpis: {
     ctr: 0.005,        // clicks / impressions
@@ -457,7 +487,7 @@ These need to be transformed into a flexible metrics system that supports:
     vtr: 0.20,         // video_views / impressions
     vcr: 0.80          // video_completions / video_views
   },
-  
+
   // Breakdowns
   byPlatform: [
     {
@@ -467,7 +497,7 @@ These need to be transformed into a flexible metrics system that supports:
       metrics: [...]
     }
   ],
-  
+
   byLineItem: [
     {
       lineItemId: "li-123",
@@ -476,7 +506,7 @@ These need to be transformed into a flexible metrics system that supports:
       metrics: [...]
     }
   ],
-  
+
   // Metadata
   lastCalculated: ISODate(),
   version: 1
@@ -486,98 +516,101 @@ These need to be transformed into a flexible metrics system that supports:
 ### 3. Aggregation Pipeline Examples
 
 #### Daily to Monthly Rollup
+
 ```javascript
 async function calculateMonthlyRollups(year, month) {
   const startDate = new Date(year, month - 1, 1);
   const endDate = new Date(year, month, 0);
-  
+
   const pipeline = [
     // Match date range
     {
       $match: {
-        date: { $gte: startDate, $lte: endDate }
-      }
+        date: { $gte: startDate, $lte: endDate },
+      },
     },
-    
+
     // Group by campaign
     {
       $group: {
         _id: {
-          campaignId: "$campaignId",
-          accountId: "$accountId"
+          campaignId: '$campaignId',
+          accountId: '$accountId',
         },
-        
+
         // Sum spend
-        totalSpend: { $sum: "$spend" },
-        
+        totalSpend: { $sum: '$spend' },
+
         // Collect all metrics
-        allMetrics: { $push: "$metrics" }
-      }
+        allMetrics: { $push: '$metrics' },
+      },
     },
-    
+
     // Flatten and sum metrics
     {
       $project: {
-        campaignId: "$_id.campaignId",
-        accountId: "$_id.accountId",
+        campaignId: '$_id.campaignId',
+        accountId: '$_id.accountId',
         period: `${year}-${String(month).padStart(2, '0')}`,
-        periodType: "month",
-        
+        periodType: 'month',
+
         totals: {
-          spend: "$totalSpend",
+          spend: '$totalSpend',
           metrics: {
             $map: {
-              input: { $setUnion: ["$allMetrics.unitType"] },
-              as: "type",
+              input: { $setUnion: ['$allMetrics.unitType'] },
+              as: 'type',
               in: {
-                unitType: "$$type",
+                unitType: '$$type',
                 units: {
                   $sum: {
                     $map: {
                       input: {
                         $filter: {
-                          input: { $reduce: {
-                            input: "$allMetrics",
-                            initialValue: [],
-                            in: { $concatArrays: ["$$value", "$$this"] }
-                          }},
-                          cond: { $eq: ["$$this.unitType", "$$type"] }
-                        }
+                          input: {
+                            $reduce: {
+                              input: '$allMetrics',
+                              initialValue: [],
+                              in: { $concatArrays: ['$$value', '$$this'] },
+                            },
+                          },
+                          cond: { $eq: ['$$this.unitType', '$$type'] },
+                        },
                       },
-                      in: "$$this.units"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
+                      in: '$$this.units',
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
   ];
-  
+
   const results = await db.platformMetrics.aggregate(pipeline).toArray();
-  
+
   // Calculate KPIs and save
   for (const result of results) {
-    const impressions = result.totals.metrics.find(m => m.unitType === 'impressions')?.units || 0;
-    const clicks = result.totals.metrics.find(m => m.unitType === 'clicks')?.units || 0;
-    const conversions = result.totals.metrics.find(m => m.unitType === 'conversions')?.units || 0;
-    
+    const impressions = result.totals.metrics.find((m) => m.unitType === 'impressions')?.units || 0;
+    const clicks = result.totals.metrics.find((m) => m.unitType === 'clicks')?.units || 0;
+    const conversions = result.totals.metrics.find((m) => m.unitType === 'conversions')?.units || 0;
+
     result.kpis = {
       ctr: impressions > 0 ? clicks / impressions : 0,
       cpc: clicks > 0 ? result.totals.spend / clicks : 0,
       cpm: impressions > 0 ? (result.totals.spend / impressions) * 1000 : 0,
-      cpa: conversions > 0 ? result.totals.spend / conversions : 0
+      cpa: conversions > 0 ? result.totals.spend / conversions : 0,
     };
-    
+
     result.lastCalculated = new Date();
     result.version = 1;
-    
+
     await db.metricsRollups.replaceOne(
       {
         period: result.period,
-        campaignId: result.campaignId
+        campaignId: result.campaignId,
       },
       result,
       { upsert: true }
@@ -587,109 +620,112 @@ async function calculateMonthlyRollups(year, month) {
 ```
 
 #### Flexible Date Range Query
+
 ```javascript
 async function getMetrics(filters) {
   const {
     startDate,
     endDate,
-    granularity = 'day',  // day, week, month
-    dimensions = ['campaign'],  // campaign, lineItem, platform
+    granularity = 'day', // day, week, month
+    dimensions = ['campaign'], // campaign, lineItem, platform
     metrics = ['impressions', 'clicks', 'spend'],
     campaignIds,
-    accountIds
+    accountIds,
   } = filters;
-  
+
   // Build match stage
   const matchStage = {
     $match: {
       date: { $gte: new Date(startDate), $lte: new Date(endDate) },
       ...(campaignIds && { campaignId: { $in: campaignIds } }),
-      ...(accountIds && { accountId: { $in: accountIds } })
-    }
+      ...(accountIds && { accountId: { $in: accountIds } }),
+    },
   };
-  
+
   // Build group key based on granularity and dimensions
   const groupKey = {};
-  
+
   // Time grouping
   switch (granularity) {
     case 'day':
-      groupKey.date = "$date";
+      groupKey.date = '$date';
       break;
     case 'week':
-      groupKey.week = { $week: "$date" };
-      groupKey.year = { $year: "$date" };
+      groupKey.week = { $week: '$date' };
+      groupKey.year = { $year: '$date' };
       break;
     case 'month':
-      groupKey.month = { $month: "$date" };
-      groupKey.year = { $year: "$date" };
+      groupKey.month = { $month: '$date' };
+      groupKey.year = { $year: '$date' };
       break;
   }
-  
+
   // Dimension grouping
-  dimensions.forEach(dim => {
+  dimensions.forEach((dim) => {
     switch (dim) {
       case 'campaign':
-        groupKey.campaignId = "$campaignId";
+        groupKey.campaignId = '$campaignId';
         break;
       case 'platform':
-        groupKey.mediaPlatformId = "$mediaPlatformId";
+        groupKey.mediaPlatformId = '$mediaPlatformId';
         break;
       case 'lineItem':
         // Would need to join with mediaPlans
         break;
     }
   });
-  
+
   const pipeline = [
     matchStage,
-    
+
     // Group and aggregate
     {
       $group: {
         _id: groupKey,
-        totalSpend: { $sum: "$spend" },
-        metricsData: { $push: "$metrics" }
-      }
+        totalSpend: { $sum: '$spend' },
+        metricsData: { $push: '$metrics' },
+      },
     },
-    
+
     // Format output
     {
       $project: {
-        period: "$_id",
-        spend: "$totalSpend",
+        period: '$_id',
+        spend: '$totalSpend',
         metrics: {
           $map: {
             input: metrics,
-            as: "metricType",
+            as: 'metricType',
             in: {
-              type: "$$metricType",
+              type: '$$metricType',
               value: {
                 $sum: {
                   $map: {
                     input: {
                       $filter: {
-                        input: { $reduce: {
-                          input: "$metricsData",
-                          initialValue: [],
-                          in: { $concatArrays: ["$$value", "$$this"] }
-                        }},
-                        cond: { $eq: ["$$this.unitType", "$$metricType"] }
-                      }
+                        input: {
+                          $reduce: {
+                            input: '$metricsData',
+                            initialValue: [],
+                            in: { $concatArrays: ['$$value', '$$this'] },
+                          },
+                        },
+                        cond: { $eq: ['$$this.unitType', '$$metricType'] },
+                      },
                     },
-                    in: "$$this.units"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+                    in: '$$this.units',
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
     },
-    
-    { $sort: { "period.year": 1, "period.month": 1, "period.date": 1 } }
+
+    { $sort: { 'period.year': 1, 'period.month': 1, 'period.date': 1 } },
   ];
-  
+
   return await db.platformMetrics.aggregate(pipeline).toArray();
 }
 ```
@@ -699,27 +735,27 @@ async function getMetrics(filters) {
 ```javascript
 // Use MongoDB Change Streams for real-time updates
 const metricsChangeStream = db.platformMetrics.watch([
-  { $match: { operationType: { $in: ['insert', 'update'] } } }
+  { $match: { operationType: { $in: ['insert', 'update'] } } },
 ]);
 
 metricsChangeStream.on('change', async (change) => {
   // Update affected rollups
   const doc = change.fullDocument;
-  
+
   // Update daily rollup
   await updateDailyRollup(doc.date, doc.campaignId);
-  
+
   // Update weekly rollup
   await updateWeeklyRollup(doc.date, doc.campaignId);
-  
+
   // Update monthly rollup
   await updateMonthlyRollup(doc.date, doc.campaignId);
-  
+
   // Emit to WebSocket for real-time dashboard
   io.emit('metrics-update', {
     campaignId: doc.campaignId,
     date: doc.date,
-    metrics: doc.metrics
+    metrics: doc.metrics,
   });
 });
 ```
@@ -729,6 +765,7 @@ metricsChangeStream.on('change', async (change) => {
 ### Phase 1: Search Implementation (Week 1-2)
 
 1. **Create Text Indexes**
+
    ```bash
    # Run index creation script
    node scripts/create-search-indexes.js
@@ -747,6 +784,7 @@ metricsChangeStream.on('change', async (change) => {
 ### Phase 2: Metrics Pipeline (Week 2-4)
 
 1. **Set Up Metrics Import**
+
    ```javascript
    // Daily metrics sync job
    const syncPlatformMetrics = async () => {
@@ -763,6 +801,7 @@ metricsChangeStream.on('change', async (change) => {
    - Monthly: Generate monthly reports
 
 3. **Build Metrics API**
+
    ```javascript
    // Flexible metrics endpoint
    GET /api/metrics
@@ -771,12 +810,13 @@ metricsChangeStream.on('change', async (change) => {
    ```
 
 4. **Implement Caching**
+
    ```javascript
    // Redis for frequently accessed rollups
    const getCachedMetrics = async (key) => {
      const cached = await redis.get(key);
      if (cached) return JSON.parse(cached);
-     
+
      const metrics = await calculateMetrics(key);
      await redis.setex(key, 3600, JSON.stringify(metrics));
      return metrics;
@@ -793,6 +833,7 @@ metricsChangeStream.on('change', async (change) => {
    - Data table with export
 
 2. **Visualization Library**
+
    ```javascript
    // Using Recharts or D3.js
    <LineChart data={metricsData}>
@@ -833,27 +874,26 @@ metricsChangeStream.on('change', async (change) => {
 ### Performance Considerations
 
 1. **Indexing Strategy**
+
    ```javascript
    // Compound indexes for common queries
-   db.platformMetrics.createIndex({ 
-     campaignId: 1, 
-     date: -1 
+   db.platformMetrics.createIndex({
+     campaignId: 1,
+     date: -1,
    });
-   
-   db.metricsRollups.createIndex({ 
-     period: 1, 
-     periodType: 1, 
-     campaignId: 1 
+
+   db.metricsRollups.createIndex({
+     period: 1,
+     periodType: 1,
+     campaignId: 1,
    });
    ```
 
 2. **Sharding for Scale**
+
    ```javascript
    // Shard by date for time-series data
-   sh.shardCollection(
-     "mediatool_v2.platformMetrics",
-     { date: 1, platformEntityId: 1 }
-   );
+   sh.shardCollection('mediatool_v2.platformMetrics', { date: 1, platformEntityId: 1 });
    ```
 
 3. **Archival Strategy**
@@ -864,6 +904,7 @@ metricsChangeStream.on('change', async (change) => {
 ## Tools and Libraries
 
 ### Backend
+
 - **MongoDB Driver**: Official MongoDB Node.js driver
 - **Mongoose**: ODM for schema validation (optional)
 - **MongoDB Realm**: For real-time sync
@@ -871,16 +912,19 @@ metricsChangeStream.on('change', async (change) => {
 - **Redis**: Caching layer
 
 ### Search
+
 - **MongoDB Atlas Search**: Cloud-based search
 - **Elasticsearch**: Advanced search features
 - **Algolia**: Hosted search with great UX
 
 ### Analytics
+
 - **Cube.js**: Analytics API layer
 - **Apache Superset**: Open-source BI
 - **Metabase**: User-friendly analytics
 
 ### Visualization
+
 - **Recharts**: React charts
 - **D3.js**: Custom visualizations
 - **Chart.js**: Simple charts
@@ -889,29 +933,29 @@ metricsChangeStream.on('change', async (change) => {
 ## Monitoring and Maintenance
 
 ### 1. Performance Monitoring
+
 ```javascript
 // Track slow queries
 db.setProfilingLevel(1, { slowms: 100 });
 
 // Monitor index usage
-db.campaigns.aggregate([
-  { $indexStats: {} }
-]);
+db.campaigns.aggregate([{ $indexStats: {} }]);
 ```
 
 ### 2. Data Quality Checks
+
 ```javascript
 // Daily data quality job
 const checkDataQuality = async () => {
   // Check for missing metrics
   const missing = await db.platformMetrics.find({
     date: { $gte: yesterday },
-    dataComplete: false
+    dataComplete: false,
   });
-  
+
   // Check for anomalies
   const anomalies = await detectAnomalies();
-  
+
   // Send alerts
   if (missing.length > 0 || anomalies.length > 0) {
     await sendAlert('Data quality issues detected');
@@ -920,6 +964,7 @@ const checkDataQuality = async () => {
 ```
 
 ### 3. Backup Strategy
+
 ```bash
 # Daily backups
 mongodump --uri="mongodb://localhost:27017/mediatool_v2" --out=/backup/daily

@@ -1,32 +1,32 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Frontend Test</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Testing Frontend Connection</h1>
     <div id="api-test"></div>
     <div id="error-log"></div>
-    
+
     <script>
-        // Test API connection
-        fetch('http://localhost:3001/api/campaigns')
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById('api-test').innerHTML = `
+      // Test API connection
+      fetch('http://localhost:3001/api/campaigns')
+        .then((res) => res.json())
+        .then((data) => {
+          document.getElementById('api-test').innerHTML = `
                     <h2>API Test Result:</h2>
                     <p>Success: ${data.success}</p>
                     <p>Campaign Count: ${data.data ? data.data.length : 0}</p>
                     <pre>${JSON.stringify(data.data ? data.data[0] : {}, null, 2)}</pre>
                 `;
-            })
-            .catch(err => {
-                document.getElementById('error-log').innerHTML = `
+        })
+        .catch((err) => {
+          document.getElementById('error-log').innerHTML = `
                     <h2>Error:</h2>
                     <pre>${err.message}</pre>
                 `;
-            });
+        });
     </script>
-</body>
+  </body>
 </html>

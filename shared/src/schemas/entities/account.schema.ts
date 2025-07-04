@@ -1,13 +1,13 @@
 import * as z from 'zod/v4';
-import { 
-  ObjectIdSchema, 
-  NonEmptyStringSchema, 
+import {
+  ObjectIdSchema,
+  NonEmptyStringSchema,
   StatusSchema,
   AuditFieldsSchema,
   TrimmedStringSchema,
 } from '../core/validation.schema';
-import { 
-  ReferralRateSchema, 
+import {
+  ReferralRateSchema,
   MarkupRateSchema,
   FinancialAmountSchema,
 } from '../core/financial.schema';
@@ -18,30 +18,32 @@ export const AccountBaseSchema = z.object({
   name: NonEmptyStringSchema,
   accountNumber: TrimmedStringSchema.optional(),
   status: StatusSchema,
-  
+
   // Financial settings (snapshots for campaigns)
   referralRate: ReferralRateSchema.optional(),
   agencyMarkupRate: MarkupRateSchema.optional(),
-  
+
   // Contact information
   primaryContactName: TrimmedStringSchema.optional(),
   primaryContactEmail: z.string().email().optional(),
   primaryContactPhone: TrimmedStringSchema.optional(),
-  
+
   // Billing information
-  billingAddress: z.object({
-    street1: TrimmedStringSchema.optional(),
-    street2: TrimmedStringSchema.optional(),
-    city: TrimmedStringSchema.optional(),
-    state: TrimmedStringSchema.optional(),
-    postalCode: TrimmedStringSchema.optional(),
-    country: TrimmedStringSchema.default('US'),
-  }).optional(),
-  
+  billingAddress: z
+    .object({
+      street1: TrimmedStringSchema.optional(),
+      street2: TrimmedStringSchema.optional(),
+      city: TrimmedStringSchema.optional(),
+      state: TrimmedStringSchema.optional(),
+      postalCode: TrimmedStringSchema.optional(),
+      country: TrimmedStringSchema.default('US'),
+    })
+    .optional(),
+
   // Credit information
   creditLimit: FinancialAmountSchema.optional(),
   paymentTerms: z.enum(['net15', 'net30', 'net45', 'net60', 'prepay']).optional(),
-  
+
   // Metadata
   tags: z.array(TrimmedStringSchema).default([]),
   notes: z.string().optional(),
@@ -51,7 +53,7 @@ export const AccountBaseSchema = z.object({
 export const AccountSchema = AccountBaseSchema.extend(AuditFieldsSchema.shape);
 
 // Account input (for creation)
-export const AccountInputSchema = AccountBaseSchema.omit({ 
+export const AccountInputSchema = AccountBaseSchema.omit({
   _id: true,
 });
 

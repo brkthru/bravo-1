@@ -17,11 +17,11 @@ const queryClient = new QueryClient({
 // Test component to access the UserContext
 const TestComponent = () => {
   const { currentUser, isLoading, error } = useUser();
-  
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
   if (!currentUser) return <div>No user</div>;
-  
+
   return (
     <div>
       <div data-testid="user-name">{currentUser.name}</div>
@@ -34,9 +34,7 @@ const TestComponent = () => {
 const renderWithProviders = (component: React.ReactElement) => {
   return render(
     <QueryClientProvider client={queryClient}>
-      <UserProvider>
-        {component}
-      </UserProvider>
+      <UserProvider>{component}</UserProvider>
     </QueryClientProvider>
   );
 };
@@ -49,12 +47,12 @@ describe('UserContext', () => {
   });
 
   test('provides loading state initially', () => {
-    (global.fetch as jest.Mock).mockImplementation(() => 
-      new Promise(() => {}) // Never resolves to test loading state
+    (global.fetch as jest.Mock).mockImplementation(
+      () => new Promise(() => {}) // Never resolves to test loading state
     );
-    
+
     renderWithProviders(<TestComponent />);
-    
+
     expect(screen.getByText('Loading...')).toBeInTheDocument();
   });
 
@@ -65,20 +63,20 @@ describe('UserContext', () => {
         name: 'John Doe',
         email: 'john@example.com',
         role: 'account_manager',
-        isActive: true
+        isActive: true,
       },
       {
         _id: 'user2',
         name: 'Jane Smith',
         email: 'jane@example.com',
         role: 'senior_account_manager',
-        isActive: true
-      }
+        isActive: true,
+      },
     ];
 
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ success: true, data: mockUsers })
+      json: async () => ({ success: true, data: mockUsers }),
     });
 
     renderWithProviders(<TestComponent />);
@@ -107,7 +105,7 @@ describe('UserContext', () => {
   test('handles empty user list', async () => {
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ success: true, data: [] })
+      json: async () => ({ success: true, data: [] }),
     });
 
     renderWithProviders(<TestComponent />);
@@ -124,20 +122,20 @@ describe('UserContext', () => {
         name: 'Trader One',
         email: 'trader1@example.com',
         role: 'media_trader',
-        isActive: true
+        isActive: true,
       },
       {
         _id: 'user2',
         name: 'Trader Two',
         email: 'trader2@example.com',
         role: 'senior_media_trader',
-        isActive: true
-      }
+        isActive: true,
+      },
     ];
 
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ success: true, data: mockUsers })
+      json: async () => ({ success: true, data: mockUsers }),
     });
 
     renderWithProviders(<TestComponent />);
@@ -150,7 +148,7 @@ describe('UserContext', () => {
   test('handles unsuccessful API response', async () => {
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ success: false, error: 'Database error' })
+      json: async () => ({ success: false, error: 'Database error' }),
     });
 
     renderWithProviders(<TestComponent />);
@@ -164,7 +162,7 @@ describe('UserContext', () => {
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: false,
       status: 500,
-      statusText: 'Internal Server Error'
+      statusText: 'Internal Server Error',
     });
 
     renderWithProviders(<TestComponent />);
@@ -181,27 +179,27 @@ describe('UserContext', () => {
         name: 'Active Manager',
         email: 'active@example.com',
         role: 'account_manager',
-        isActive: true
+        isActive: true,
       },
       {
         _id: 'user2',
         name: 'Inactive Manager',
         email: 'inactive@example.com',
         role: 'account_manager',
-        isActive: false
+        isActive: false,
       },
       {
         _id: 'user3',
         name: 'Media Trader',
         email: 'trader@example.com',
         role: 'media_trader',
-        isActive: true
-      }
+        isActive: true,
+      },
     ];
 
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ success: true, data: mockUsers })
+      json: async () => ({ success: true, data: mockUsers }),
     });
 
     renderWithProviders(<TestComponent />);
@@ -219,13 +217,13 @@ describe('UserContext', () => {
         name: 'Test User',
         email: 'test@example.com',
         role: 'account_manager',
-        isActive: true
-      }
+        isActive: true,
+      },
     ];
 
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ success: true, data: mockUsers })
+      json: async () => ({ success: true, data: mockUsers }),
     });
 
     const SecondTestComponent = () => {
@@ -251,7 +249,7 @@ describe('UserContext', () => {
   test('throws error when useUser is used outside of UserProvider', () => {
     // Suppress console.error for this test
     const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-    
+
     const ComponentWithoutProvider = () => {
       useUser();
       return null;

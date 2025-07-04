@@ -34,6 +34,7 @@ I've created three ETL scripts in `/bravo-1/scripts/etl/`:
 ## How to Use the ETL Process
 
 ### Option 1: Restore Full Data Now
+
 ```bash
 cd bravo-1/scripts
 
@@ -45,9 +46,11 @@ bun run etl:load
 ```
 
 ### Option 2: Store Data Securely
+
 Since the data is ~707 MB (mostly platform entities), you have several options:
 
 #### For Development/Demo (if data is non-sensitive):
+
 ```bash
 # The data is already in data-export/
 # You can add it to git if appropriate
@@ -56,6 +59,7 @@ git commit -m "Add MongoDB data export for recovery"
 ```
 
 #### For Production Data:
+
 ```bash
 # Compress the data
 cd bravo-1/scripts
@@ -75,7 +79,7 @@ npm run etl
 
 # Or run individual steps
 npm run etl:extract    # Extract from MongoDB
-npm run etl:transform  # Transform to new structure  
+npm run etl:transform  # Transform to new structure
 npm run etl:load       # Load back to MongoDB
 ```
 
@@ -89,6 +93,7 @@ npm run etl:load       # Load back to MongoDB
 ## Data Structure
 
 The transformed data will have campaigns with embedded strategies and line items:
+
 ```javascript
 {
   campaignNumber: "CN-XXXX",
