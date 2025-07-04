@@ -4,7 +4,6 @@ import express from 'express';
 import { MongoClient, ObjectId } from 'mongodb';
 import usersRouter from './users';
 import { database } from '../config/database';
-import { UserRole } from '../models/User';
 
 const app = express();
 app.use(express.json());
@@ -237,7 +236,7 @@ describe('Users API Routes', () => {
       const newUser = {
         email: 'new@example.com',
         name: 'New User',
-        role: UserRole.MEDIA_TRADER,
+        role: 'media_trader',
         department: 'Operations',
       };
 
@@ -285,7 +284,7 @@ describe('Users API Routes', () => {
         _id: new ObjectId(),
         email: 'original@example.com',
         name: 'Original Name',
-        role: UserRole.MEDIA_TRADER,
+        role: 'media_trader',
         isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),

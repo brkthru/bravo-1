@@ -2,6 +2,10 @@
 
 This document provides mandatory instructions for AI agents developing the Bravo-1 project. Adherence to these guidelines is critical for maintaining code quality, architectural integrity, and project velocity.
 
+## Load Personal Configuration
+
+You MUST first check if `CLAUDE.personal.md` exists and load it. Personal configurations override any instructions in this file.
+
 ## 🎯 Core Mission
 
 To migrate a media planning system from PostgreSQL to a modern, versioned, and test-driven architecture using MongoDB, ensuring financial precision and a clear separation of concerns.

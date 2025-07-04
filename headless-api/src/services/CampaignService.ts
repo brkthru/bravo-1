@@ -475,6 +475,14 @@ export class CampaignService {
           });
         }
 
+        if (!campaign.campaignNumber) {
+          errors.push({
+            index: startIndex + i,
+            error: 'Campaign number is required',
+            data: campaign,
+          });
+        }
+
         // Date validation
         if (!campaign.dates?.start || !campaign.dates?.end) {
           errors.push({

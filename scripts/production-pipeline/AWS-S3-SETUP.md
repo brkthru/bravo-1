@@ -12,34 +12,29 @@ Ask your AWS admin to add these permissions to your IAM user:
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:CreateBucket",
-                "s3:ListBucket",
-                "s3:GetBucketLocation",
-                "s3:GetBucketVersioning",
-                "s3:PutBucketVersioning",
-                "s3:GetBucketEncryption",
-                "s3:PutBucketEncryption",
-                "s3:GetLifecycleConfiguration",
-                "s3:PutLifecycleConfiguration"
-            ],
-            "Resource": "arn:aws:s3:::media-tool-backups-*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:PutObject",
-                "s3:GetObject",
-                "s3:DeleteObject",
-                "s3:GetObjectVersion"
-            ],
-            "Resource": "arn:aws:s3:::media-tool-backups-*/*"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:CreateBucket",
+        "s3:ListBucket",
+        "s3:GetBucketLocation",
+        "s3:GetBucketVersioning",
+        "s3:PutBucketVersioning",
+        "s3:GetBucketEncryption",
+        "s3:PutBucketEncryption",
+        "s3:GetLifecycleConfiguration",
+        "s3:PutLifecycleConfiguration"
+      ],
+      "Resource": "arn:aws:s3:::media-tool-backups-*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["s3:PutObject", "s3:GetObject", "s3:DeleteObject", "s3:GetObjectVersion"],
+      "Resource": "arn:aws:s3:::media-tool-backups-*/*"
+    }
+  ]
 }
 ```
 
@@ -146,6 +141,7 @@ aws s3 cp s3://your-bucket-name/postgres-exports/transformed/2025-06-22/20250622
 ## Cost Optimization
 
 The S3 lifecycle policy automatically:
+
 - Moves files to Infrequent Access after 30 days (cheaper)
 - Moves files to Glacier after 90 days (much cheaper)
 - Deletes files after 365 days

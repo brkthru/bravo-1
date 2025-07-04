@@ -6,6 +6,9 @@ node_modules/
 .env.local
 .env.*.local
 
+# Personal Claude configuration
+CLAUDE.personal.md
+
 # Build output
 dist/
 build/
