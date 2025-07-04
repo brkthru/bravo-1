@@ -29,12 +29,10 @@ jobs:
         with:
           node-version: 20
           cache: npm
-          cache-dependency-path: headless-api/package-lock.json
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
-        run: |
-          cd headless-api && npm ci
-          cd ../frontend && npm install
+        run: npm ci
 
       - name: Trunk Check
         uses: trunk-io/trunk-action@v1
